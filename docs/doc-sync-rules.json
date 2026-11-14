@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "id": "api-surface",
+      "changed_paths": ["app/routes/**/*.py", "app/cli/**/*.py"],
+      "required_docs": ["docs/api/http-api.md"]
+    },
+    {
+      "id": "subscription-contract",
+      "changed_paths": ["app/services/subscription_builder.py", "app/routes/subscription.py", "app/services/review_bundle.py"],
+      "required_docs": ["docs/api/subscription-output-contract.md"]
+    },
+    {
+      "id": "deployment-runtime",
+      "changed_paths": ["lzc-manifest.yml", "lzc-build*.yml", ".env.example", "app/config.py", "scripts/deploy_to_lazycat.sh"],
+      "required_docs": ["docs/deployment/lazycat-deployment.md"]
+    },
+    {
+      "id": "local-dev-runtime",
+      "changed_paths": ["scripts/local_start.sh", "scripts/local_stop.sh", "scripts/run_local.sh", "scripts/doctor.sh", "scripts/stop_local.sh"],
+      "required_docs": ["docs/operations/local-dev-runbook.md"]
+    },
+    {
+      "id": "frontend-shell",
+      "changed_paths": ["frontend/src/App.tsx", "frontend/src/layouts/**", "frontend/src/styles/**", "frontend/src/motion/**", "frontend/src/theme/**", "frontend/src/glass/**"],
+      "required_docs": ["DESIGN.md"]
+    },
+    {
+      "id": "frontend-smoke-surface",
+      "changed_paths": ["frontend/src/pages/**", "frontend/src/components/**"],
+      "required_docs": ["docs/operations/ui-smoke-test-task.md"]
+    },
+    {
+      "id": "client-ui-replica",
+      "changed_paths": ["design/client-ui-replica/tools/**", "design/client-ui-replica/replica/build_data.py", "design/client-ui-replica/replica/compare.py"],
+      "required_docs": ["design/client-ui-replica/README.md"]
+    }
+  ]
+}

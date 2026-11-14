@@ -1,0 +1,1393 @@
+{
+ "client": "clash-mi",
+ "target": "clash",
+ "format": "yaml",
+ "theme": "clashmi",
+ "root": "home",
+ "roots": [
+  "home"
+ ],
+ "geometry": {
+  "content_top": 141.3,
+  "row_h": 46.94,
+  "group_gap": 8.6,
+  "nav_cy": 96.7,
+  "group_margin": 25.3
+ },
+ "tabs": null,
+ "screens": {
+  "home": {
+   "id": "home",
+   "title": "Clash Mi",
+   "parent": null,
+   "via": null,
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": null,
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "home#0.0",
+       "label": "未连接",
+       "ctl": "toggle",
+       "rel": "",
+       "layer": "x",
+       "about": "连接或断开 VPN 的总开关。",
+       "acc": "switch"
+      },
+      {
+       "id": "home#0.1",
+       "label": "分流模式",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "a",
+       "bind": {
+        "kind": "value",
+        "yaml": "mode"
+       },
+       "explain": "选流量怎么走：按规则分流、全部走代理，或全部直连。配置里也写了这一项。",
+       "override": true
+      },
+      {
+       "id": "home#0.2",
+       "label": "我的配置",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "管理导入的配置，点选一份即设为当前配置。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home#1.0",
+       "label": "应用设置",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "App 本身的设置：语言、主题、测速、面板等。",
+       "to": "app-settings",
+       "acc": "chevron"
+      },
+      {
+       "id": "home#1.1",
+       "label": "核心设置",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "内核的设置：端口、DNS、TUN、嗅探等。",
+       "to": "core-settings",
+       "acc": "chevron"
+      },
+      {
+       "id": "home#1.2",
+       "label": "核心日志",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "查看内核运行日志，用来排障。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home#1.3",
+       "label": "备份与同步",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "备份或同步 App 的配置与设置。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home#1.4",
+       "label": "帮助",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "打开帮助页面。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home#1.5",
+       "label": "关于",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "a",
+       "about": "查看 App 与内核的版本信息。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ]
+  },
+  "core-settings": {
+   "id": "core-settings",
+   "title": "核心设置",
+   "parent": "home",
+   "via": "home#1.1",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": "doc"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-settings#0.0",
+       "label": "重置",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "把核心设置恢复为默认值。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#1.0",
+       "label": "外部控制",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "external-controller"
+       },
+       "explain": "控制内核用的地址。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#1.1",
+       "label": "Secret",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "secret",
+        "mask": true
+       },
+       "explain": "控制接口的密码。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#1.2",
+       "label": "混合代理端口",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "mixed-port"
+       },
+       "explain": "本机代理监听的端口。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#1.3",
+       "label": "日志等级",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "log-level"
+       },
+       "explain": "内核日志记得多细。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#1.4",
+       "label": "Pprof Address",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "a",
+       "about": "性能分析接口的监听地址，调试用。"
+      },
+      {
+       "id": "core-settings#1.5",
+       "label": "Pprof",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "性能分析入口，调试用。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#2.0",
+       "label": "Unified Delay",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "about": "测延迟时去掉握手等额外耗时，结果更统一。",
+       "acc": "caret",
+       "info": true
+      },
+      {
+       "id": "core-settings#2.1",
+       "label": "IPv6",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "ipv6"
+       },
+       "explain": "是否允许走 IPv6。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#2.2",
+       "label": "TUN",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "to": "core-tun",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "exists",
+        "yaml": "tun"
+       },
+       "explain": "接管全机流量的设置。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#2.3",
+       "label": "Geo RuleSet",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "about": "Geo 数据库的下载地址和更新间隔。",
+       "to": "core-geo-ruleset",
+       "acc": "chevron",
+       "info": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#3.0",
+       "label": "分流模板",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "规则提供者、规则模板和代理组模板。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#4.0",
+       "label": "覆写",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "about": "选择用哪套覆写方案改写配置。",
+       "to": "core-override",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "exists",
+        "yaml": "dns"
+       },
+       "paper": "选「内置-不覆写」，SubHub 写的 DNS 才原样生效。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#5.0",
+       "label": "TCP并发握手",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "tcp-concurrent"
+       },
+       "explain": "是否同时试多个地址。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#5.1",
+       "label": "TCP保活时间间隔",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "TCP 连接每隔多久发一次保活包。",
+       "info": true
+      },
+      {
+       "id": "core-settings#5.2",
+       "label": "TLS全局指纹",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "about": "全局模拟浏览器的 TLS 指纹；新版内核已不再生效。",
+       "acc": "caret",
+       "info": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#6.0",
+       "label": "局域网设备接入",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "to": "core-lan-access",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "yaml": "allow-lan"
+       },
+       "explain": "是否让别的设备借用。手机这里会盖过 SubHub 的值。",
+       "override": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-settings#7.0",
+       "label": "DNS",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "to": "core-dns",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "exists",
+        "yaml": "dns"
+       },
+       "explain": "域名解析的整组设置。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-settings#7.1",
+       "label": "NTP",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "用时间服务器校准时间的设置。",
+       "to": "core-ntp",
+       "acc": "chevron",
+       "info": true
+      },
+      {
+       "id": "core-settings#7.2",
+       "label": "TLS",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "内核用的 TLS 证书、私钥等设置。",
+       "to": "core-tls",
+       "acc": "chevron",
+       "info": true
+      },
+      {
+       "id": "core-settings#7.3",
+       "label": "嗅探",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "to": "core-sniffer",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "exists",
+        "yaml": "sniffer"
+       },
+       "explain": "从流量里识别域名。手机这里会盖过 SubHub 的值。",
+       "override": true
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:doc": "查看 Clash Mi 按当前配置生成的完整原文。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "app-settings": {
+   "id": "app-settings",
+   "title": "应用设置",
+   "parent": "home",
+   "via": "home#1.0",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "app-settings#0.0",
+       "label": "重置",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "把应用设置恢复为默认值。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#1.0",
+       "label": "语言",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "切换 App 界面语言。",
+       "acc": "chevron"
+      },
+      {
+       "id": "app-settings#1.1",
+       "label": "主题",
+       "ctl": "popup",
+       "rel": "n",
+       "layer": "a",
+       "about": "切换界面主题配色。",
+       "acc": "caret"
+      },
+      {
+       "id": "app-settings#1.2",
+       "label": "主屏",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "主屏相关的显示设置。",
+       "acc": "chevron"
+      },
+      {
+       "id": "app-settings#1.3",
+       "label": "跟随屏幕旋转",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "界面是否随手机横竖屏旋转。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#2.0",
+       "label": "日志等级",
+       "ctl": "popup",
+       "rel": "n",
+       "layer": "a",
+       "about": "App 自身日志记得多细，不影响内核日志。",
+       "acc": "caret"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#3.0",
+       "label": "UserAgent",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "下载订阅时发给服务器的客户端标识。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#4.0",
+       "label": "延迟测试URL",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "a",
+       "about": "测节点延迟时访问的网址。"
+      },
+      {
+       "id": "app-settings#4.1",
+       "label": "延迟测试超时(ms)",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "a",
+       "about": "测延迟时最长等待的毫秒数。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#5.0",
+       "label": "使用在线面板",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "打开后使用在线的网页控制面板。",
+       "acc": "switch"
+      },
+      {
+       "id": "app-settings#5.1",
+       "label": "本地面板端口",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "a",
+       "about": "本地网页控制面板使用的端口。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "app-settings#6.0",
+       "label": "始终开启连接",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "让 VPN 始终保持连接（iOS 按需连接）。",
+       "acc": "switch"
+      }
+     ]
+    }
+   ]
+  },
+  "core-tun": {
+   "id": "core-tun",
+   "title": "TUN",
+   "parent": "core-settings",
+   "via": "core-settings#2.2",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-tun#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-tun#0.1",
+       "label": "启用",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "tun.enable"
+       },
+       "explain": "是否接管全机流量。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-tun#0.2",
+       "label": "IPv4地址段",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "TUN 虚拟网卡使用的 IPv4 地址段。"
+      },
+      {
+       "id": "core-tun#0.3",
+       "label": "网络栈",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "tun.stack"
+       },
+       "explain": "接管流量用的实现。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-tun#0.4",
+       "label": "MTU",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "虚拟网卡单个数据包的最大长度。"
+      },
+      {
+       "id": "core-tun#0.5",
+       "label": "DNS劫持",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "exists",
+        "yaml": "tun.dns-hijack"
+       },
+       "explain": "是否拦下系统的 DNS。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-tun#0.6",
+       "label": "严格路由",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "tun.strict-route"
+       },
+       "explain": "是否强制所有流量进来。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-tun#0.7",
+       "label": "默认路由",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "yaml": "tun.auto-route"
+       },
+       "explain": "是否自动设置路由。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-tun#0.8",
+       "label": "includeAllNetworks",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "强制所有流量都进 VPN，防止被绕过。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.9",
+       "label": "excludeLocalNetworks",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "让局域网流量不进 VPN。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.10",
+       "label": "excludeCellularServices",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "让通话、短信等蜂窝服务流量不进 VPN。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.11",
+       "label": "excludeAPNs",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "让苹果推送通知的流量不进 VPN。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.12",
+       "label": "excludeDeviceCommunication",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "让与已连接设备之间的通信不进 VPN。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.13",
+       "label": "enforceRoutes",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "匹配 VPN 路由的流量强制进 VPN，不被网卡路由抢走。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-tun#0.14",
+       "label": "ICMP 转发",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "是否转发 ping 等 ICMP 数据包。",
+       "acc": "switch",
+       "info": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-tun#1.0",
+       "label": "附加HTTP代理到VPN",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "连接 VPN 时，同时给系统设置 HTTP 代理。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-tun#1.1",
+       "label": "允许绕过HTTP代理的域名",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "这些域名不走上面的系统 HTTP 代理。",
+       "acc": "chevron"
+      },
+      {
+       "id": "core-tun#1.2",
+       "label": "隐藏VPN图标",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "隐藏状态栏上的 VPN 图标。",
+       "acc": "switch"
+      }
+     ]
+    }
+   ]
+  },
+  "core-geo-ruleset": {
+   "id": "core-geo-ruleset",
+   "title": "Geo RuleSet",
+   "parent": "core-settings",
+   "via": "core-settings#2.3",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-geo-ruleset#0.0",
+       "label": "更新时间间隔",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "多久自动更新一次 Geo 数据。"
+      },
+      {
+       "id": "core-geo-ruleset#0.1",
+       "label": "使用代理下载Geo RuleSet",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "下载 Geo 数据时走代理。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-geo-ruleset#0.2",
+       "label": "GeoSite",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "GeoSite 域名分类库的下载地址。"
+      },
+      {
+       "id": "core-geo-ruleset#0.3",
+       "label": "GeoIp",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "GeoIP 地址归属库的下载地址。"
+      }
+     ]
+    }
+   ]
+  },
+  "core-override": {
+   "id": "core-override",
+   "title": "覆写",
+   "parent": "core-settings",
+   "via": "core-settings#4.0",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": "cloudplus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-override#0.0",
+       "label": "内置-覆写",
+       "ctl": "radio",
+       "rel": "d",
+       "layer": "a",
+       "about": "套用内置覆写，会换掉配置里的 DNS 等设置。",
+       "acc": "radio",
+       "info": true
+      },
+      {
+       "id": "core-override#0.1",
+       "label": "内置-不覆写",
+       "ctl": "radio",
+       "rel": "d",
+       "layer": "a",
+       "about": "基本按配置原样运行，只有少数项仍被改写。",
+       "acc": "radio",
+       "info": true
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:cloud": "从网址下载一份覆写方案。App 自己的操作，SubHub 不写它。",
+    "nav:plus": "添加一份覆写方案。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "core-lan-access": {
+   "id": "core-lan-access",
+   "title": "局域网设备接入",
+   "parent": "core-settings",
+   "via": "core-settings#6.0",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-lan-access#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-lan-access#0.1",
+       "label": "启用",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "allow-lan"
+       },
+       "explain": "是否让别的设备借用。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-lan-access#0.2",
+       "label": "IP",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "about": "对局域网开放时监听的本机地址。",
+       "acc": "caret",
+       "info": true
+      },
+      {
+       "id": "core-lan-access#0.3",
+       "label": "授权",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "局域网设备接入时要用的用户名和密码。",
+       "info": true
+      }
+     ]
+    }
+   ]
+  },
+  "core-dns": {
+   "id": "core-dns",
+   "title": "DNS",
+   "parent": "core-settings",
+   "via": "core-settings#7.0",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-dns#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-dns#0.1",
+       "label": "启用",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.enable"
+       },
+       "explain": "内置 DNS 的总开关。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#0.2",
+       "label": "监听地址",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.listen"
+       },
+       "explain": "内置 DNS 的监听地址。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#0.3",
+       "label": "DoH H3优先",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "DoH 查询优先使用 HTTP/3。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-dns#0.4",
+       "label": "使用系统Hosts",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "解析时也参考手机系统的 hosts。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-dns#0.5",
+       "label": "使用Hosts",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.use-hosts"
+       },
+       "explain": "用不用配置里的 hosts。手机这里会盖过 SubHub 的值。",
+       "override": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-dns#1.0",
+       "label": "hosts",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "yaml": "hosts"
+       },
+       "explain": "域名到地址的固定对应。手机这里会盖过 SubHub 的值。",
+       "override": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-dns#2.0",
+       "label": "增强模式",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.enhanced-mode"
+       },
+       "explain": "用假 IP 还是真实 IP。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#2.1",
+       "label": "fake-ip 过滤模式",
+       "ctl": "popup",
+       "rel": "d",
+       "layer": "a",
+       "acc": "caret",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.fake-ip-filter-mode"
+       },
+       "explain": "名单是排除还是只含。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#2.2",
+       "label": "fake-ip 过滤",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.fake-ip-filter"
+       },
+       "explain": "这些域名不用假 IP。手机这里会盖过 SubHub 的值。",
+       "override": true
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "core-dns#3.0",
+       "label": "遵守[rules]规则",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "dns.respect-rules"
+       },
+       "explain": "DNS 查询是否也按规则。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.1",
+       "label": "默认 域名解析服务器",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.default-nameserver"
+       },
+       "explain": "解析 DNS 自身域名用的。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.2",
+       "label": "域名解析服务器",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.nameserver"
+       },
+       "explain": "平时查域名用的服务器。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.3",
+       "label": "代理 域名解析服务器",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.proxy-server-nameserver"
+       },
+       "explain": "解析节点域名的服务器。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.4",
+       "label": "直连 域名解析服务器",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.direct-nameserver"
+       },
+       "explain": "直连流量用的 DNS。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.5",
+       "label": "Fallback 域名解析服务器",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "acc": "chevron",
+       "info": true,
+       "bind": {
+        "kind": "count",
+        "yaml": "dns.fallback"
+       },
+       "explain": "备用的 DNS 服务器。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-dns#3.6",
+       "label": "Fallback GeoIp",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "主 DNS 结果的 IP 不在指定地区时，改用备用 DNS。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-dns#3.7",
+       "label": "Fallback GeoIp 代码",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "上一项判断用的国家或地区代码。",
+       "info": true
+      }
+     ]
+    }
+   ]
+  },
+  "core-ntp": {
+   "id": "core-ntp",
+   "title": "NTP",
+   "parent": "core-settings",
+   "via": "core-settings#7.1",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-ntp#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-ntp#0.1",
+       "label": "启用",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "用 NTP 服务器校准内核时间。",
+       "acc": "switch",
+       "info": true
+      },
+      {
+       "id": "core-ntp#0.2",
+       "label": "服务器",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "NTP 时间服务器的地址。",
+       "info": true
+      },
+      {
+       "id": "core-ntp#0.3",
+       "label": "端口",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "NTP 时间服务器的端口。",
+       "info": true
+      }
+     ]
+    }
+   ]
+  },
+  "core-tls": {
+   "id": "core-tls",
+   "title": "TLS",
+   "parent": "core-settings",
+   "via": "core-settings#7.2",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-tls#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-tls#0.1",
+       "label": "证书",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "内核对外服务用的 TLS 证书。",
+       "info": true
+      },
+      {
+       "id": "core-tls#0.2",
+       "label": "私钥",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "a",
+       "about": "与上面证书配对的私钥。",
+       "info": true
+      },
+      {
+       "id": "core-tls#0.3",
+       "label": "自定义证书",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "添加自定义证书供内核使用。",
+       "acc": "chevron",
+       "info": true
+      }
+     ]
+    }
+   ]
+  },
+  "core-sniffer": {
+   "id": "core-sniffer",
+   "title": "嗅探",
+   "parent": "core-settings",
+   "via": "core-settings#7.3",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "flatback",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "core-sniffer#0.0",
+       "label": "覆写",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "打开后，本页设置会替换配置里的同名项。",
+       "acc": "switch"
+      },
+      {
+       "id": "core-sniffer#0.1",
+       "label": "启用",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "acc": "switch",
+       "info": true,
+       "bind": {
+        "kind": "value",
+        "yaml": "sniffer.enable"
+       },
+       "explain": "是否从流量里识别域名。手机这里会盖过 SubHub 的值。",
+       "override": true
+      },
+      {
+       "id": "core-sniffer#0.2",
+       "label": "覆盖",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "用嗅探到的域名替换连接的目标地址。",
+       "acc": "switch",
+       "info": true
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,689 @@
+{
+ "client": "shadowrocket",
+ "target": "shadowrocket",
+ "format": "ini",
+ "root": "tab-config",
+ "roots": [
+  "tab-config",
+  "tab-home"
+ ],
+ "screens": [
+  {
+   "id": "tab-home",
+   "title": "Shadowrocket",
+   "parent": null,
+   "via": "tab:首页",
+   "depth": 1,
+   "kind": "settings",
+   "rows": 2
+  },
+  {
+   "id": "tab-config",
+   "title": "配置",
+   "parent": null,
+   "via": null,
+   "depth": 1,
+   "kind": "settings",
+   "rows": 1
+  },
+  {
+   "id": "home-node-edit",
+   "title": "编辑节点",
+   "parent": "tab-home",
+   "via": "tab-home#1.1",
+   "depth": 2,
+   "kind": "form",
+   "rows": 6,
+   "todo": "表单只按 VLESS 记录，其他协议的字段行不同（如 UUID 一行会变成「密码」）"
+  },
+  {
+   "id": "config-edit",
+   "title": "latest-shadowrocket.conf",
+   "parent": "tab-config",
+   "via": "tab-config#1.0",
+   "depth": 2,
+   "kind": "settings",
+   "rows": 7
+  },
+  {
+   "id": "config-general",
+   "title": "通用",
+   "parent": "config-edit",
+   "via": "config-edit#0.0",
+   "depth": 3,
+   "kind": "form",
+   "rows": 4
+  },
+  {
+   "id": "config-rules",
+   "title": "规则",
+   "parent": "config-edit",
+   "via": "config-edit#0.1",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "config-hosts",
+   "title": "Host",
+   "parent": "config-edit",
+   "via": "config-edit#0.2",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "config-url-rewrite",
+   "title": "URL 重写",
+   "parent": "config-edit",
+   "via": "config-edit#0.3",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "config-mitm",
+   "title": "HTTPS 解密",
+   "parent": "config-edit",
+   "via": "config-edit#0.7",
+   "depth": 3,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "config-script",
+   "title": "脚本",
+   "parent": "config-edit",
+   "via": "config-edit#0.8",
+   "depth": 3,
+   "kind": "list",
+   "rows": 0,
+   "todo": "采集时是空列表，inventory 里没有行模板；需要按 config-url-rewrite 的样子补一个 list 行（[Script]，kv-list，label 取 name），config-script-new 才有入口"
+  },
+  {
+   "id": "config-proxy-group",
+   "title": "代理分组",
+   "parent": "config-edit",
+   "via": "config-edit#0.9",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "config-rule-new",
+   "title": "规则",
+   "parent": "config-rules",
+   "via": "config-rules#0.0",
+   "depth": 4,
+   "kind": "form",
+   "rows": 3,
+   "todo": "第三行的标签随类型变化（域名 / IP-CIDR / URL…），inventory 只记了「域名」"
+  },
+  {
+   "id": "config-host-new",
+   "title": "Hosts",
+   "parent": "config-hosts",
+   "via": "config-hosts#0.0",
+   "depth": 4,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "config-url-rewrite-edit",
+   "title": "URL 重写",
+   "parent": "config-url-rewrite",
+   "via": "config-url-rewrite#0.0",
+   "depth": 4,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "config-script-new",
+   "title": "脚本",
+   "parent": "config-script",
+   "via": null,
+   "depth": 4,
+   "kind": "form",
+   "rows": 4
+  },
+  {
+   "id": "config-proxy-group-edit",
+   "title": "代理分组",
+   "parent": "config-proxy-group",
+   "via": "config-proxy-group#0.0",
+   "depth": 4,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "config-rule-new-type",
+   "title": "类型",
+   "parent": "config-rule-new",
+   "via": "config-rule-new#0.0",
+   "depth": 5,
+   "kind": "picker",
+   "rows": 0,
+   "deferred": true
+  },
+  {
+   "id": "config-rule-new-policy",
+   "title": "策略",
+   "parent": "config-rule-new",
+   "via": "config-rule-new#0.1",
+   "depth": 5,
+   "kind": "picker",
+   "rows": 0,
+   "deferred": true
+  }
+ ],
+ "rows": [
+  {
+   "row": "tab-home#1.0",
+   "label": "latest-shadowrocket（配置节点分组，可折叠）",
+   "bind": {
+    "kind": "count",
+    "ini": "Proxy"
+   },
+   "explain": "这份配置带来的全部节点，都是 SubHub 写入的。"
+  },
+  {
+   "row": "tab-home#1.1",
+   "label": "节点行 ⓘ",
+   "bind": {
+    "kind": "list",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "label_part": "name",
+    "sub_pos": [
+     0
+    ]
+   },
+   "explain": "一个节点一行，点 ⓘ 看详情，内容由 SubHub 写入。",
+   "todo": "副标题「VLESS | XTLS-RPRX-VISION | UDP」是手机拼出来的，这里只给协议名"
+  },
+  {
+   "row": "home-node-edit#0.0",
+   "label": "类型",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 0,
+    "map": {
+     "vless": "VLESS",
+     "vmess": "VMess",
+     "ss": "Shadowsocks",
+     "trojan": "Trojan",
+     "tuic": "TUIC",
+     "hysteria2": "Hysteria2",
+     "wireguard": "WireGuard",
+     "http": "HTTP",
+     "https": "HTTPS",
+     "socks5": "SOCKS5"
+    }
+   },
+   "explain": "这个节点用哪种协议连接，SubHub 按来源写入。",
+   "todo": "除 VLESS 外的手机文案是推测"
+  },
+  {
+   "row": "home-node-edit#1.0",
+   "label": "地址",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 1
+   },
+   "explain": "节点服务器的地址，SubHub 按来源写入。"
+  },
+  {
+   "row": "home-node-edit#1.1",
+   "label": "端口",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 2
+   },
+   "explain": "节点服务器的端口，SubHub 按来源写入。"
+  },
+  {
+   "row": "home-node-edit#1.2",
+   "label": "UUID",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "param": "password",
+    "mask": true
+   },
+   "explain": "连接这个节点的身份凭证，SubHub 写入，默认打码。",
+   "todo": "vless/vmess 的 UUID 在原文里写成 password=；tuic 另有 uuid= 参数"
+  },
+  {
+   "row": "home-node-edit#1.9",
+   "label": "UDP 转发",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "param": "udp",
+    "map": {
+     "1": "开启",
+     "0": "关闭"
+    }
+   },
+   "explain": "这个节点是否转发 UDP 流量，SubHub 按节点写入。"
+  },
+  {
+   "row": "home-node-edit#1.11",
+   "label": "备注",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "part": "name"
+   },
+   "explain": "节点在列表里显示的名字，由 SubHub 统一命名。"
+  },
+  {
+   "row": "tab-config#1.0",
+   "label": "latest-shadowrocket.conf",
+   "bind": {
+    "kind": "exists",
+    "ini": "General"
+   },
+   "explain": "SubHub 下发的整份配置就是这个文件，点 ⓘ 看内容。",
+   "todo": "行上的「日期 · 大小」是手机下载时记的，SubHub 不知道，留空"
+  },
+  {
+   "row": "config-edit#0.0",
+   "label": "通用",
+   "bind": {
+    "kind": "count",
+    "ini": "General"
+   },
+   "explain": "网络层的基础设置，SubHub 只写了其中几项。",
+   "todo": "手机上这个数字的计数口径未核对（截图是 5），先按 [General] 的键数算"
+  },
+  {
+   "row": "config-edit#0.1",
+   "label": "规则",
+   "bind": {
+    "kind": "count",
+    "ini": "Rule"
+   },
+   "explain": "决定每个请求走哪条线路，SubHub 写入整套规则。"
+  },
+  {
+   "row": "config-edit#0.2",
+   "label": "Hosts",
+   "bind": {
+    "kind": "count",
+    "ini": "Host"
+   },
+   "explain": "把域名固定指到指定地址，条目由 SubHub 写入。"
+  },
+  {
+   "row": "config-edit#0.3",
+   "label": "URL 重写",
+   "bind": {
+    "kind": "count",
+    "ini": "URL Rewrite"
+   },
+   "explain": "把网址换成另一个或直接拦掉，规则由 SubHub 写入。"
+  },
+  {
+   "row": "config-edit#0.7",
+   "label": "HTTPS 解密",
+   "bind": {
+    "kind": "count",
+    "ini": "MITM",
+    "key": "hostname",
+    "split": ","
+   },
+   "explain": "解密哪些域名的 HTTPS，SubHub 写了开关和名单。",
+   "todo": "手机上这个数字数的是什么未核对，先按 hostname 的个数算"
+  },
+  {
+   "row": "config-edit#0.8",
+   "label": "脚本",
+   "bind": {
+    "kind": "count",
+    "ini": "Script"
+   },
+   "explain": "用脚本改请求或响应，SubHub 只写这两类脚本。"
+  },
+  {
+   "row": "config-edit#0.9",
+   "label": "代理分组",
+   "bind": {
+    "kind": "count",
+    "ini": "Proxy Group"
+   },
+   "explain": "把节点编成组供规则选用，分组由 SubHub 写入。"
+  },
+  {
+   "row": "config-general#0.0",
+   "label": "启用 IPv6",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "ipv6"
+   },
+   "explain": "IPv6 开关。实测写成关，不一定能真正关掉 IPv6。"
+  },
+  {
+   "row": "config-general#5.0",
+   "label": "192.168.0.0/16",
+   "bind": {
+    "kind": "list",
+    "ini": "General",
+    "key": "skip-proxy",
+    "split": ","
+   },
+   "explain": "访问这些地址时不走系统代理设置，但仍按规则分流。",
+   "drop": [
+    "config-general#5.1",
+    "config-general#5.2",
+    "config-general#5.3",
+    "config-general#5.4",
+    "config-general#5.5"
+   ]
+  },
+  {
+   "row": "config-general#6.0",
+   "label": "239.255.255.250/32",
+   "bind": {
+    "kind": "list",
+    "ini": "General",
+    "key": "tun-excluded-routes",
+    "split": ","
+   },
+   "explain": "这些网段不进隧道，直接走本机，SubHub 逐条写入。",
+   "drop": [
+    "config-general#6.1",
+    "config-general#6.2"
+   ]
+  },
+  {
+   "row": "config-general#8.0",
+   "label": "*.apple.com",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "always-real-ip"
+   },
+   "explain": "这些域名始终返回真实 IP，名单由 SubHub 写入。"
+  },
+  {
+   "row": "config-rules#0.0",
+   "label": "<规则内容>",
+   "bind": {
+    "kind": "list",
+    "ini": "Rule",
+    "sep": ",",
+    "label_col": 1,
+    "sub_col": 0,
+    "value_col": 2
+   },
+   "explain": "从上往下匹配，命中就走右边的策略，SubHub 写入。",
+   "todo": "FINAL 行只有两列（FINAL,策略），label/value 的取法要单独处理"
+  },
+  {
+   "row": "config-rule-new#0.0",
+   "label": "类型",
+   "bind": {
+    "kind": "item",
+    "ini": "Rule",
+    "sep": ",",
+    "col": 0
+   },
+   "explain": "这条规则按什么匹配，比如域名后缀，SubHub 写入。"
+  },
+  {
+   "row": "config-rule-new#0.1",
+   "label": "策略",
+   "bind": {
+    "kind": "item",
+    "ini": "Rule",
+    "sep": ",",
+    "col": 2
+   },
+   "explain": "命中后走哪条线路或分组，由 SubHub 写入。"
+  },
+  {
+   "row": "config-rule-new#1.0",
+   "label": "域名",
+   "bind": {
+    "kind": "item",
+    "ini": "Rule",
+    "sep": ",",
+    "col": 1
+   },
+   "explain": "要匹配的具体内容，比如一个域名，SubHub 写入。"
+  },
+  {
+   "row": "config-hosts#0.0",
+   "label": "localhost",
+   "bind": {
+    "kind": "list",
+    "ini": "Host",
+    "sep": "=",
+    "label_col": 0,
+    "sub_col": 1
+   },
+   "explain": "这个域名固定解析到下面的地址，由 SubHub 写入。"
+  },
+  {
+   "row": "config-host-new#0.0",
+   "label": "本地值 | DNS 服务器",
+   "bind": {
+    "kind": "exists",
+    "ini": "Host"
+   },
+   "explain": "指向固定地址还是另一台 DNS，SubHub 只写固定地址。",
+   "fixed": "本地值",
+   "todo": "SubHub 只写本地值形态是 inventory 里的推断"
+  },
+  {
+   "row": "config-host-new#1.0",
+   "label": "必填",
+   "bind": {
+    "kind": "item",
+    "ini": "Host",
+    "sep": "=",
+    "col": 0
+   },
+   "explain": "要固定解析的域名，由 SubHub 写入。"
+  },
+  {
+   "row": "config-host-new#2.0",
+   "label": "必填，域名或 IP",
+   "bind": {
+    "kind": "item",
+    "ini": "Host",
+    "sep": "=",
+    "col": 1
+   },
+   "explain": "这个域名被指到的地址，由 SubHub 写入。"
+  },
+  {
+   "row": "config-url-rewrite#0.0",
+   "label": "^https?://(www.)?g.cn",
+   "bind": {
+    "kind": "list",
+    "ini": "URL Rewrite",
+    "sep": " ",
+    "label_col": 0,
+    "sub_col": 2
+   },
+   "explain": "每行一条：匹配的网址和改写方式，SubHub 写入。",
+   "drop": [
+    "config-url-rewrite#0.1"
+   ]
+  },
+  {
+   "row": "config-url-rewrite-edit#0.0",
+   "label": "URL",
+   "bind": {
+    "kind": "item",
+    "ini": "URL Rewrite",
+    "sep": " ",
+    "col": 0
+   },
+   "explain": "哪些网址会被改写，这条正则由 SubHub 写入。"
+  },
+  {
+   "row": "config-url-rewrite-edit#0.1",
+   "label": "TO",
+   "bind": {
+    "kind": "item",
+    "ini": "URL Rewrite",
+    "sep": " ",
+    "col": 1
+   },
+   "explain": "改写后要去的新网址，由 SubHub 写入。"
+  },
+  {
+   "row": "config-url-rewrite-edit#0.2",
+   "label": "类型",
+   "bind": {
+    "kind": "item",
+    "ini": "URL Rewrite",
+    "sep": " ",
+    "col": 2
+   },
+   "explain": "用 302 跳转还是直接拦截，SubHub 按规则写入。"
+  },
+  {
+   "row": "config-mitm#0.0",
+   "label": "HTTPS 解密",
+   "bind": {
+    "kind": "value",
+    "ini": "MITM",
+    "key": "enable"
+   },
+   "explain": "HTTPS 解密总开关，配置里写的是打开。配置没带证书时，要在手机上手动打开。"
+  },
+  {
+   "row": "config-mitm#2.0",
+   "label": "以逗号分隔",
+   "bind": {
+    "kind": "value",
+    "ini": "MITM",
+    "key": "hostname"
+   },
+   "explain": "只解密名单里的域名，逗号分隔，由 SubHub 写入。"
+  },
+  {
+   "row": "config-mitm#3.0",
+   "label": "证书",
+   "bind": {
+    "kind": "exists",
+    "ini": "MITM",
+    "key": "hostname"
+   },
+   "paper": "生成并安装证书，再到系统设置里完全信任它。"
+  },
+  {
+   "row": "config-script-new#0.0",
+   "label": "脚本名称",
+   "bind": {
+    "kind": "item",
+    "ini": "Script",
+    "line": "kv-list",
+    "part": "name"
+   },
+   "explain": "这条脚本的名字，由 SubHub 写入。",
+   "todo": "[Script] 行是用户原样填的，name = type=…,pattern=…,script-path=… 的写法没有样本可核对"
+  },
+  {
+   "row": "config-script-new#1.0",
+   "label": "类型",
+   "bind": {
+    "kind": "item",
+    "ini": "Script",
+    "line": "kv-list",
+    "param": "type"
+   },
+   "explain": "脚本改的是请求还是响应，SubHub 按条目写入。"
+  },
+  {
+   "row": "config-script-new#3.0",
+   "label": "脚本",
+   "bind": {
+    "kind": "item",
+    "ini": "Script",
+    "line": "kv-list",
+    "param": "script-path"
+   },
+   "explain": "脚本文件从哪里下载，地址由 SubHub 写入。"
+  },
+  {
+   "row": "config-script-new#4.0",
+   "label": "表达式",
+   "bind": {
+    "kind": "item",
+    "ini": "Script",
+    "line": "kv-list",
+    "param": "pattern"
+   },
+   "explain": "哪些网址会触发这条脚本，正则由 SubHub 写入。"
+  },
+  {
+   "row": "config-proxy-group#0.0",
+   "label": "PROXY",
+   "bind": {
+    "kind": "list",
+    "ini": "Proxy Group",
+    "line": "kv-list",
+    "label_part": "name",
+    "sub_pos": [
+     0
+    ]
+   },
+   "explain": "一个分组一行：名字和选节点的方式，SubHub 写入。",
+   "todo": "副标题里的「当前节点名」是手机运行时状态，不显示"
+  },
+  {
+   "row": "config-proxy-group-edit#0.0",
+   "label": "PROXY",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy Group",
+    "line": "kv-list",
+    "part": "name"
+   },
+   "explain": "分组的名字，规则靠它来指路，由 SubHub 写入。"
+  },
+  {
+   "row": "config-proxy-group-edit#1.0",
+   "label": "select",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy Group",
+    "line": "kv-list",
+    "pos": 0
+   },
+   "explain": "手动选还是自动测速选，SubHub 按分组写入。"
+  },
+  {
+   "row": "config-proxy-group-edit#4.0",
+   "label": "<节点名>",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy Group",
+    "line": "kv-list",
+    "pos_from": 1,
+    "repeat": true
+   },
+   "explain": "这个分组里可选的节点或子分组，由 SubHub 写入。",
+   "todo": "「当前选中项带 ✓」是手机运行时状态，不显示"
+  }
+ ],
+ "unbound_placeholders": [
+  "config-general#5.6",
+  "config-general#6.3"
+ ]
+}

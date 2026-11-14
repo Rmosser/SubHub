@@ -1,0 +1,5 @@
+# Reference captures from real devices stay local (they show real configs).
+screens/
+# compare.py output embeds the reference captures.
+replica/out/
+__pycache__/

@@ -1,0 +1,2031 @@
+{
+ "client": "shadowrocket",
+ "target": "shadowrocket",
+ "format": "ini",
+ "theme": "shadowrocket",
+ "root": "tab-config",
+ "roots": [
+  "tab-config",
+  "tab-home"
+ ],
+ "geometry": {
+  "content_top": 132,
+  "row_h": 48.8,
+  "group_gap": 37.3,
+  "nav_cy": 84,
+  "tabbar": {
+   "x": [
+    21,
+    381
+   ]
+  }
+ },
+ "tabs": [
+  {
+   "icon": "home",
+   "label": "首页"
+  },
+  {
+   "icon": "folder",
+   "label": "配置"
+  },
+  {
+   "icon": "activity",
+   "label": "数据"
+  },
+  {
+   "icon": "gear",
+   "label": "设置"
+  }
+ ],
+ "screens": {
+  "tab-home": {
+   "id": "tab-home",
+   "title": "Shadowrocket",
+   "parent": null,
+   "via": "tab:首页",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "scan",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "tab-home#0.0",
+       "label": "连接",
+       "ctl": "toggle",
+       "rel": "",
+       "layer": "x",
+       "about": "连接或断开 VPN 的总开关。",
+       "acc": "switch"
+      },
+      {
+       "id": "tab-home#0.1",
+       "label": "全局路由",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "a",
+       "about": "选按配置规则、全部代理、全部直连或按场景转发。",
+       "acc": "chevron"
+      },
+      {
+       "id": "tab-home#0.2",
+       "label": "连通性测试",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "测一遍节点延迟，结果显示在各节点右侧。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "tab-home#1.0",
+       "label": "{name}",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Proxy"
+       },
+       "explain": "这份配置带来的全部节点。"
+      },
+      {
+       "id": "tab-home#1.1",
+       "label": "节点行",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-node-edit",
+       "acc": "chevron",
+       "bind": {
+        "kind": "list",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "label_part": "name",
+        "sub_pos": [
+         0
+        ]
+       },
+       "explain": "一个节点一行，点 ⓘ 看详情。"
+      }
+     ]
+    }
+   ],
+   "tab": 0,
+   "shell": {
+    "nav:scan": "扫描二维码添加节点。App 自己的操作，SubHub 不写它。",
+    "nav:plus": "添加节点或订阅。App 自己的操作，SubHub 不写它。",
+    "tab:activity": "打开「数据」页：iCloud 备份、Apple TV 传送、日志、节点导入导出与统计。App 自己的页面，SubHub 不写它。",
+    "tab:gear": "打开「设置」页：语言、隧道、更新、关于等。App 自己的设置，SubHub 不写它。",
+    "tool:route": "这是 App 自身的操作入口，不是配置项。",
+    "tool:refresh": "这是 App 自身的操作入口，不是配置项。",
+    "tool:more": "这是 App 自身的操作入口，不是配置项。"
+   }
+  },
+  "tab-config": {
+   "id": "tab-config",
+   "title": "配置",
+   "parent": null,
+   "via": null,
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "scan",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "tab-config#0.0",
+       "label": "恢复默认配置",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "恢复 App 自带的默认配置。"
+      },
+      {
+       "id": "tab-config#0.1",
+       "label": "导入…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "导入一份配置文件。"
+      },
+      {
+       "id": "tab-config#0.2",
+       "label": "Wi-Fi 上传",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "同一 Wi-Fi 下，用电脑浏览器把配置传到手机。"
+      },
+      {
+       "id": "tab-config#0.3",
+       "label": "模块",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "管理模块：可一键叠加在配置上的一组设置。",
+       "acc": "chevron"
+      },
+      {
+       "id": "tab-config#0.4",
+       "label": "测试规则",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "输入域名或 IP，看会命中哪条规则。"
+      }
+     ]
+    },
+    {
+     "header": "本地文件",
+     "rows": [
+      {
+       "id": "tab-config#1.0",
+       "label": "{file}",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-edit",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General"
+       },
+       "explain": "SubHub 下发的整份配置就是这个文件，点 ⓘ 看内容。"
+      }
+     ]
+    }
+   ],
+   "tab": 1,
+   "shell": {
+    "nav:scan": "这是 App 自身的操作入口，不是配置项。",
+    "nav:plus": "从网址下载一份配置。App 自己的操作，SubHub 不写它。",
+    "tab:activity": "打开「数据」页：iCloud 备份、Apple TV 传送、日志、节点导入导出与统计。App 自己的页面，SubHub 不写它。",
+    "tab:gear": "打开「设置」页：语言、隧道、更新、关于等。App 自己的设置，SubHub 不写它。"
+   }
+  },
+  "home-node-edit": {
+   "id": "home-node-edit",
+   "title": "编辑节点",
+   "parent": "tab-home",
+   "via": "tab-home#1.1",
+   "kind": "form",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "home-node-edit#0.0",
+       "label": "类型",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 0,
+        "map": {
+         "vless": "VLESS",
+         "vmess": "VMess",
+         "ss": "Shadowsocks",
+         "trojan": "Trojan",
+         "tuic": "TUIC",
+         "hysteria2": "Hysteria2",
+         "wireguard": "WireGuard",
+         "http": "HTTP",
+         "https": "HTTPS",
+         "socks5": "SOCKS5"
+        }
+       },
+       "explain": "这个节点用哪种协议连接。"
+      }
+     ]
+    },
+    {
+     "footer": "Xray-core 支持 XTLS。V2ray-core 仅在 v4.32.0 和 v4.32.1 版本支持 XTLS。",
+     "rows": [
+      {
+       "id": "home-node-edit#1.0",
+       "label": "地址",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 1
+       },
+       "explain": "节点服务器的地址。"
+      },
+      {
+       "id": "home-node-edit#1.1",
+       "label": "端口",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 2
+       },
+       "explain": "节点服务器的端口。"
+      },
+      {
+       "id": "home-node-edit#1.2",
+       "label": "UUID",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "param": "password",
+        "mask": true
+       },
+       "explain": "连接这个节点的身份凭证。"
+      },
+      {
+       "id": "home-node-edit#1.3",
+       "label": "加密",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "节点的加密参数，按服务器要求填，可留空。"
+      },
+      {
+       "id": "home-node-edit#1.4",
+       "label": "流控",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "节点的流控方式，要和服务器一致。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-node-edit#1.5",
+       "label": "传输方式",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "数据走哪种传输层，如 WebSocket、gRPC。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-node-edit#1.6",
+       "label": "TLS",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "TLS 相关设置，如 SNI、证书校验、指纹。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-node-edit#1.7",
+       "label": "多路复用",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "让多条连接共用一条通道传输。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-node-edit#1.8",
+       "label": "TCP 快速打开",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "建连时少等一次往返，需服务器支持。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-node-edit#1.9",
+       "label": "UDP 转发",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "param": "udp",
+        "map": {
+         "1": "开启",
+         "0": "关闭"
+        }
+       },
+       "explain": "这个节点是否转发 UDP 流量。"
+      },
+      {
+       "id": "home-node-edit#1.10",
+       "label": "代理通过",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "先经另一个代理，再连到这个节点。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-node-edit#1.11",
+       "label": "备注",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "part": "name"
+       },
+       "explain": "节点在列表里显示的名字，由 SubHub 统一命名。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-node-edit#2.0",
+       "label": "分享节点",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "把这个节点分享出去。"
+      },
+      {
+       "id": "home-node-edit#2.1",
+       "label": "复制 JSON",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "把节点参数以 JSON 文本复制到剪贴板。"
+      },
+      {
+       "id": "home-node-edit#2.2",
+       "label": "复制网址",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "把节点链接复制到剪贴板。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-node-edit#3.0",
+       "label": "删除",
+       "ctl": "button",
+       "rel": "",
+       "layer": "x",
+       "about": "删除这个节点。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存在手机上改过的节点参数。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-edit": {
+   "id": "config-edit",
+   "title": "{file}",
+   "parent": "tab-config",
+   "via": "tab-config#1.0",
+   "kind": "settings",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-edit#0.0",
+       "label": "通用",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "config-general",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "General"
+       },
+       "explain": "网络层的基础设置，SubHub 只写了其中几项。"
+      },
+      {
+       "id": "config-edit#0.1",
+       "label": "规则",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-rules",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Rule"
+       },
+       "explain": "决定每个请求走哪条线路，SubHub 写入整套规则。"
+      },
+      {
+       "id": "config-edit#0.2",
+       "label": "Hosts",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-hosts",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Host"
+       },
+       "explain": "把域名固定指到指定地址。"
+      },
+      {
+       "id": "config-edit#0.3",
+       "label": "URL 重写",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-url-rewrite",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "URL Rewrite"
+       },
+       "explain": "把网址换成另一个或直接拦掉。"
+      },
+      {
+       "id": "config-edit#0.4",
+       "label": "头部重写",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "增删改请求头或响应头。",
+       "acc": "chevron"
+      },
+      {
+       "id": "config-edit#0.5",
+       "label": "正文重写",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "改写请求或响应的正文。",
+       "acc": "chevron"
+      },
+      {
+       "id": "config-edit#0.6",
+       "label": "本地映射",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "让匹配的网址直接返回本地数据。",
+       "acc": "chevron"
+      },
+      {
+       "id": "config-edit#0.7",
+       "label": "HTTPS 解密",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "config-mitm",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "MITM",
+        "key": "hostname",
+        "split": ","
+       },
+       "explain": "解密哪些域名的 HTTPS，SubHub 写了开关和名单。"
+      },
+      {
+       "id": "config-edit#0.8",
+       "label": "脚本",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "config-script",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Script"
+       },
+       "explain": "用脚本改请求或响应，SubHub 只写这两类脚本。"
+      },
+      {
+       "id": "config-edit#0.9",
+       "label": "代理分组",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-proxy-group",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Proxy Group"
+       },
+       "explain": "把节点编成组供规则选用。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "config-edit#1.0",
+       "label": "规则集 URL",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "查看和更新配置引用的远程规则集。",
+       "acc": "chevron"
+      },
+      {
+       "id": "config-edit#1.1",
+       "label": "脚本 URL",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "查看和更新配置引用的远程脚本。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "config-edit#2.0",
+       "label": "编辑纯文本",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "直接以纯文本编辑整份配置。"
+      },
+      {
+       "id": "config-edit#2.1",
+       "label": "编译配置",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "让 Shadowrocket 把整份配置重新编译一遍，完成后只提示「成功」。这是对整份配置的动作，不是配置里的一项。"
+      },
+      {
+       "id": "config-edit#2.2",
+       "label": "扩展",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "输入名称，另存为一份扩展配置。"
+      },
+      {
+       "id": "config-edit#2.3",
+       "label": "导出配置",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "导出这份配置文件。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "config-edit#3.0",
+       "label": "复制",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "复制一份这个配置作备份。"
+      },
+      {
+       "id": "config-edit#3.1",
+       "label": "替换策略",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "把规则里的一个策略批量换成另一个。"
+      },
+      {
+       "id": "config-edit#3.2",
+       "label": "测试规则",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "输入域名或 IP，看会命中哪条规则。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "这是 App 自身的操作入口，不是配置项。"
+   }
+  },
+  "config-general": {
+   "id": "config-general",
+   "title": "通用",
+   "parent": "config-edit",
+   "via": "config-edit#0.0",
+   "kind": "form",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "tick"
+   },
+   "groups": [
+    {
+     "footer": "启用完整的 IPv6 支持。",
+     "rows": [
+      {
+       "id": "config-general#0.0",
+       "label": "启用 IPv6",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "ipv6"
+       },
+       "explain": "IPv6 开关。实测写成关，不一定能真正关掉 IPv6。"
+      },
+      {
+       "id": "config-general#0.1",
+       "label": "首选 IPv6",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "两种地址都有时，优先用 IPv6。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "footer": "如果关闭该选项，域名解析返回私有 IP，Shadowrocket 会认为该域名被劫持而强制使用代理。",
+     "rows": [
+      {
+       "id": "config-general#1.0",
+       "label": "私有 IP 应答",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "允许域名解析出内网地址；关掉时这类域名强制走代理。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "DNS 覆写",
+     "footer": "你可以使用此选项覆盖默认的DNS服务器。 iOS 系统不允许你在蜂窝网络上修改 DNS 设置。现在使用 Shadowrocket 你可以很容易地做到这一点。",
+     "rows": [
+      {
+       "id": "config-general#2.0",
+       "label": "system",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "已添加的 DNS 服务器，用来替代系统默认 DNS。"
+      },
+      {
+       "id": "config-general#2.1",
+       "label": "以逗号分隔",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "在这里添加 DNS 服务器，多个用逗号分隔。"
+      }
+     ]
+    },
+    {
+     "header": "直连 DNS",
+     "footer": "直连 DNS 用于解析匹配直连域名规则的域名。如果解析失败，将使用回退 DNS。",
+     "rows": [
+      {
+       "id": "config-general#3.0",
+       "label": "以逗号分隔",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "解析命中直连规则的域名用的 DNS，逗号分隔。"
+      }
+     ]
+    },
+    {
+     "header": "备用 DNS",
+     "footer": "如果使用 DNS-over-TLS, DNS-over-HTTPS 或者 DNS-over-QUIC 的域名查询因某种原因而失败，Shadowrocket 将退回并使用操作系统配置的默认 DNS，而不是显示错误。",
+     "rows": [
+      {
+       "id": "config-general#4.0",
+       "label": "启用回退",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "加密 DNS 查询失败时，退回系统默认 DNS。",
+       "acc": "switch"
+      },
+      {
+       "id": "config-general#4.1",
+       "label": "以逗号分隔",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "备用 DNS 服务器，多个用逗号分隔。"
+      }
+     ]
+    },
+    {
+     "header": "跳过代理",
+     "footer": "此选项强制这些域名或 IP 的连接范围由 Shadowrocket TUN 接口来处理，而不是 Shadowrocket 代理服务器。此选项用于解决一些应用程序的一些兼容性问题。",
+     "rows": [
+      {
+       "id": "config-general#5.0",
+       "label": "192.168.0.0/16",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "list",
+        "ini": "General",
+        "key": "skip-proxy",
+        "split": ","
+       },
+       "explain": "访问这些地址时不走系统代理设置，但仍按规则分流。"
+      },
+      {
+       "id": "config-general#5.6",
+       "label": "以逗号分隔",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "about": "在这里添加更多要跳过代理的域名或网段。"
+      }
+     ]
+    },
+    {
+     "header": "TUN 旁路路由",
+     "footer": "使用此选项可以绕过指定的 IP 范围，让其他协议通过。",
+     "rows": [
+      {
+       "id": "config-general#6.0",
+       "label": "239.255.255.250/32",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "list",
+        "ini": "General",
+        "key": "tun-excluded-routes",
+        "split": ","
+       },
+       "explain": "这些网段不进隧道，直接走本机。"
+      },
+      {
+       "id": "config-general#6.3",
+       "label": "IP-CIDR",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "about": "在这里添加更多不进隧道的网段。"
+      }
+     ]
+    },
+    {
+     "header": "TUN 包含路由",
+     "footer": "默认情况下，Shadowrocket 接口会声明自己为默认路由，但由于 Wi-Fi 接口的路由较小，有些流量可能不会通过 Shadowrocket 接口。使用此选项可以添加一个较小的路由表。",
+     "rows": [
+      {
+       "id": "config-general#7.0",
+       "label": "IP-CIDR",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "添加较小的路由，让这些网段也进隧道。"
+      }
+     ]
+    },
+    {
+     "header": "总是真实 IP",
+     "footer": "这个选项要求 Shadowrocket 在 TUN 处理 DNS 请求时返回一个真实的 IP 地址而不是假的 IP 地址。",
+     "rows": [
+      {
+       "id": "config-general#8.0",
+       "label": "*.apple.com",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "always-real-ip"
+       },
+       "explain": "这些域名始终返回真实 IP。"
+      }
+     ]
+    },
+    {
+     "header": "劫持 DNS",
+     "footer": "默认情况下，Shadowrocket 只返回发送到 Shadowrocket DNS 地址的 DNS 查询的假 IP 地址 (198.18.0.2)。有些设备或软件总是使用硬编码的 DNS 服务器。 (例如 Google Speakers 总是使用 8.8.8.8)。 你可以使用此选项劫持查询，以获得一个假地址。",
+     "rows": [
+      {
+       "id": "config-general#9.0",
+       "label": "8.8.8.8:53",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "拦下发往这些 DNS 服务器的查询，返回假 IP。"
+      }
+     ]
+    },
+    {
+     "header": "包含配置",
+     "rows": [
+      {
+       "id": "config-general#10.0",
+       "label": "包含配置",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "选另一份本地配置，把它包含进来。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:tick": "保存这一页的修改。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-rules": {
+   "id": "config-rules",
+   "title": "规则",
+   "parent": "config-edit",
+   "via": "config-edit#0.1",
+   "kind": "list",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-rules#0.0",
+       "label": "<规则内容>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-rule-new",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Rule",
+        "sep": ",",
+        "label_col": 1,
+        "sub_col": 0,
+        "value_col": 2
+       },
+       "explain": "从上往下匹配，命中就走右边的策略。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "在手机上手动新建一条规则，SubHub 不经过这里。"
+   }
+  },
+  "config-hosts": {
+   "id": "config-hosts",
+   "title": "Host",
+   "parent": "config-edit",
+   "via": "config-edit#0.2",
+   "kind": "list",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-hosts#0.0",
+       "label": "localhost",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-host-new",
+       "acc": "chevron",
+       "bind": {
+        "kind": "list",
+        "ini": "Host",
+        "sep": "=",
+        "label_col": 0,
+        "sub_col": 1
+       },
+       "explain": "这个域名固定解析到下面的地址。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "在手机上手动新建一条 Host 映射，SubHub 不经过这里。"
+   }
+  },
+  "config-url-rewrite": {
+   "id": "config-url-rewrite",
+   "title": "URL 重写",
+   "parent": "config-edit",
+   "via": "config-edit#0.3",
+   "kind": "list",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-url-rewrite#0.0",
+       "label": "^https?://(www.)?g.cn",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-url-rewrite-edit",
+       "acc": "chevron",
+       "bind": {
+        "kind": "list",
+        "ini": "URL Rewrite",
+        "sep": " ",
+        "label_col": 0,
+        "sub_col": 2
+       },
+       "explain": "每行一条：匹配的网址和改写方式。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "在手机上手动新建一条 URL 重写，SubHub 不经过这里。"
+   }
+  },
+  "config-mitm": {
+   "id": "config-mitm",
+   "title": "HTTPS 解密",
+   "parent": "config-edit",
+   "via": "config-edit#0.7",
+   "kind": "form",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "tick"
+   },
+   "groups": [
+    {
+     "footer": "启动该选项后，Shadowrocket 会使用中间人攻击的方式去解密 HTTPS 流量。",
+     "rows": [
+      {
+       "id": "config-mitm#0.0",
+       "label": "HTTPS 解密",
+       "ctl": "toggle",
+       "rel": "p",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "MITM",
+        "key": "enable"
+       },
+       "explain": "HTTPS 解密总开关，配置里写的是打开。配置没带证书时，要在手机上手动打开。"
+      }
+     ]
+    },
+    {
+     "footer": "为 MITM 连接使用 HTTP/2 以提高并发并降低延迟。",
+     "rows": [
+      {
+       "id": "config-mitm#1.0",
+       "label": "通过 HTTP/2 进行中间人攻击 (MitM)",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "解密时使用 HTTP/2，提高并发、降低延迟。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "域名",
+     "footer": "Shadowrocket 只会解密这些指定的域名的请求，可以使用通配符。iOS 系统和某些应用有严格的安全策略，仅信任某些特定的证书。对这些域名启动解密可能会导致问题，如 *.apple.com, *.icloud.com。",
+     "rows": [
+      {
+       "id": "config-mitm#2.0",
+       "label": "以逗号分隔",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "value",
+        "ini": "MITM",
+        "key": "hostname"
+       },
+       "explain": "只解密名单里的域名，逗号分隔。"
+      }
+     ]
+    },
+    {
+     "header": "证书授权",
+     "rows": [
+      {
+       "id": "config-mitm#3.0",
+       "label": "证书",
+       "ctl": "disclosure",
+       "rel": "d",
+       "layer": "p",
+       "about": "生成和安装 HTTPS 解密要用的 CA 证书。",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "MITM",
+        "key": "hostname"
+       },
+       "paper": "生成并安装证书，再到系统设置里完全信任它。"
+      }
+     ]
+    },
+    {
+     "header": "密码",
+     "rows": [
+      {
+       "id": "config-mitm#4.0",
+       "label": "密码",
+       "ctl": "textfield",
+       "rel": "d",
+       "layer": "p",
+       "about": "CA 证书的口令。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:tick": "保存这一页的修改。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-script": {
+   "id": "config-script",
+   "title": "脚本",
+   "parent": "config-edit",
+   "via": "config-edit#0.8",
+   "kind": "list",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": []
+    },
+    {
+     "rows": [
+      {
+       "id": "config-script#t.0",
+       "label": "",
+       "ctl": "disclosure",
+       "rel": "w",
+       "to": "config-script-new",
+       "acc": "chevron",
+       "bind": {
+        "kind": "list",
+        "ini": "Script",
+        "line": "kv-list",
+        "label_part": "name"
+       },
+       "explain": "这条脚本的名字，由 SubHub 写入。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "在手机上手动新建一个脚本，SubHub 不经过这里。"
+   }
+  },
+  "config-proxy-group": {
+   "id": "config-proxy-group",
+   "title": "代理分组",
+   "parent": "config-edit",
+   "via": "config-edit#0.9",
+   "kind": "list",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": "plus"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-proxy-group#0.0",
+       "label": "PROXY",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "config-proxy-group-edit",
+       "acc": "chevron",
+       "bind": {
+        "kind": "list",
+        "ini": "Proxy Group",
+        "line": "kv-list",
+        "label_part": "name",
+        "sub_pos": [
+         0
+        ]
+       },
+       "explain": "一个分组一行：名字和选节点的方式。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:plus": "在手机上手动新建一个代理分组，SubHub 不经过这里。"
+   }
+  },
+  "config-rule-new": {
+   "id": "config-rule-new",
+   "title": "规则",
+   "parent": "config-rules",
+   "via": "config-rules#0.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-rule-new#0.0",
+       "label": "类型",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Rule",
+        "sep": ",",
+        "col": 0
+       },
+       "explain": "这条规则按什么匹配，比如域名后缀。"
+      },
+      {
+       "id": "config-rule-new#0.1",
+       "label": "策略",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Rule",
+        "sep": ",",
+        "col": 2
+       },
+       "explain": "命中后走哪条线路或分组。"
+      },
+      {
+       "id": "config-rule-new#0.2",
+       "label": "扩展匹配",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "打开后，这条域名规则还会拿 TLS 的 SNI 和 HTTP 的 Host 去匹配，不只看请求的目标域名（同 Surge 的 extended-matching）。",
+       "acc": "switch"
+      },
+      {
+       "id": "config-rule-new#0.3",
+       "label": "预匹配",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "只对拒绝类规则有用：在更早的阶段直接拒绝，省掉后面的处理（同 Surge 的 pre-matching）。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "域名",
+     "rows": [
+      {
+       "id": "config-rule-new#1.0",
+       "label": "域名",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Rule",
+        "sep": ",",
+        "col": 1
+       },
+       "explain": "要匹配的具体内容，比如一个域名。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-host-new": {
+   "id": "config-host-new",
+   "title": "Hosts",
+   "parent": "config-hosts",
+   "via": "config-hosts#0.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "header": "类型",
+     "rows": [
+      {
+       "id": "config-host-new#0.0",
+       "label": "本地值 | DNS 服务器",
+       "ctl": "segmented",
+       "rel": "p",
+       "layer": "p",
+       "bind": {
+        "kind": "exists",
+        "ini": "Host"
+       },
+       "explain": "指向固定地址还是另一台 DNS，SubHub 只写固定地址。",
+       "fixed": "本地值"
+      }
+     ]
+    },
+    {
+     "header": "域名",
+     "rows": [
+      {
+       "id": "config-host-new#1.0",
+       "label": "必填",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Host",
+        "sep": "=",
+        "col": 0
+       },
+       "explain": "要固定解析的域名。"
+      }
+     ]
+    },
+    {
+     "header": "本地值",
+     "footer": "你可以在这里输入一个 IP 地址或者域名。",
+     "rows": [
+      {
+       "id": "config-host-new#2.0",
+       "label": "必填，域名或 IP",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Host",
+        "sep": "=",
+        "col": 1
+       },
+       "explain": "这个域名被指到的地址。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-url-rewrite-edit": {
+   "id": "config-url-rewrite-edit",
+   "title": "URL 重写",
+   "parent": "config-url-rewrite",
+   "via": "config-url-rewrite#0.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-url-rewrite-edit#0.0",
+       "label": "URL",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "URL Rewrite",
+        "sep": " ",
+        "col": 0
+       },
+       "explain": "哪些网址会被改写。"
+      },
+      {
+       "id": "config-url-rewrite-edit#0.1",
+       "label": "TO",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "URL Rewrite",
+        "sep": " ",
+        "col": 1
+       },
+       "explain": "改写后要去的新网址。"
+      },
+      {
+       "id": "config-url-rewrite-edit#0.2",
+       "label": "类型",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "URL Rewrite",
+        "sep": " ",
+        "col": 2
+       },
+       "explain": "用 302 跳转还是直接拦截。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-script-new": {
+   "id": "config-script-new",
+   "title": "脚本",
+   "parent": "config-script",
+   "via": "config-script#t.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-script-new#0.0",
+       "label": "脚本名称",
+       "ctl": "textfield",
+       "rel": "p",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Script",
+        "line": "kv-list",
+        "part": "name"
+       },
+       "explain": "这条脚本的名字。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "config-script-new#1.0",
+       "label": "类型",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Script",
+        "line": "kv-list",
+        "param": "type"
+       },
+       "explain": "脚本改的是请求还是响应。"
+      }
+     ]
+    },
+    {
+     "footer": "1：使用 JSC 用于小型、简单、频繁调用的脚本（例如，规则或 DNS）。\n2：使用 WebView 用于复杂、高内存需求的脚本（例如，解析 MB 级的 JSON）。",
+     "rows": [
+      {
+       "id": "config-script-new#2.0",
+       "label": "引擎",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "运行脚本的引擎：JSC 适合小脚本，WebView 适合复杂的。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "footer": "脚本的路径，可以是配置文件的相对路径，绝对路径，或 URL。",
+     "rows": [
+      {
+       "id": "config-script-new#3.0",
+       "label": "脚本",
+       "ctl": "textfield",
+       "rel": "p",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Script",
+        "line": "kv-list",
+        "param": "script-path"
+       },
+       "explain": "脚本文件从哪里下载。"
+      }
+     ]
+    },
+    {
+     "footer": "匹配 URL 的 regex 模式。",
+     "rows": [
+      {
+       "id": "config-script-new#4.0",
+       "label": "表达式",
+       "ctl": "textfield",
+       "rel": "p",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Script",
+        "line": "kv-list",
+        "param": "pattern"
+       },
+       "explain": "哪些网址会触发这条脚本。"
+      }
+     ]
+    },
+    {
+     "footer": "请求/响应体的最大允许大小。默认值是 131072(128KB)。如果设定为 0，则不限制大小。",
+     "rows": [
+      {
+       "id": "config-script-new#5.0",
+       "label": "最大尺寸",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "脚本可处理的正文最大字节数，0 为不限。"
+      }
+     ]
+    },
+    {
+     "footer": "允许脚本修改请求/响应体。默认值是false。这种行为是昂贵的。只有在必要的时候才启用。",
+     "rows": [
+      {
+       "id": "config-script-new#6.0",
+       "label": "需要 Body",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "允许脚本读改请求或响应的正文，开销较大。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "footer": "原始的二进制体数据将以 Uint8Array 的形式传递给脚本，而不是字符串值。",
+     "rows": [
+      {
+       "id": "config-script-new#7.0",
+       "label": "二进制模式",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "把正文按原始二进制交给脚本，而不是文本。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "footer": "脚本的最长运行时间，默认值是 10s。",
+     "rows": [
+      {
+       "id": "config-script-new#8.0",
+       "label": "超时",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "脚本最长运行时间，单位秒。"
+      }
+     ]
+    },
+    {
+     "footer": "使用 URL 作为脚本路径时的更新间隔，以秒为单位",
+     "rows": [
+      {
+       "id": "config-script-new#9.0",
+       "label": "脚本更新间隔",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "脚本来自网址时，多久重新下载一次，单位秒。"
+      }
+     ]
+    },
+    {
+     "footer": "脚本可以用 $argument 取值",
+     "rows": [
+      {
+       "id": "config-script-new#10.0",
+       "label": "参数",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "传给脚本的参数，脚本里用 $argument 读取。"
+      }
+     ]
+    },
+    {
+     "footer": "启用调试模式",
+     "rows": [
+      {
+       "id": "config-script-new#11.0",
+       "label": "调试",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "打开这条脚本的调试模式。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "footer": "如果启用被设置为关闭，脚本则会被跳过。",
+     "rows": [
+      {
+       "id": "config-script-new#12.0",
+       "label": "启用脚本",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "关掉后，这条脚本会被跳过。",
+       "acc": "switch"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-proxy-group-edit": {
+   "id": "config-proxy-group-edit",
+   "title": "代理分组",
+   "parent": "config-proxy-group",
+   "via": "config-proxy-group#0.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "save"
+   },
+   "groups": [
+    {
+     "header": "名称",
+     "rows": [
+      {
+       "id": "config-proxy-group-edit#0.0",
+       "label": "PROXY",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy Group",
+        "line": "kv-list",
+        "part": "name"
+       },
+       "explain": "分组的名字，规则靠它来指路。"
+      }
+     ]
+    },
+    {
+     "header": "类型",
+     "rows": [
+      {
+       "id": "config-proxy-group-edit#1.0",
+       "label": "select",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy Group",
+        "line": "kv-list",
+        "pos": 0
+       },
+       "explain": "手动选还是自动测速选。"
+      }
+     ]
+    },
+    {
+     "header": "订阅",
+     "rows": [
+      {
+       "id": "config-proxy-group-edit#2.0",
+       "label": "订阅",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "打开后改从订阅节点里取成员，不再手动挑。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "正则",
+     "rows": [
+      {
+       "id": "config-proxy-group-edit#3.0",
+       "label": "可选的",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "用正则表达式按名字筛选组内节点。"
+      }
+     ]
+    },
+    {
+     "header": "策略",
+     "rows": [
+      {
+       "id": "config-proxy-group-edit#4.0",
+       "label": "<节点名>",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy Group",
+        "line": "kv-list",
+        "pos_from": 1,
+        "repeat": true
+       },
+       "explain": "这个分组里可选的节点或子分组。"
+      },
+      {
+       "id": "config-proxy-group-edit#4.1",
+       "label": "添加",
+       "ctl": "action",
+       "rel": "",
+       "layer": "p",
+       "about": "往这个分组里添加节点或分组。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:save": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "config-rule-new-type": {
+   "id": "config-rule-new-type",
+   "title": "类型",
+   "parent": "config-rule-new",
+   "via": "config-rule-new#0.0",
+   "kind": "picker",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "类型",
+     "rows": [
+      {
+       "id": "config-rule-new-type#0.0",
+       "label": "DOMAIN-SUFFIX",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "匹配这个域名及其所有子域名。"
+      },
+      {
+       "id": "config-rule-new-type#0.1",
+       "label": "DOMAIN-KEYWORD",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "域名里含有这个关键词就匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.2",
+       "label": "DOMAIN-WILDCARD",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按带 * 和 ? 的通配域名匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.3",
+       "label": "DOMAIN",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "只匹配完全相同的域名。"
+      },
+      {
+       "id": "config-rule-new-type#0.4",
+       "label": "USER-AGENT",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按请求的 User-Agent 匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.5",
+       "label": "URL-REGEX",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按网址的正则表达式匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.6",
+       "label": "IP-CIDR",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "目标 IP 落在这个网段就匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.7",
+       "label": "IP-ASN",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按目标 IP 所属的自治系统号匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.8",
+       "label": "RULE-SET",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "引用一份远程规则列表。"
+      },
+      {
+       "id": "config-rule-new-type#0.9",
+       "label": "DOMAIN-SET",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "引用一份远程域名列表。"
+      },
+      {
+       "id": "config-rule-new-type#0.10",
+       "label": "SCRIPT",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "由脚本判断是否匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.11",
+       "label": "DST-PORT",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按目标端口匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.12",
+       "label": "GEOIP",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "按目标 IP 所在国家或地区匹配。"
+      },
+      {
+       "id": "config-rule-new-type#0.13",
+       "label": "FINAL",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "兜底规则，前面都没命中时使用。"
+      }
+     ]
+    }
+   ],
+   "deferred": true
+  },
+  "config-rule-new-policy": {
+   "id": "config-rule-new-policy",
+   "title": "策略",
+   "parent": "config-rule-new",
+   "via": "config-rule-new#0.1",
+   "kind": "picker",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": null
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "config-rule-new-policy#0.0",
+       "label": "PROXY",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "命中后走代理。"
+      },
+      {
+       "id": "config-rule-new-policy#0.1",
+       "label": "DIRECT",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "命中后直接连接，不走代理。"
+      },
+      {
+       "id": "config-rule-new-policy#0.2",
+       "label": "TAILSCALE",
+       "ctl": "segmented",
+       "rel": "n",
+       "layer": "p",
+       "about": "命中后交给 Tailscale 网络。"
+      }
+     ]
+    },
+    {
+     "header": "代理分组",
+     "rows": [
+      {
+       "id": "config-rule-new-policy#1.0",
+       "label": "PROXY-2",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "命中后交给这个代理分组选节点。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "config-rule-new-policy#2.0",
+       "label": "REJECT",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "about": "拒绝请求，返回 404 空响应。"
+      },
+      {
+       "id": "config-rule-new-policy#2.1",
+       "label": "REJECT-DICT",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回空 JSON 对象。"
+      },
+      {
+       "id": "config-rule-new-policy#2.2",
+       "label": "REJECT-ARRAY",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回空 JSON 数组。"
+      },
+      {
+       "id": "config-rule-new-policy#2.3",
+       "label": "REJECT-200",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回 200 空响应。"
+      },
+      {
+       "id": "config-rule-new-policy#2.4",
+       "label": "REJECT-IMG",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回一张 1 像素 GIF。"
+      },
+      {
+       "id": "config-rule-new-policy#2.5",
+       "label": "REJECT-TINYGIF",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回一张 1 像素 GIF。"
+      },
+      {
+       "id": "config-rule-new-policy#2.6",
+       "label": "REJECT-DROP",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "直接丢弃数据包，对方只能等到超时。"
+      },
+      {
+       "id": "config-rule-new-policy#2.7",
+       "label": "REJECT-NO-DROP",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，但不丢包，会立刻回应。"
+      },
+      {
+       "id": "config-rule-new-policy#2.8",
+       "label": "REJECT-VIDEO",
+       "ctl": "segmented",
+       "rel": "u",
+       "layer": "p",
+       "about": "拒绝请求，返回一段空白 MP4 视频。"
+      }
+     ]
+    }
+   ],
+   "deferred": true
+  }
+ }
+}

@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SubHub 玻璃工作台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 中间调的厚玻璃铺满视口。恒定的结构刻进玻璃，此刻发生的事是光，等人处理的东西是纸。 */
+  --under:#7d9792; --under-hi:#b9cdc7;
+  --glass:rgba(196,212,207,.32);
+  --edge-0:#29504a; --edge-1:#77a79a; --edge-hi:rgba(255,255,255,.78);
+  --etch:rgba(8,29,26,.86); --etch-2:rgba(8,29,26,.72);
+  --etch-shadow:0 1px 0 rgba(255,255,255,.42),0 -.5px 0 rgba(0,0,0,.22);
+  --etch-drop:drop-shadow(0 1px 0 rgba(255,255,255,.42));
+  --rule:rgba(8,29,26,.16); --rule-hi:rgba(255,255,255,.32);
+  --lit:#1a46b6; --lit-pool:rgba(255,255,255,.64); --lit-tint:rgba(90,140,255,.22); --lit-glow:0 0 0 transparent;
+  --s-flow:#3a6cf0; --s-flow-2:#22b5c9; --s-amber:#ff9f2e;
+  --paper:rgba(250,250,245,.62); --pb:1.12;
+  --paper-ink:#0f181c; --paper-muted:#465357; --pencil:#4f5d62; --p-amber:#8f4f00; --p-blue:#1f4fc8;
+  --paper-edge:rgba(255,255,255,.85); --hole:rgba(40,70,64,.30);
+  --shadow:14,38,34;
+  --sheen-a:.06; --sheen-line:.13;
+  --ctl:rgba(255,255,255,.20); --ctl-edge:rgba(8,29,26,.18);
+  --paper-drop:0 1px 1.5px rgba(var(--shadow),.22),0 6px 14px -10px rgba(var(--shadow),.32);
+  --is-dark:0;
+  --gap:clamp(120px,15vw,240px);
+  --display:"Geist",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  --body:"Geist",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"Geist Mono","SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --fiber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --pmask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -.5 1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --under:#050d0f; --under-hi:#10252a;
+    --glass:rgba(14,24,26,.50);
+    --edge-0:#050f0d; --edge-1:#23483e; --edge-hi:rgba(255,255,255,.22);
+    --etch:rgba(214,232,227,.80); --etch-2:rgba(214,232,227,.62);
+    --etch-shadow:0 -1px 0 rgba(0,0,0,.55),0 .5px 0 rgba(255,255,255,.06);
+    --etch-drop:drop-shadow(0 -1px 0 rgba(0,0,0,.55));
+    --rule:rgba(214,232,227,.11); --rule-hi:rgba(0,0,0,.38);
+    --lit:#d6e3ff; --lit-pool:rgba(110,150,255,.22); --lit-tint:rgba(110,150,255,.14); --lit-glow:0 0 12px rgba(110,150,255,.6);
+    --s-flow:#6d98ff; --s-flow-2:#3cc6d4; --s-amber:#f0aa48;
+    --paper:rgba(226,228,216,.72); --pb:1.5;
+    --paper-ink:#0f171a; --paper-muted:#323d40; --pencil:#3b474b; --p-amber:#663700; --p-blue:#17398f;
+    --paper-edge:rgba(255,255,255,.55); --hole:rgba(0,0,0,.45);
+    --shadow:0,0,0;
+    --sheen-a:.025; --sheen-line:.06;
+    --ctl:rgba(255,255,255,.05); --ctl-edge:rgba(214,232,227,.16);
+    --is-dark:1;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --under:#050d0f; --under-hi:#10252a;
+  --glass:rgba(14,24,26,.50);
+  --edge-0:#050f0d; --edge-1:#23483e; --edge-hi:rgba(255,255,255,.22);
+  --etch:rgba(214,232,227,.80); --etch-2:rgba(214,232,227,.62);
+  --etch-shadow:0 -1px 0 rgba(0,0,0,.55),0 .5px 0 rgba(255,255,255,.06);
+  --etch-drop:drop-shadow(0 -1px 0 rgba(0,0,0,.55));
+  --rule:rgba(214,232,227,.11); --rule-hi:rgba(0,0,0,.38);
+  --lit:#d6e3ff; --lit-pool:rgba(110,150,255,.22); --lit-tint:rgba(110,150,255,.14); --lit-glow:0 0 12px rgba(110,150,255,.6);
+  --s-flow:#6d98ff; --s-flow-2:#3cc6d4; --s-amber:#f0aa48;
+  --paper:rgba(226,228,216,.72); --pb:1.5;
+  --paper-ink:#0f171a; --paper-muted:#323d40; --pencil:#3b474b; --p-amber:#663700; --p-blue:#17398f;
+  --paper-edge:rgba(255,255,255,.55); --hole:rgba(0,0,0,.45);
+  --shadow:0,0,0;
+  --sheen-a:.025; --sheen-line:.06;
+  --ctl:rgba(255,255,255,.05); --ctl-edge:rgba(214,232,227,.16);
+  --is-dark:1;
+  color-scheme:dark;
+}
+/* 清透：高透的厚玻璃。玻璃本身几乎看不见，靠它对别的东西做了什么来显形：
+   切边的折射与体色、表面的反光、纸落在玻璃底下的影子、聚成一滴的光 */
+:root[data-mat="liquid"]{
+  --under:#bccacd; --under-hi:#e5edee;
+  --bed-hi:#e5edee; --bed-lo:#bccacd; --bed-dot:#20343c; --glass-tint:#f2f8f8; --edge-tint:#8fdccb; --lens-tint:#f3f8ff;
+  --etch:rgba(9,22,30,.9); --etch-2:rgba(9,22,30,.72);
+  --etch-shadow:0 1px 0 rgba(255,255,255,.55),0 -.5px 0 rgba(0,0,0,.16);
+  --etch-drop:drop-shadow(0 1px 0 rgba(255,255,255,.55));
+  --rule:rgba(9,22,30,.13); --rule-hi:rgba(255,255,255,.5);
+  --lit:#1846c4; --lit-pool:rgba(255,255,255,.72); --lit-tint:rgba(70,120,255,.16);
+  --s-flow:#2b5fe6; --s-flow-2:#0e9fb6; --s-amber:#ee8a0c;
+  --paper:rgba(253,253,250,.72); --pb:1.05;
+  --shadow:22,38,48;
+  --paper-drop:0 .5px 1px rgba(var(--shadow),.2);
+  --ctl:rgba(255,255,255,.3); --ctl-edge:rgba(9,22,30,.14);
+}
+
+*{box-sizing:border-box}
+html{background:var(--under)}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(120% 90% at 60% 38%,var(--under-hi),var(--under)) fixed;color:var(--etch);text-shadow:var(--etch-shadow);font:14px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 玻璃下的光：深处的总流量、普通深度的数据流、贴近玻璃底面的聚焦流 */
+.layer{position:fixed;left:-28px;top:-28px;width:calc(100% + 56px);height:calc(100% + 56px);pointer-events:none;mix-blend-mode:screen;will-change:transform}
+#deep{z-index:0;filter:blur(5px)}
+#mid{z-index:1;filter:blur(3.5px)}
+#near{z-index:1;filter:blur(1.6px)}
+
+/* 玻璃本体 */
+.frost{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden;background:var(--glass);box-shadow:inset 70px 0 70px -50px rgba(var(--shadow),.24)}
+.cloud{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:soft-light;opacity:.8}
+.frost::after{content:"";position:absolute;inset:0;background-image:var(--grain);background-size:180px 180px;mix-blend-mode:overlay;opacity:.18}
+.sheen{position:absolute;inset:-10% -30%;will-change:transform;background:
+  linear-gradient(103deg,transparent 49.4%,rgba(255,255,255,var(--sheen-line)) 49.7%,rgba(255,255,255,calc(var(--sheen-line) * .3)) 50%,transparent 50.4%),
+  linear-gradient(103deg,transparent 38%,rgba(255,255,255,var(--sheen-a)) 47%,transparent 58%)}
+.edge{position:fixed;left:0;top:0;bottom:0;width:12px;z-index:5;pointer-events:none;background:linear-gradient(90deg,var(--edge-0),var(--edge-1) 60%,var(--edge-hi) 66%,transparent)}
+.glass{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;display:none}
+[data-mat="liquid"] .glass{display:block}
+[data-mat="liquid"] .layer,[data-mat="liquid"] .frost,[data-mat="liquid"] .edge,[data-mat="liquid"] .item::before{display:none}
+[data-flow="island"] .rail .item::before{display:none}
+[data-mat="liquid"]:not([data-lens="plate"]) .seg button[aria-pressed="true"]{background:none}
+
+.app{position:relative;z-index:3;display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100%}
+
+/* 刻进玻璃：导航 */
+.rail{position:sticky;top:0;align-self:start;height:100vh;padding:40px 22px 28px 44px;display:flex;flex-direction:column;gap:36px}
+.brand{display:flex;align-items:center;gap:11px;color:inherit;text-decoration:none;border-radius:6px}
+.mark{width:21px;height:21px;filter:var(--etch-drop)}
+.word{font:600 17px/1 var(--display);letter-spacing:-.015em}
+.groups{display:flex;flex-direction:column;gap:28px}
+.group{display:flex;flex-direction:column}
+.glabel{margin:0 0 4px;font-size:12px;letter-spacing:.08em;color:var(--etch-2)}
+.item{position:relative;isolation:isolate;display:flex;align-items:center;min-height:34px;font-size:14.5px;color:inherit;text-decoration:none;transition:color .45s,text-shadow .45s}
+.item::before,.ent::before{content:"";position:absolute;z-index:-1;inset:-2px -12px -2px -20px;border-radius:16px;background:radial-gradient(62% 120% at 28% 50%,var(--lit-pool),var(--lit-tint) 46%,transparent 76%);opacity:0;transition:opacity .45s}
+.item[aria-current="page"],.item:hover,.item:focus-visible{color:var(--lit);text-shadow:var(--lit-glow)}
+.item[aria-current="page"]::before,.item:hover::before,.item:focus-visible::before{opacity:1}
+.brand:focus-visible,.item:focus-visible{outline:1.5px solid color-mix(in srgb,var(--lit) 60%,transparent);outline-offset:4px}
+
+.table{min-width:0;padding:40px clamp(28px,4.2vw,64px) 120px 40px}
+.mast{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin:2px 0 46px;font-size:14px;color:var(--etch-2)}
+.mast b{font:600 24px/1 var(--display);color:var(--etch);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+
+/* 刻进玻璃：恒定的拓扑 */
+.board,.p-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap);align-items:start}
+.col{display:flex;flex-direction:column;gap:34px;min-width:0}
+.colh{display:flex;justify-content:space-between;align-items:baseline;margin:0;padding:0 0 9px;font:500 12px/1 var(--body);letter-spacing:.08em;color:var(--etch-2);border-bottom:1px solid var(--rule);box-shadow:0 1px 0 var(--rule-hi)}
+.colh span{letter-spacing:.04em}
+.ent{--py:21px;position:relative;isolation:isolate;padding:10px 0 11px;border-bottom:1px solid var(--rule);box-shadow:0 1px 0 var(--rule-hi);transition:color .45s,text-shadow .45s}
+.ent .l1{display:flex;align-items:baseline;gap:8px;font:600 15px/22px var(--display);letter-spacing:-.005em}
+.ent .n{margin-left:auto;font:500 14px/22px var(--body);font-variant-numeric:tabular-nums}
+.ent .dev{font:400 12.5px/22px var(--body);color:var(--etch-2)}
+.ent .l2{margin-top:1px;font-size:12px;line-height:18px;color:var(--etch-2)}
+.ent.lit{color:var(--lit);text-shadow:var(--lit-glow)}
+.ent.lit .l2,.ent.lit .dev{color:color-mix(in srgb,var(--lit) 82%,transparent)}
+.ent.lit::before{opacity:1}
+.ent.flash::before{animation:pool 1.9s ease-out}
+.ent.flash .l1{animation:litText 1.9s ease-out}
+.wait{display:inline-block;width:6px;height:6px;margin:0 7px 1px 0;border-radius:50%;background:var(--s-amber);box-shadow:0 0 8px var(--s-amber);vertical-align:middle;animation:breathe 2.4s ease-in-out infinite}
+
+/* 光：纸上的孔或玻璃上的抛光点，透出下面的流 */
+.port{--g:.4;--c:var(--s-flow);position:absolute;top:var(--py);width:8px;height:8px;margin-top:-4px;border-radius:50%;background:color-mix(in srgb,var(--c) 16%,transparent)}
+.port::after{content:"";position:absolute;inset:1px;border-radius:50%;background:var(--c);opacity:var(--g);box-shadow:0 0 calc(var(--g) * 12px) calc(var(--g) * 2px) color-mix(in srgb,var(--c) 70%,transparent)}
+.port.in{left:-18px}
+.port.out{right:-18px}
+.change .port.out{right:auto;left:-18px}
+.port[data-tone="amber"]{--c:var(--s-amber)}
+.port[data-tone="rule"]{--c:var(--s-flow-2)}
+.port.ring{box-shadow:0 0 0 2.5px color-mix(in srgb,var(--s-amber) 50%,transparent)}
+.paper .port{background:var(--hole);box-shadow:inset 0 1px 1.5px rgba(0,0,0,.32)}
+.paper .port::after{inset:1.5px}
+
+/* 纸：等人处理、可以拿走的东西 */
+.paper{--rot:0deg;position:relative;isolation:isolate;color:var(--paper-ink);text-shadow:none}
+.paper::before,.paper::after{content:"";position:absolute;z-index:-1;inset:var(--pi,0);border-radius:3px;transform:rotate(var(--rot));transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.paper::before{background:var(--paper);-webkit-backdrop-filter:blur(6px) saturate(1.4) brightness(var(--pb));backdrop-filter:blur(6px) saturate(1.4) brightness(var(--pb));
+  box-shadow:inset 0 1px 0 var(--paper-edge),inset 0 0 0 .5px var(--paper-edge),var(--paper-drop)}
+.paper::after{background-image:var(--fiber);background-size:260px 260px;mix-blend-mode:multiply;opacity:.07}
+.note{--py:25px;--rot:.35deg;margin:0 -20px;padding:14px 20px 15px}
+.note.tilt-l{--rot:-.3deg}
+.note .port.in{left:2px}
+.note .port.out{right:2px}
+.note .l1{display:flex;align-items:baseline;gap:8px;font:600 15px/22px var(--display)}
+.note .n{margin-left:auto;font:500 14px/22px var(--body);font-variant-numeric:tabular-nums}
+.note .dev{font:400 12.5px/22px var(--body);color:var(--paper-muted)}
+.note p{margin:3px 0 0;font-size:12.5px;line-height:19px;color:var(--paper-muted)}
+.note .alert{color:var(--p-amber);font-weight:500}
+
+.p-slot{margin:0 0 54px}
+.proposal{--rot:-.6deg;--pi:-20px -24px;transition:opacity .24s,transform .5s cubic-bezier(.4,0,.2,1)}
+.proposal.approved{--rot:0deg}
+.proposal.fading{opacity:0}
+.proposal.leaving{opacity:0;transform:translateY(-110%) rotate(-3deg);transition:opacity .45s,transform .5s cubic-bezier(.5,0,.75,0)}
+.p-head h2{margin:0;font:600 17px/24px var(--display);letter-spacing:-.01em}
+.p-status{margin:4px 0 0;display:flex;align-items:center;gap:8px;font-size:13px;line-height:20px;color:var(--p-amber)}
+.p-status[data-state="live"]{color:var(--p-blue)}
+.dot{width:6px;height:6px;flex:none;border-radius:50%;background:currentColor;animation:breathe 2.4s ease-in-out infinite}
+.p-meta{margin:12px 0 0;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--paper-muted)}
+.tag{padding:0 7px;line-height:19px;border-radius:20px;font-size:11.5px;color:var(--paper-ink);box-shadow:inset 0 0 0 1px rgba(18,28,32,.26)}
+.p-actions{margin-top:14px;display:flex;gap:8px;transition:opacity .3s}
+.approved .p-actions{opacity:0}
+.p-changes{grid-column:2/4;display:flex;flex-direction:column;gap:16px;min-width:0}
+.change{--py:9px;position:relative;min-width:0}
+.change .label{margin:0;font-size:12.5px;line-height:18px;color:var(--paper-muted)}
+.txt{margin:3px 0 0;font-size:14.5px;line-height:22px}
+.diff{margin-left:10px;font:500 13.5px/22px var(--body);font-variant-numeric:tabular-nums;white-space:nowrap}
+.diff s{color:var(--paper-muted);text-decoration-thickness:1px}
+.code{margin:4px 0 0;overflow-x:auto;scrollbar-width:none;white-space:nowrap;font:12.5px/20px var(--mono)}
+.code::-webkit-scrollbar{display:none}
+.pencil{color:var(--pencil);-webkit-mask:var(--pmask) 0 0/140px 140px;mask:var(--pmask) 0 0/140px 140px;transition:color .9s ease}
+.inked .pencil{color:var(--paper-ink);-webkit-mask:none;mask:none}
+.receipt .p-fold,.receipt .p-changes{display:none}
+.receipt .p-head{grid-column:1/-1;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px}
+.receipt .p-status{margin:0}
+.undo{margin-left:auto}
+.btn{font:500 13.5px/1 var(--body);min-height:36px;padding:0 16px;border:0;border-radius:7px;background:transparent;color:var(--paper-ink);box-shadow:inset 0 0 0 1px rgba(18,28,32,.28);cursor:pointer;transition:transform .15s,box-shadow .2s}
+.btn:hover{box-shadow:inset 0 0 0 1px rgba(18,28,32,.5)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--paper-ink);color:#f7f7f2;box-shadow:0 6px 12px -8px rgba(0,0,0,.55)}
+.btn.quiet{min-height:30px;padding:0 10px;box-shadow:none;color:var(--p-blue)}
+.btn.quiet:hover{box-shadow:inset 0 0 0 1px rgba(18,28,32,.22)}
+.btn:focus-visible,.seg button:focus-visible,.retline button:focus-visible{outline:2px solid var(--lit);outline-offset:2px}
+.retline{display:flex;align-items:baseline;gap:12px;margin:0;font-size:13.5px;color:var(--etch-2)}
+.retline button{font:500 13.5px/1 var(--body);min-height:32px;padding:0 10px;border:0;border-radius:7px;background:var(--ctl);box-shadow:inset 0 0 0 1px var(--ctl-edge);color:var(--etch);text-shadow:var(--etch-shadow);cursor:pointer}
+
+/* 预览控制：刻在玻璃上的开关，选中的一格被光照亮 */
+.dock{position:fixed;right:28px;bottom:24px;z-index:6;display:flex;align-items:center;gap:10px}
+.dl{font-size:12px;letter-spacing:.08em;color:var(--etch-2)}
+.seg{display:flex;gap:2px;padding:3px;border-radius:10px;background:var(--ctl);box-shadow:inset 0 0 0 1px var(--ctl-edge),inset 0 1px 0 var(--rule-hi)}
+.seg button{min-height:30px;padding:0 12px;border:0;border-radius:7px;background:transparent;color:var(--etch-2);text-shadow:var(--etch-shadow);font:500 12.5px/1 var(--body);cursor:pointer;transition:color .3s}
+.seg button:hover{color:var(--etch)}
+.seg button[aria-pressed="true"]{color:var(--lit);text-shadow:var(--lit-glow);background:radial-gradient(90% 130% at 50% 50%,var(--lit-pool),transparent 85%)}
+
+@keyframes breathe{50%{opacity:.4}}
+@keyframes pool{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
+@keyframes litText{0%,30%{color:var(--lit);text-shadow:var(--lit-glow)}100%{}}
+
+@media (max-width:1100px){:root{--gap:clamp(64px,8vw,110px)}}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .edge{display:none}
+  .frost{box-shadow:none}
+  .rail{position:static;height:auto;padding:28px 24px 0 40px;gap:14px}
+  .groups{flex-direction:row;gap:22px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+  .group{flex-direction:row;gap:18px;flex:none}
+  .glabel{display:none}
+  .item{min-height:44px;white-space:nowrap}
+  .item::before{inset:4px -12px}
+  .table{padding:22px 24px 150px 44px}
+  .mast{margin-bottom:40px}
+  .board,.p-grid{grid-template-columns:minmax(0,1fr);row-gap:34px}
+  .p-changes{grid-column:auto}
+  .port.out{right:auto;left:-18px;top:calc(var(--py) + 9px)}
+  .note .port.out{left:2px}
+  .proposal{--pi:-18px -14px -18px -22px}
+  .note{margin:0 -14px 0 -20px;padding:14px 14px 15px 20px}
+  .btn{min-height:44px}
+  .seg button{min-height:40px}
+}
+@media (max-width:640px){
+  .dock{left:16px;right:16px;bottom:16px;justify-content:center}
+  .table{padding-right:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<canvas class="layer" id="deep" aria-hidden="true"></canvas>
+<canvas class="layer" id="mid" aria-hidden="true"></canvas>
+<canvas class="layer" id="near" aria-hidden="true"></canvas>
+<canvas class="glass" id="glass" aria-hidden="true"></canvas>
+<div class="frost" aria-hidden="true"><canvas class="cloud"></canvas><div class="sheen"></div></div>
+<div class="edge" aria-hidden="true"></div>
+
+<div class="app">
+  <nav class="rail" aria-label="主导航">
+    <a class="brand" href="#" aria-label="SubHub">
+      <svg class="mark" viewBox="222 222 580 580" aria-hidden="true"><g fill="currentColor" stroke="currentColor" stroke-width="84" stroke-linejoin="round"><polygon points="323,441.1 349,435.6 349,657.7 323,663.2"/><polygon points="499,293.7 525,288.2 525,730.3 499,735.8"/><polygon points="675,322.3 701,316.8 701,626.9 675,632.4"/></g></svg>
+      <span class="word">SubHub</span>
+    </a>
+    <div class="groups">
+      <div class="group">
+        <p class="glabel">订阅工作台</p>
+        <a class="item" href="#" aria-current="page">总览</a>
+        <a class="item" href="#">订阅源</a>
+        <a class="item" href="#">设备交付</a>
+        <a class="item" href="#">服务目录</a>
+      </div>
+      <div class="group">
+        <p class="glabel">路由与配置</p>
+        <a class="item" href="#">路由契约</a>
+        <a class="item" href="#">节点池</a>
+        <a class="item" href="#">配置与场景</a>
+      </div>
+      <div class="group">
+        <p class="glabel">管理与诊断</p>
+        <a class="item" href="#">审核对比</a>
+        <a class="item" href="#">LLM 工作流</a>
+        <a class="item" href="#">高级设置</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="table">
+    <h1 class="vh">总览</h1>
+    <p class="mast"><span>当前配置</span><b data-k="ver">r127</b><span data-k="mast">3 台设备 · 1 项待批</span></p>
+
+    <div class="p-slot">
+      <div class="p-inner">
+        <article class="proposal paper" data-node="x1 x2" aria-labelledby="ptitle">
+          <div class="p-grid">
+            <div class="p-head">
+              <h2 id="ptitle">Agent 提案</h2>
+              <p class="p-status" role="status" aria-live="polite" data-k="status" data-state="wait"><i class="dot"></i><span>等你批准</span></p>
+              <div class="p-fold">
+                <p class="p-meta"><span class="tag">低风险</span>影响 3 台设备</p>
+                <div class="p-actions">
+                  <button class="btn" id="reject" type="button">退回</button>
+                  <button class="btn primary" id="approve" type="button">批准</button>
+                </div>
+              </div>
+              <button class="btn quiet undo" id="undo" type="button" hidden>撤销</button>
+            </div>
+            <div class="p-changes">
+              <div class="change" data-node="x1">
+                <span class="port out" data-port="x1"></span>
+                <p class="label">节点池「日常」</p>
+                <p class="txt pencil">移除 3 个连续 24 小时超时的节点<span class="diff"><s>18</s> → 15</span></p>
+              </div>
+              <div class="change" data-node="x2">
+                <span class="port out" data-port="x2"></span>
+                <p class="label">配置与场景 · Shadowrocket</p>
+                <p class="txt pencil">g.cn 跳到 Google，MITM 主机名加上 g.cn</p>
+                <p class="code pencil">^https?://g\.cn/(.*) https://www.google.com/$1 302</p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <p class="retline" hidden><span>已退回 Agent 提案</span><button type="button" id="undo-return">撤销</button></p>
+      </div>
+    </div>
+
+    <section class="board" aria-label="订阅流向">
+      <div class="col">
+        <div>
+          <h2 class="colh">订阅源<span>节点</span></h2>
+          <div class="ent" data-node="s1">
+            <span class="port out" data-port="s1"></span>
+            <div class="l1">主力机场<span class="n">64</span></div>
+            <div class="l2">61 可用 · 6 小时前刷新</div>
+          </div>
+          <div class="note paper" data-node="s2">
+            <span class="port out" data-port="s2"></span>
+            <div class="l1">备用机场<span class="n">23</span></div>
+            <p class="alert">刷新失败 · HTTP 403</p>
+            <p>沿用 2 天前的节点</p>
+          </div>
+          <div class="ent" data-node="s3">
+            <span class="port out" data-port="s3"></span>
+            <div class="l1">自建 VPS<span class="n">3</span></div>
+            <div class="l2">3 可用 · 手动维护</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div>
+          <h2 class="colh">节点池<span>节点</span></h2>
+          <div class="ent" data-node="p1">
+            <span class="port in" data-port="p1"></span><span class="port out" data-port="p1"></span>
+            <div class="l1">日常<span class="n" data-k="p1-n">18</span></div>
+            <div class="l2" data-k="p1-l2">主力机场 15 · 自建 VPS 3</div>
+          </div>
+          <div class="ent" data-node="p2">
+            <span class="port in" data-port="p2"></span><span class="port out" data-port="p2"></span>
+            <div class="l1">流媒体<span class="n">9</span></div>
+            <div class="l2">主力机场 6 · 备用机场 3</div>
+          </div>
+        </div>
+        <div>
+          <h2 class="colh">规则与配置</h2>
+          <div class="ent" data-node="c1">
+            <span class="port out" data-port="c1"></span>
+            <div class="l1">路由契约<span class="n">42 条</span></div>
+            <div class="l2">流媒体走「流媒体」，其余走「日常」</div>
+          </div>
+          <div class="ent" data-node="f1">
+            <span class="port in" data-port="f1"></span><span class="port out" data-port="f1"></span>
+            <div class="l1">配置与场景<span class="n">日常</span></div>
+            <div class="l2" data-k="f1-l2">URL 重写 2 条 · MITM 主机名 1 个</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div>
+          <h2 class="colh">设备<span>版本</span></h2>
+          <div class="ent" data-node="d1">
+            <span class="port in" data-port="d1"></span>
+            <div class="l1">Surge<span class="dev">iPhone</span><span class="n" data-k="d1-ver">r127</span></div>
+            <div class="l2" data-k="d1-l2">2 分钟前拉取</div>
+          </div>
+          <div class="ent" data-node="d2">
+            <span class="port in" data-port="d2"></span>
+            <div class="l1">Shadowrocket<span class="dev">iPhone</span><span class="n" data-k="d2-ver">r127</span></div>
+            <div class="l2" data-k="d2-l2">40 分钟前拉取</div>
+          </div>
+          <div class="note paper tilt-l" data-node="d3">
+            <span class="port in" data-port="d3"></span>
+            <div class="l1">Clash Mi<span class="dev">iPad</span><span class="n">r119</span></div>
+            <p class="alert" data-k="d3-behind">落后 8 版</p>
+            <p>3 天前拉取</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="dock" role="toolbar" aria-label="预览设置">
+  <span class="dl">玻璃</span>
+  <div class="seg">
+    <button type="button" data-glass-set="light" aria-pressed="false">清透</button>
+    <button type="button" data-glass-set="dark" aria-pressed="false">烟熏</button>
+  </div>
+  <div class="seg"><button type="button" id="replay">重放</button></div>
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+  const narrowMQ = matchMedia('(max-width: 900px)');
+  const PAD = 28;
+  // 预览开关：?seed=N 固定深层车道；?ablate=0..4 逐步拆掉 v1 透镜上“画出来”的部分；默认（或 ?lens=plate）是板内高度场透镜
+  const Q = new URLSearchParams(location.search);
+  const MODE = Q.get('lens') === 'plate' || Q.get('ablate') === null ? 5 : Math.max(0, Math.min(4, parseInt(Q.get('ablate'), 10) || 0));
+  // ?flow=0 退回透镜版；默认是沙洲：选中态长在玻璃下的水里
+  const FLOW = Q.get('flow') !== '0';
+  if (FLOW) root.dataset.flow = 'island';
+  const rnd = Q.get('seed') === null ? Math.random : (a => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; })(parseInt(Q.get('seed'), 10) || 0);
+  let W = innerWidth, H = innerHeight, theme = {};
+
+  const L = {
+    deep: { el: $('#deep'), scale: .5 },
+    mid: { el: $('#mid'), scale: .5 },
+    near: { el: $('#near'), scale: Math.min(window.devicePixelRatio || 1, 2) },
+  };
+  const cloud = $('.cloud'), sheen = $('.sheen');
+
+  // 清透：玻璃下的一切本来就是这里画的，所以折射在一个着色器里完成，不依赖 backdrop-filter
+  const glc = $('#glass');
+  let gl = null, glFresh = true, nearInk = false, nearWas = false;
+  const U = {}, TX = {};
+  const VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+  const FS = `precision highp float;
+uniform vec2 uView, uOffDeep, uOffMid, uPtr;
+uniform float uDpr, uBufH, uPad, uBevel, uMode;
+uniform sampler2D uDeep, uMid, uNear;
+uniform vec3 uBedHi, uBedLo, uDot, uTint, uEdgeTint, uLensTint, uShade;
+uniform vec4 uPap[3];
+uniform vec3 uPapK[3];
+uniform vec4 uLens[2];
+uniform vec2 uLensK[2];
+uniform vec4 uIsX[4];
+uniform vec4 uIsK[4];
+uniform vec2 uIsF[4];
+uniform vec4 uRiv, uRivK;
+uniform vec2 uRivY;
+vec2 uvOf(vec2 p){ return (p + uPad) / (uView + 2.0 * uPad); }
+float sdBox(vec2 q, vec2 h, float r){ vec2 d = abs(q) - h + r; return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0) - r; }
+float papSd(vec2 p, vec4 r, vec3 k){ vec2 q = p - (r.xy + r.zw) * 0.5; return sdBox(vec2(k.y * q.x + k.x * q.y, k.y * q.y - k.x * q.x), (r.zw - r.xy) * 0.5, 3.0); }
+// 板面的起伏：选中处是板自己鼓起来的一块。d 是到胶囊边的距离，nx 是外法线的 x
+// relief（消融第 4 步）：对称的缓坡。返回 (高度 0..1, 坡度 0..1, 曲率：内圈凸为正、外圈凹为负)
+// cap（最终候选）：从平台往外越来越陡，到边上用 3px 的圆脚收回板面；下游一侧的坡拉长。返回 (高度, 坡度, 明暗用的宽坡度)
+vec3 sdn(vec2 q, vec2 h, float r){
+  return vec3(sdBox(q, h, r), normalize(vec2(sdBox(q + vec2(1.0, 0.0), h, r) - sdBox(q - vec2(1.0, 0.0), h, r), sdBox(q + vec2(0.0, 1.0), h, r) - sdBox(q - vec2(0.0, 1.0), h, r)) + 1e-5));
+}
+vec3 relief(float d){
+  float u = clamp((d + 9.0) / 14.0, 0.0, 1.0), v = 1.0 - u;
+  return vec3(1.0 - u * u * u * (u * (u * 6.0 - 15.0) + 10.0), 16.0 * u * u * v * v, 10.4 * u * v * (1.0 - 2.0 * u));
+}
+vec3 cap(float d, float nx){
+  float k = 1.0 / (1.0 + 0.5 * smoothstep(0.0, 1.0, nx)), t = clamp(1.0 + (d + 1.0) * k / 11.0, 0.0, 1.0), f = 1.0 - smoothstep(-1.5, 1.5, d);
+  return vec3((1.0 - pow(t, 3.4)) * f, pow(t, 2.4) * f * k, pow(t, 1.5) * f);
+}
+// 亮底上的光：淡的部分提亮并染色，只有实的芯才遮住床面
+vec3 lit(vec3 c, vec4 s, float lift){ float k = smoothstep(0.05, 0.5, s.a); return c * (1.0 - s.a * (0.5 + 0.5 * k)) + s.rgb * (1.0 + lift * (1.0 - k)); }
+// 沙洲（清透）：细流不再画在 2D 层上，而是床面上一组解析的耙痕。像素先被“反推”回没有沙洲时的位置 y0，
+// 再看它落在哪根流线上：线宽恒为屏幕上的一根发丝，挤得越密越亮，密到分不开就自然并成岸线。
+// 三个色通道用略微不同的洲高各推一遍，所以只有被推开的地方才出现色散，和左侧切边是同一种光学。
+float rHash(float n){ return fract(sin(n * 127.1 + 311.7) * 43758.5453); }
+float isShape(vec4 X, float x){
+  if (x <= X.x || x >= X.w) return 0.0;
+  float xn = X.y + 4.0, xt = X.z + 2.0;
+  if (x < xn) return pow(sin(1.5708 * (x - X.x) / (xn - X.x)), 0.8);
+  if (x < xt) return 1.0;
+  return pow(1.0 - pow((x - xt) / (X.w - xt), 1.6), 1.25);
+}
+float isEnv(float a, vec2 F, float x){ return a * smoothstep(0.0, 1.0, (F.x - x) / 90.0) * smoothstep(0.0, 1.0, (x - F.y) / 110.0); }
+// 返回 (受光的一线, 背光的一线)
+vec2 rivLine(vec2 p, float hk){
+  float y = p.y, g = 1.0, gb = 0.0, edge = 1.0, calm = 1.0, em = 0.0, dl = 0.0;
+  for (int i = 0; i < 4; i++) {
+    vec4 X = uIsX[i], K = uIsK[i];
+    if (K.z < 0.003) continue;
+    float e = isEnv(K.z, uIsF[i], p.x), peb = K.w, d = abs(y - K.x);
+    // 离岸越远的水看到的洲越“钝”：洲头洲尾的转折被抹开，远处的线提前让路、迟一点合拢，不折角
+    float sg = clamp(0.9 * (d - K.y), 0.0, 34.0);
+    float h = K.y * (0.5 * isShape(X, p.x) + 0.25 * (isShape(X, p.x - sg) + isShape(X, p.x + sg))) * e * hk;
+    if (h > 0.02) {
+      float d0 = pow(max(pow(d, 1.5) - pow(h, 1.5), 0.0), 0.66667);
+      edge *= smoothstep(-0.7, 0.5, d - h);
+      float gi = sqrt(max(d, h) / max(d0, 0.05));
+      g *= gi; gb += (min(gi, 3.5) - 1.0) * smoothstep(0.5, 6.0, h) * mix(1.0, 0.5, peb);
+      y = K.x + (y < K.x ? -d0 : d0);
+    }
+    if (peb < 0.5 && p.x >= X.w) {
+      calm *= 1.0 - 0.45 * e * exp(-d * d / 90.0) * exp(-(p.x - X.w) / 70.0);
+    }
+    float q = (y - K.x) / mix(46.0, 20.0, peb), wq = e * mix(1.0, 0.4, peb) * exp(-q * q);
+    em = max(em, wq);
+    // 把线阵对到洲心：洲的两岸各有一根线贴着，岸线才稳定、对称
+    dl = mix(dl, -(fract(K.x / 4.0 + 0.5) - 0.5) * 4.0, wq);
+  }
+  y -= 1.1 * sin(p.x * 0.012 + y * 0.07 + uRivK.w * 0.35);
+  float f = (y + dl) / 4.0, id = floor(f), t = (fract(f) - 0.5) * 4.0;
+  float ds = t / g, dens = g / 4.0, w = 0.5;
+  float li = exp(-ds * ds / (w * w)), z = ds - 0.9, sh = exp(-z * z / (w * w * 1.6));
+  float k = smoothstep(0.5, 0.9, dens), mean = min(1.0, 1.772 * w * dens);
+  li = mix(li, mean, k); sh = mix(sh, mean * 0.6, k);
+  // 顺水走的光：每根线上隔很远有一小段更亮，柔的，没有端点
+  float pu = fract((p.x - uRivK.w * (30.0 + 26.0 * rHash(id + 7.0))) / 250.0 + rHash(id)) - 0.5;
+  float glint = exp(-pu * pu * 250.0);
+  float A = (0.11 + 0.45 * em) * (0.72 + 0.28 * sin(p.x * 0.006 + y * 0.021 + uRivK.w * 0.06)) * (0.8 + 0.2 * rHash(id + 71.3)) * (1.0 + (0.5 + 0.9 * em) * glint);
+  float B = 1.0 + uRivK.x * 2.2 * gb;
+  return vec2(li * A * B, sh * A * (0.6 + 0.4 * B)) * edge * calm;
+}
+vec3 river(vec3 c, vec2 p){
+  float fx = clamp(min(p.x / uRiv.z, (uRiv.y - p.x) / uRiv.w), 0.0, 1.0);
+  if (fx <= 0.0) return c;
+  float qy = (p.y - uRivY.x) / 52.0;
+  if (uRivY.y > 0.5) fx *= exp(-qy * qy);
+  // 洲尾的淤沙：不是颗粒，是背水面一片被垫高、略亮略暖的浅滩，往洲尾和两岸淡出
+  float shoal = 0.0;
+  for (int i = 0; i < 4; i++) {
+    vec4 X = uIsX[i], K = uIsK[i];
+    if (K.z < 0.003 || K.w > 0.5) continue;
+    float e = isEnv(K.z, uIsF[i], p.x), h = K.y * isShape(X, p.x) * e, d = abs(p.y - K.x);
+    if (h > 0.5) { float r = min(d / h, 1.0); shoal = max(shoal, e * (1.0 - r * r) * (1.0 - r * r) * smoothstep(X.z - 2.0, X.z + 18.0, p.x) * min(1.0, h / 5.0)); }
+  }
+  c = mix(c, vec3(1.0, 0.988, 0.955), 0.5 * uRivK.y * shoal * fx);
+  vec2 r = rivLine(p, 0.965), g = rivLine(p, 1.0), b = rivLine(p, 1.05);
+  vec3 li = vec3(r.x, g.x, b.x) * fx, sh = vec3(r.y, g.y, b.y) * fx;
+  c *= 1.0 - min(sh, 1.0) * vec3(0.3, 0.15, 0.03);
+  return c + (1.0 - c) * min(li, 1.0) * vec3(0.94, 0.98, 1.0);
+}
+// 玻璃底下：床面、深处的缓流、纸落下来的影子、有含义的流
+vec3 scene(vec2 p){
+  vec2 q = (p / uView - vec2(0.6, 0.38)) / vec2(1.2, 0.9);
+  vec3 c = mix(uBedHi, uBedLo, smoothstep(0.0, 0.8, length(q)));
+  vec2 b = p + uOffDeep * 1.3;
+  float pool = 0.0, ring = 0.0, fine = step(4.5, uMode);
+  if (uMode > 3.5 && uLensK[0].y > 0.003) {
+    vec4 R = uLens[0] + vec4(0.0, 0.0, 7.0 * fine * step(0.5, uBevel), 0.0);
+    vec2 lh = max((R.zw - R.xy) * 0.5, vec2(1.0));
+    vec3 dn = sdn(p + uOffDeep * 0.5 - mix(vec2(4.5, 8.0), vec2(3.0, 5.5), fine) - (R.xy + R.zw) * 0.5, lh, min(lh.x, lh.y));
+    if (dn.x < 26.0) {
+      if (fine > 0.5) pool = cap(dn.x, dn.y).x * uLensK[0].y;
+      else { vec3 rl = relief(dn.x) * uLensK[0].y; pool = rl.x; ring = rl.z; }
+    }
+  }
+  float d = length(fract(b / 22.0) - 0.5) * 22.0;
+  c = mix(c, uDot, (1.0 - smoothstep(0.5, 1.3, d)) * 0.1 * (1.0 - 0.6 * fine * pool));
+  vec2 pd = uvOf(p + uOffDeep), o = vec2(7.0, 4.0) / (uView + 2.0 * uPad), r = vec2(o.y, -o.x);
+  vec4 dp = texture2D(uDeep, pd) * 0.3 + (texture2D(uDeep, pd + o) + texture2D(uDeep, pd - o)) * 0.2 + (texture2D(uDeep, pd + r) + texture2D(uDeep, pd - r)) * 0.15;
+  c = lit(c, dp * (1.0 + 0.55 * fine * pool), 0.8);
+  c *= 1.0 + 0.07 * pool + 0.06 * ring;
+  if (uRiv.x > 0.5) c = river(c, p + uOffMid);
+  float sh = 0.0;
+  for (int i = 0; i < 3; i++) {
+    if (uPapK[i].z > 0.003) sh = max(sh, uPapK[i].z * (1.0 - smoothstep(-13.0, 15.0, papSd(b - vec2(9.0, 16.0), uPap[i], uPapK[i]))) * smoothstep(-4.0, 1.0, papSd(p, uPap[i], uPapK[i])));
+  }
+  c = mix(c, uShade, sh * 0.2);
+  vec2 pm = uvOf(p + uOffMid);
+  c = lit(c, texture2D(uMid, pm), 1.2);
+  return lit(c, texture2D(uNear, pm), 1.2);
+}
+// 表面的反光：一扇窗，左沿利落，往右散开
+float refl(vec2 p){
+  float t = (p.x + (p.y - uView.y * 0.5) * 0.32) / uView.x - uPtr.x * 0.05 - 0.47;
+  float a = smoothstep(-0.0015, 0.0, t) * (1.0 - smoothstep(0.0, 0.2, t));
+  float m = smoothstep(-0.052, -0.0505, t) * (1.0 - smoothstep(-0.022, -0.0205, t));
+  return (a * 0.06 + m * 0.03) * (1.0 - 0.45 * p.y / uView.y);
+}
+// 玻璃本体：左侧一条切边露出厚度，其余只有极淡的体色和反光
+vec3 slab(vec2 p){
+  float x = p.x, e = x - uBevel, rf;
+  vec3 c;
+  if (uBevel > 0.0 && e < 0.0) {
+    float u = -e / uBevel, k = uBevel * 1.15 * u * u;
+    c = vec3(scene(p + vec2(k, 0.0)).r, scene(p + vec2(k * 1.09, 0.0)).g, scene(p + vec2(k * 1.18, 0.0)).b);
+    c *= mix(vec3(1.0), uEdgeTint, 0.3 + 0.7 * pow(u, 0.8));
+    c += 0.07 * u * u;
+    float z = (u - 0.52) / 0.05;
+    c += 0.05 * exp(-z * z);
+    z = (e + 2.4) / 1.3;
+    c *= 1.0 - 0.12 * exp(-z * z);
+    c += 0.2 * exp(-x * x / 1.5);
+    rf = refl(p + vec2(70.0, 0.0)) * 0.6;
+  } else {
+    c = scene(p);
+    if (uBevel > 0.0) { c = mix(c, c * uEdgeTint, 0.22 * exp(-e / 46.0)); c *= 1.0 - 0.05 * exp(-e / 9.0); }
+    rf = refl(p);
+  }
+  c = mix(c, uTint, 0.05) + rf;
+  if (uBevel > 0.0) { float gy = (p.y - (uPtr.y * 0.5 + 0.5) * uView.y) / 240.0; c += (0.26 + 0.55 * exp(-gy * gy)) * exp(-e * e / 0.8); }
+  return c;
+}
+// 一滴玻璃（v1）：边缘把底下的东西折向中心，朝光一侧内暗外亮，背光一侧聚出一弯焦散
+// uMode 1 去投影，2 再去提白，3 闭合的边线改成只在朝光一侧的开口弧
+vec3 lens(vec3 c, vec2 p, vec4 R, vec2 K){
+  if (K.y < 0.003) return c;
+  vec2 lh = max((R.zw - R.xy) * 0.5, vec2(1.0)), q = p - (R.xy + R.zw) * 0.5;
+  float r = min(K.x, min(lh.x, lh.y)), d = sdBox(q, lh, r);
+  if (d > 20.0) return c;
+  vec2 n = normalize(vec2(sdBox(q + vec2(1.0, 0.0), lh, r) - sdBox(q - vec2(1.0, 0.0), lh, r), sdBox(q + vec2(0.0, 1.0), lh, r) - sdBox(q - vec2(0.0, 1.0), lh, r)) + 1e-5);
+  float ndl = dot(n, normalize(vec2(-0.55 - 0.3 * uPtr.x, -0.83 - 0.15 * uPtr.y)));
+  float back = max(-ndl, 0.0), face = max(ndl, 0.0), z = (d - 1.8) / 1.5;
+  vec3 o = c * (1.0 - 0.13 * step(uMode, 0.5) * exp(-max(sdBox(q - vec2(1.5, 4.0), lh, r), 0.0) / 6.0)) + 0.07 * exp(-z * z) * back * back;
+  if (d > 0.5) return mix(c, o, K.y);
+  float w = min(r, 12.0), t = 1.0 - clamp(-d / w, 0.0, 1.0);
+  vec2 off = -q * 0.09 - n * w * 1.15 * pow(t, 2.6);
+  vec3 l = vec3(slab(p + off * 0.93).r, slab(p + off).g, slab(p + off * 1.07).b);
+  l = mix(l, uLensTint, 0.16 * step(uMode, 1.5));
+  l *= 1.0 - 0.11 * pow(t, 1.3) * face;
+  l += vec3(1.0, 0.99, 0.95) * 0.17 * pow(t, 1.7) * pow(back, 1.4);
+  if (uMode < 2.5) {
+    float sp = 0.05 + 0.95 * pow(face, 3.0) + 0.6 * pow(back, 5.0);
+    vec3 g = (vec3(d) + vec3(1.2, 0.9, 0.6)) / 0.6;
+    l += exp(-g * g) * sp;
+    z = (d + 0.3) / 0.8;
+    l *= 1.0 - 0.07 * exp(-z * z) * (1.0 - min(sp, 1.0));
+  } else {
+    z = (d + 0.9) / 0.5;
+    l += exp(-z * z) * (0.95 * pow(face, 4.0) + 0.3 * pow(back, 8.0));
+  }
+  return mix(c, mix(o, l, smoothstep(0.5, -0.5, d)), K.y);
+}
+// 消融第 4 步：把 v1 的硬边换成对称缓坡的高度场。折射、高光、亮池和暗环都由同一个剖面推出
+vec3 plate(vec3 c, vec2 p, vec4 R, vec2 K){
+  if (K.y < 0.003) return c;
+  vec2 lh = max((R.zw - R.xy) * 0.5, vec2(1.0)), q = p - (R.xy + R.zw) * 0.5;
+  vec3 dn = sdn(q, lh, min(lh.x, lh.y));
+  if (dn.x > 26.0) return c;
+  vec3 rl = relief(dn.x);
+  if (rl.x + rl.y < 0.002) return c;
+  vec2 off = -dn.yz * 9.5 * rl.y - q * 0.07 * rl.x;
+  vec3 l = vec3(slab(p + off * 0.93).r, slab(p + off).g, slab(p + off * 1.07).b);
+  float ndl = dot(dn.yz, normalize(vec2(-0.55 - 0.3 * uPtr.x, -0.83 - 0.15 * uPtr.y)));
+  l += pow(rl.y, 60.0) * (0.55 * pow(max(ndl, 0.0), 4.0) + 0.16 * pow(max(-ndl, 0.0), 8.0));
+  return mix(c, l, K.y);
+}
+// 最终候选：板在“你所在的地方”鼓起一座岛。没有描边、没有投影、不提白，没有任何一笔是画上去的：
+// 坡把底下的东西折向岛心，越靠边折得越狠，所以轮廓是折射自己断出来的；
+// 最陡的那一线映出窗光，只在朝光一侧，是一道开口的弧；朝光的坡内侧略暗，背光的坡聚出一弯焦散；
+// 下游一侧拖长、坡更缓（窄屏导航是横排，不拖长，免得压到下一项）。床面上的亮池在 scene 里，颜色取自正好流过它的那条流
+vec3 island(vec3 c, vec2 p, vec4 R, vec2 K){
+  if (K.y < 0.003) return c;
+  R.z += 7.0 * step(0.5, uBevel);
+  vec2 lh = max((R.zw - R.xy) * 0.5, vec2(1.0)), q = p - (R.xy + R.zw) * 0.5;
+  vec3 dn = sdn(q, lh, min(lh.x, lh.y));
+  if (dn.x > 1.5) return c;
+  vec3 cp = cap(dn.x, dn.y);
+  vec2 off = -dn.yz * 13.0 * cp.y - q * 0.08 * cp.x;
+  vec3 l = vec3(slab(p + off * 0.93).r, slab(p + off).g, slab(p + off * 1.07).b);
+  float ndl = dot(dn.yz, normalize(vec2(-0.55 - 0.3 * uPtr.x, -0.83 - 0.15 * uPtr.y))), face = max(ndl, 0.0), back = max(-ndl, 0.0);
+  l *= 1.0 - 0.1 * cp.z * face;
+  l += vec3(1.0, 0.99, 0.95) * 0.15 * cp.z * pow(back, 1.4);
+  l += pow(cp.y, 10.0) * (0.75 * pow(face, 4.0) + 0.2 * pow(back, 8.0));
+  return mix(c, l, K.y);
+}
+void main(){
+  vec2 p = vec2(gl_FragCoord.x, uBufH - gl_FragCoord.y) / uDpr;
+  vec3 c = slab(p);
+  if (uMode > 4.5) c = island(c, p, uLens[0], uLensK[0]);
+  else if (uMode > 3.5) c = plate(c, p, uLens[0], uLensK[0]);
+  else { c = lens(c, p, uLens[0], uLensK[0]); c = lens(c, p, uLens[1], uLensK[1]); }
+  gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+}`;
+  function initGL() {
+    let g;
+    try { g = glc.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false, premultipliedAlpha: false }); } catch (e) { return; }
+    if (!g || g.isContextLost()) return;
+    const sh = (type, src) => { const o = g.createShader(type); g.shaderSource(o, src); g.compileShader(o); if (!g.getShaderParameter(o, g.COMPILE_STATUS)) throw new Error(g.getShaderInfoLog(o)); return o; };
+    const prog = g.createProgram();
+    try {
+      g.attachShader(prog, sh(g.VERTEX_SHADER, VS)); g.attachShader(prog, sh(g.FRAGMENT_SHADER, FS)); g.linkProgram(prog);
+      if (!g.getProgramParameter(prog, g.LINK_STATUS)) throw new Error(g.getProgramInfoLog(prog));
+    } catch (e) { console.warn(e); return; }
+    g.useProgram(prog);
+    g.bindBuffer(g.ARRAY_BUFFER, g.createBuffer());
+    g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), g.STATIC_DRAW);
+    const loc = g.getAttribLocation(prog, 'a'); g.enableVertexAttribArray(loc); g.vertexAttribPointer(loc, 2, g.FLOAT, false, 0, 0);
+    ['uView', 'uOffDeep', 'uOffMid', 'uPtr', 'uDpr', 'uBufH', 'uPad', 'uBevel', 'uMode', 'uDeep', 'uMid', 'uNear', 'uBedHi', 'uBedLo', 'uDot', 'uTint', 'uEdgeTint', 'uLensTint', 'uShade', 'uPap', 'uPapK', 'uLens', 'uLensK', 'uIsX', 'uIsK', 'uIsF', 'uRiv', 'uRivK', 'uRivY'].forEach(n => U[n] = g.getUniformLocation(prog, n));
+    g.pixelStorei(g.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+    ['deep', 'mid', 'near'].forEach((k, i) => {
+      g.activeTexture(g.TEXTURE0 + i); g.bindTexture(g.TEXTURE_2D, TX[k] = g.createTexture());
+      for (const [p, v] of [[g.TEXTURE_MIN_FILTER, g.LINEAR], [g.TEXTURE_MAG_FILTER, g.LINEAR], [g.TEXTURE_WRAP_S, g.CLAMP_TO_EDGE], [g.TEXTURE_WRAP_T, g.CLAMP_TO_EDGE]]) g.texParameteri(g.TEXTURE_2D, p, v);
+    });
+    g.uniform1i(U.uDeep, 0); g.uniform1i(U.uMid, 1); g.uniform1i(U.uNear, 2);
+    gl = g; glFresh = true;
+  }
+  function glColors(g) {
+    const v = k => parse(g(k)).map(x => x / 255);
+    gl.uniform3fv(U.uBedHi, v('--bed-hi')); gl.uniform3fv(U.uBedLo, v('--bed-lo')); gl.uniform3fv(U.uDot, v('--bed-dot'));
+    gl.uniform3fv(U.uTint, v('--glass-tint')); gl.uniform3fv(U.uEdgeTint, v('--edge-tint'));
+    gl.uniform3fv(U.uLensTint, v('--lens-tint')); gl.uniform3fv(U.uShade, v('--shadow'));
+  }
+  // 纸躺在玻璃上表面，影子落在玻璃底下的床面上，随视差错开：厚度是这样看出来的
+  const papers = $$('.paper').slice(0, 3).map(el => ({ el, r: [0, 0, 0, 0], rot: 0, rotT: 0, a: 0, aT: 0 }));
+  const papR = new Float32Array(12), papK = new Float32Array(9);
+  function papGeom() {
+    for (const p of papers) {
+      const b = p.el.getBoundingClientRect();
+      if (!b.width) { p.aT = 0; continue; }
+      const cs = getComputedStyle(p.el), pi = cs.getPropertyValue('--pi').trim().split(/\s+/).map(parseFloat).filter(x => x === x);
+      const t = pi.length ? pi[0] : 0, r = pi.length > 1 ? pi[1] : t, bt = pi.length > 2 ? pi[2] : t, l = pi.length > 3 ? pi[3] : r;
+      p.r = [b.left + l, b.top + t, b.right - r, b.bottom - bt];
+      p.rotT = (parseFloat(cs.getPropertyValue('--rot')) || 0) * Math.PI / 180;
+      p.aT = parseFloat(cs.opacity);
+    }
+  }
+  // 清透下，当前页的光聚成一滴玻璃；悬停时滑过去，前缘先到，后缘跟上，拉长时变细
+  const range = document.createRange(), groupsEl = $('.groups');
+  let navHover = null;
+  const lens = { el: null, r: null, o: [0, 0, 0, 0], v: [0, 0, 0, 0], a: 0 };
+  const lensR = new Float32Array(8), lensK = new Float32Array(4);
+  function lensGoal(el) {
+    const ir = el.getBoundingClientRect();
+    if (!ir.width) return null;
+    range.selectNodeContents(el);
+    const tr = range.getBoundingClientRect(), cy = (ir.top + ir.bottom) / 2;
+    lens.a = 1;
+    if (narrowMQ.matches) { const gr = groupsEl.getBoundingClientRect(), cx = (tr.left + tr.right) / 2; lens.a = Math.max(0, Math.min(1, (gr.right - cx) / (gr.width * .18), (cx - gr.left) / 16)); }
+    return [tr.left - 15, cy - 15.5, tr.right + 15, cy + 15.5];
+  }
+  function stepLens(dt, moving) {
+    const el = navHover || $('.rail .item[aria-current="page"]'), g = el && lensGoal(el);
+    if (!g) { lens.el = lens.r = null; return 0; }
+    if (lens.el !== el) {
+      lens.o = lens.r && moving ? lens.r.map((x, i) => x - g[i]) : [0, 0, 0, 0];
+      if (!lens.r || !moving) lens.v = [0, 0, 0, 0];
+      lens.el = el;
+    }
+    const o = lens.o, dx = -Math.sign(o[0] + o[2]), dy = -Math.sign(o[1] + o[3]);
+    const n = Math.max(1, Math.ceil(dt * 120)), h = dt / n;
+    for (let s = 0; s < n; s++) for (let i = 0; i < 4; i++) {
+      const lead = i === 0 ? dx < 0 : i === 2 ? dx > 0 : i === 1 ? dy < 0 : dy > 0;
+      const k = lead ? 720 : 210, z = 2 * Math.sqrt(k) * (MODE === 5 ? .95 : .78);
+      lens.v[i] += (-k * o[i] - z * lens.v[i]) * h;
+      o[i] += lens.v[i] * h;
+    }
+    const r = lens.r = g.map((x, i) => x + o[i]);
+    const sx = Math.max(0, Math.min(7, ((r[3] - r[1]) - (g[3] - g[1])) * .1)), sy = Math.max(0, Math.min(3, ((r[2] - r[0]) - (g[2] - g[0])) * .04));
+    lensR.set([r[0] + sx, r[1] + sy, r[2] - sx, r[3] - sy]);
+    return lens.a;
+  }
+  $$('.rail .item').forEach(a => {
+    a.addEventListener('pointerenter', () => { navHover = a; wake(); });
+    a.addEventListener('focus', () => { navHover = a; wake(); });
+    a.addEventListener('blur', () => { if (navHover === a) navHover = null; wake(); });
+  });
+  $('.rail').addEventListener('pointerleave', () => { navHover = null; wake(); });
+  function drawGlass(deepDirty, dt, moving) {
+    const up = (i, k) => { gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, TX[k]); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, L[k].el); };
+    if (deepDirty || glFresh) up(0, 'deep');
+    up(1, 'mid');
+    if (nearInk || nearWas || glFresh) up(2, 'near');
+    nearWas = nearInk; glFresh = false;
+    gl.viewport(0, 0, glc.width, glc.height);
+    gl.uniform2f(U.uView, W, H); gl.uniform1f(U.uDpr, glc.width / W); gl.uniform1f(U.uBufH, glc.height); gl.uniform1f(U.uPad, PAD);
+    gl.uniform2f(U.uOffDeep, mxS * 14, myS * 10); gl.uniform2f(U.uOffMid, mxS * 4, myS * 3);
+    gl.uniform1f(U.uBevel, narrowMQ.matches ? 0 : 20);
+    gl.uniform2f(U.uPtr, mxS, myS); gl.uniform1f(U.uMode, MODE);
+    const kk = moving ? Math.min(1, dt * 7) : 1;
+    papers.forEach((p, i) => {
+      p.rot += (p.rotT - p.rot) * kk; p.a += (p.aT - p.a) * kk;
+      papR.set(p.r, i * 4); papK.set([Math.sin(p.rot), Math.cos(p.rot), p.a], i * 3);
+    });
+    gl.uniform4fv(U.uPap, papR); gl.uniform3fv(U.uPapK, papK);
+    lensK[0] = 99; lensK[1] = FLOW ? 0 : stepLens(dt, moving);
+    const sb = $('[data-glass-set][aria-pressed="true"]'), br = sb && sb.getBoundingClientRect();
+    if (MODE < 4 && br && br.width) { lensR.set([br.left, br.top, br.right, br.bottom], 4); lensK[2] = 8; lensK[3] = 1; } else lensK[3] = 0;
+    gl.uniform4fv(U.uLens, lensR); gl.uniform2fv(U.uLensK, lensK);
+    riverUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  initGL();
+  const glSwap = () => { readTheme(); resize(); syncPressed(); settle(300); };
+  glc.addEventListener('webglcontextlost', e => { e.preventDefault(); gl = null; glSwap(); });
+  glc.addEventListener('webglcontextrestored', () => { initGL(); glSwap(); });
+
+  const parse = v => {
+    v = v.trim();
+    if (v[0] === '#') {
+      if (v.length === 4) v = '#' + v.slice(1).split('').map(c => c + c).join('');
+      return [1, 3, 5].map(i => parseInt(v.slice(i, i + 2), 16));
+    }
+    return (v.match(/[\d.]+/g) || [0, 0, 0]).slice(0, 3).map(Number);
+  };
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${Math.max(0, Math.min(1, a)).toFixed(3)})`;
+  const lighten = (c, k) => c.map(x => Math.round(x + (255 - x) * k));
+  function readTheme() {
+    const dark = getComputedStyle(root).getPropertyValue('--is-dark').trim() === '1';
+    const liquid = !dark && !!gl;
+    if (liquid) root.dataset.mat = 'liquid'; else delete root.dataset.mat;
+    if (liquid && MODE > 3) root.dataset.lens = 'plate'; else delete root.dataset.lens;
+    const cs = getComputedStyle(root), g = k => cs.getPropertyValue(k);
+    theme = { dark, liquid, gain: dark ? 1 : 1.7, coreK: dark ? .25 : .55, flow: parse(g('--s-flow')), flow2: parse(g('--s-flow-2')), amber: parse(g('--s-amber')) };
+    if (liquid) glColors(g);
+  }
+
+  // 玻璃厚度不均：一次性画好的云纹，固定种子
+  function drawCloud() {
+    const w = cloud.width = Math.max(1, Math.round(W / 4)), h = cloud.height = Math.max(1, Math.round(H / 4));
+    const c = cloud.getContext('2d');
+    let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    c.clearRect(0, 0, w, h);
+    for (let i = 0; i < 26; i++) {
+      const x = rnd() * w, y = rnd() * h, r = (.15 + rnd() * .35) * Math.max(w, h), light = rnd() > .5;
+      const g = c.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, light ? 'rgba(255,255,255,.24)' : 'rgba(0,0,0,.2)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      c.fillStyle = g; c.fillRect(0, 0, w, h);
+    }
+  }
+  function resize() {
+    W = innerWidth; H = innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    L.deep.scale = theme.liquid ? .25 : .5; L.mid.scale = theme.liquid ? Math.min(dpr, narrowMQ.matches ? 1 : FLOW ? 1.5 : 1.25) : .5;
+    L.near.scale = theme.liquid ? Math.min(dpr, narrowMQ.matches ? 1 : 1.5) : Math.min(dpr, 2);
+    if (gl) { const s = Math.min(dpr, 2); glc.width = Math.max(1, Math.round(W * s)); glc.height = Math.max(1, Math.round(H * s)); glFresh = true; }
+    for (const k in L) {
+      const l = L[k];
+      l.el.width = Math.max(1, Math.round((W + PAD * 2) * l.scale));
+      l.el.height = Math.max(1, Math.round((H + PAD * 2) * l.scale));
+      l.ctx = l.el.getContext('2d');
+    }
+    drawCloud();
+  }
+  function begin(l) {
+    const c = l.ctx;
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.globalCompositeOperation = 'source-over';
+    c.clearRect(0, 0, l.el.width, l.el.height);
+    c.setTransform(l.scale, 0, 0, l.scale, PAD * l.scale, PAD * l.scale);
+    c.globalCompositeOperation = 'lighter';
+    c.lineCap = 'round';
+    return c;
+  }
+
+  // 深处：从左往右、有方向的细颗粒流；总量应绑定真实拉取速率
+  const lanes = Array.from({ length: 8 }, (_, i) => ({
+    y: .1 + i * .115 + (rnd() - .5) * .05, amp: 18 + rnd() * 30, f: .0018 + rnd() * .0015, ph: rnd() * 6.28,
+    c: i % 3 === 1 ? 'flow2' : 'flow',
+    dots: Array.from({ length: 36 }, () => ({ x: rnd(), v: 12 + rnd() * 28, o: (rnd() - .5) * 28, s: 1.3 + rnd() * 1.3, a: .25 + rnd() * .5 })),
+  }));
+  let deepAcc = 0;
+  function drawDeep(dt, moving) {
+    deepAcc += dt;
+    if (moving && deepAcc < 1 / 30) return false;
+    const step = deepAcc; deepAcc = 0;
+    const c = begin(L.deep), span = W + 200, liquid = theme.liquid;
+    lanes.forEach((ln, i) => {
+      const col = theme[ln.c];
+      const yAt = x => ln.y * H + ln.amp * Math.sin(x * ln.f + ln.ph + T * .05);
+      c.beginPath();
+      for (let x = -60; x <= W + 60; x += 40) { const y = yAt(x); x === -60 ? c.moveTo(x, y) : c.lineTo(x, y); }
+      if (liquid) {
+        // 清透下深处没有磨砂替它虚化：画成缓慢漂移的宽光带，颗粒拉成长而淡的丝
+        const m = ((ln.ph / 6.28 + T * .012) % 1.6) - .3, gr = c.createLinearGradient((m - .3) * W, 0, (m + .3) * W, 0);
+        gr.addColorStop(0, rgba(col, 0)); gr.addColorStop(.5, rgba(col, i % 2 ? .07 : .045)); gr.addColorStop(1, rgba(col, 0));
+        c.strokeStyle = gr; c.lineWidth = 110; c.stroke(); c.lineWidth = 44; c.stroke();
+      } else { c.strokeStyle = rgba(col, theme.dark ? .07 : .12); c.lineWidth = 40; c.stroke(); }
+      for (const d of ln.dots) {
+        if (moving) { d.x += d.v * step * (1 + boost * 1.5) / span; if (d.x > 1) d.x -= 1; }
+        const tail = liquid ? 40 + d.v * 2.4 : 14, x = d.x * span - 100, y = yAt(x) + d.o, y0 = yAt(x - tail) + d.o;
+        if (liquid) { c.strokeStyle = rgba(col, d.a * .13); c.lineWidth = d.s * 2.6; }
+        else { c.strokeStyle = rgba(lighten(col, theme.dark ? 0 : .4), d.a * (theme.dark ? .7 : 1)); c.lineWidth = d.s * (theme.dark ? 1 : 1.3); }
+        c.beginPath(); c.moveTo(x - tail, y0); c.lineTo(x, y); c.stroke();
+      }
+    });
+    return true;
+  }
+
+  // 形由流成：选中态不画在玻璃上，而是长在玻璃下的水里。导航底下是一片细流，
+  // 当前页是水里的一处沙洲：流线分开绕过它，贴岸挤密，密到一定程度就是岸线；下游拖出一小段静水。
+  // 沙淤在标签下游的背水面：贴着标签密、往洲尾渐稀，粗的近、细的远。
+  // 换页要比稳态更安静：水慢慢合拢，沙慢慢落下，没有冲击。别的标签是水里的小石头，水从字底下淡下去。
+  // 三档克制程度：a 最轻（轻微分流、一小片沙楔、换页只是淡入淡出）；b 居中（旧洲慢慢沉下去、新洲慢慢淤出来）；
+  // c 最显（从洲头往洲尾依次冲散和长出，岸上有光点）。另有两种完全不同的介质反应：
+  // d 只有流（不画流线也不落沙，只剩顺水走的细丝，绕开的那块空就是形）；e 汇流（水不绕开，而是往标签底下收成一股，再散开）。
+  // 不带 ?v 时清透用 a、烟熏用 c；?v=a|b|c|d|e 两个主题都按指定的来
+  const RVS = {
+    a: { b: 11.5, tail: [56, 1.2], bank: .5, sand: 110, flank: 0, tone: .5, glint: 0, peb: 0, trans: 'none' },
+    b: { b: 14, tail: [84, 1.7], bank: .72, sand: 220, flank: .16, tone: .8, glint: .5, peb: 1, trans: 'settle' },
+    c: { b: 15, tail: [100, 2], bank: 1, sand: 340, flank: .22, tone: 1, glint: 1, peb: 1, trans: 'wash' },
+    d: { b: 14, tail: [84, 1.7], bank: 0, sand: 0, flank: 0, tone: 0, glint: 0, peb: 1, trans: 'settle', dust: 1 },
+    e: { b: 14, tail: [84, 1.7], bank: .42, sand: 0, flank: 0, tone: 0, glint: 0, peb: 0, trans: 'settle', chan: 1 },
+  };
+  const RVQ = RVS[Q.get('v')];
+  // 清透下 a/b/c 的流线、岸线和淤沙都在着色器里（river()）；?river=2d 退回画在 mid 层上的旧版。d/e 和烟熏仍走 2D
+  const RIV2D = Q.get('river') === '2d';
+  const rivGL = () => theme.liquid && !RIV2D && RV && !RV.dust && !RV.chan;
+  const isX = new Float32Array(16), isK = new Float32Array(16), isF = new Float32Array(8);
+  function riverUniforms() {
+    const on = FLOW && rivGL();
+    gl.uniform4f(U.uRiv, on ? 1 : 0, 0, 1, 1);
+    if (!on) return;
+    const narrow = narrowMQ.matches, wash = RV.trans === 'wash';
+    let top = null;
+    for (const i of riv.isl) if (!i.peb && !i.dead) top = i;
+    isK.fill(0);
+    // 着色器是反推，顺序要倒过来
+    riv.isl.slice(-4).reverse().forEach((i, n) => {
+      isX.set([i.xs, i.xl, i.xr, i.xe], n * 4);
+      isK.set([i.cy, i.b, i.peb || !wash ? i.amp : 1, i.peb ? 1 : 0], n * 4);
+      isF.set(i.peb || !wash ? [1e5, -1e5] : [i.t >= 9 ? 1e5 : i.xs + GROW * i.t, i.dead ? i.xs - 110 + WASH * i.td : -1e5], n * 2);
+    });
+    gl.uniform4fv(U.uIsX, isX); gl.uniform4fv(U.uIsK, isK); gl.uniform2fv(U.uIsF, isF);
+    gl.uniform4f(U.uRiv, 1, narrow ? W + 20 : 380, narrow ? 40 : 18, narrow ? W * .35 : 170);
+    gl.uniform4f(U.uRivK, RV.bank, RV.sand / 340 + .35 * RV.tone, RV.glint, T % 4000);
+    gl.uniform2f(U.uRivY, top ? top.cy : H / 2, narrow ? 1 : 0);
+  }
+  let RV = null;
+  const riv = { isl: [], el: null, hov: null, parts: null, loose: [], first: true, railR: 232, spr: null, sprKey: '' };
+  const railEl = $('.rail'), SP = 4, GROW = 240, WASH = 200;
+  const hash = k => { const x = Math.sin(k * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+  const lineY = k => k * SP + (hash(k) - .5) * 2.4, lineW = k => .4 + .6 * hash(k + 71.3);
+  const sm = t => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
+  // 绕流：离洲心 d 的水被推到 (d^1.5 + h^1.5)^(2/3)。贴岸的几根挤在一起但还分得开，越往外越松
+  const part = (d, h) => { const v = d * Math.sqrt(d) + h * Math.sqrt(h); return Math.cbrt(v * v); };
+  function islGoal(el, peb) {
+    const ir = el.getBoundingClientRect();
+    if (!ir.width) return null;
+    range.selectNodeContents(el);
+    const tr = range.getBoundingClientRect(), tw = tr.right - tr.left, narrow = narrowMQ.matches;
+    return { cy: (ir.top + ir.bottom) / 2, xl: tr.left, xr: tr.right, xs: tr.left - (peb ? 14 : narrow ? 14 : 15),
+      xe: Math.min(tr.right + (peb ? 30 : narrow ? 18 : Math.max(RV.tail[0], RV.tail[1] * tw)), riv.railR + 8), b: peb ? 6.5 : narrow ? Math.min(13, RV.b) : RV.b };
+  }
+  function islShape(i, x) {
+    if (x <= i.xs || x >= i.xe) return 0;
+    const xn = i.xl + 4;
+    return x < xn ? Math.pow(Math.sin(Math.PI / 2 * (x - i.xs) / (xn - i.xs)), .8) : x < i.xr + 2 ? 1 : Math.pow(1 - Math.pow((x - i.xr - 2) / (i.xe - i.xr - 2), 1.6), 1.25);
+  }
+  function islEnv(i, x) {
+    if (i.peb || RV.trans !== 'wash') return i.amp;
+    let e = i.t >= 9 ? 1 : sm((i.xs + GROW * i.t - x) / 90);
+    if (i.dead) e *= sm((x - (i.xs - 110 + WASH * i.td)) / 110);
+    return e;
+  }
+  const islH = (i, x) => { if (RV.chan) return 0; const s = islShape(i, x); return s > 0 ? i.b * s * islEnv(i, x) : 0; };
+  // 汇流：标签底下 13px 处是水道中心，两侧的水被收过来
+  const chanG = (i, x) => RV.chan && !i.peb ? i.amp * sm((x - i.xl + 44) / 44) * sm((i.xr + 80 - x) / 80) : 0;
+  function riverY(y0, x) {
+    let y = y0 + 1.1 * Math.sin(x * .012 + y0 * .07 + T * .35);
+    for (const i of riv.isl) {
+      const h = islH(i, x);
+      if (h > 0) y = i.cy + (y0 >= i.cy ? 1 : -1) * part(Math.abs(y - i.cy), h);
+      else if (RV.chan) { const g = chanG(i, x); if (g > 0) { const yc = i.cy + 13, d = y - yc; y = yc + d * (1 - .86 * g * Math.exp(-d * d / 1600)); } }
+    }
+    return y;
+  }
+  function riverSpeed(y0, x) {
+    let k = 1;
+    if (RV.chan) return k;
+    for (const i of riv.isl) {
+      const e = i.peb ? i.amp * .4 : i.pres;
+      if (e < .02) continue;
+      const d0 = y0 - i.cy, h = islH(i, x), near = Math.exp(-(d0 * d0) / (i.b * i.b * 1.6)), n = (x - i.xs) / 16;
+      if (h > 0) k *= Math.min(1.6, Math.sqrt(part(Math.abs(d0), h) / Math.max(Math.abs(d0), 4)));
+      k *= 1 - .6 * e * near * Math.exp(-n * n);
+      if (x > i.xe) k *= 1 - .5 * e * near * Math.exp(-(x - i.xe) / 100);
+    }
+    return Math.max(.2, k);
+  }
+  // 沙的落点：背水面的一枚楔形，绕着标签末端收一个弧；可以有一小部分贴在标签两侧的岸内。字上不落沙
+  function sandSpot(i, narrow) {
+    if (rnd() < (narrow ? .5 : RV.flank)) {
+      const x = i.xl - 10 + (i.xr - i.xl + 14) * rnd(), h = i.b * islShape(i, x);
+      return { dx: x - i.xr, dy: (rnd() < .5 ? -1 : 1) * h * (.68 + .26 * rnd()), u: .3 * rnd() };
+    }
+    for (let t = 0; t < 6; t++) {
+      const u = Math.pow(rnd(), 1.7), x = i.xr - 2 + (i.xe - i.xr - 2) * u, dy = (rnd() * 2 - 1) * i.b * islShape(i, x) * .9;
+      if (x - i.xr > 13 - Math.abs(dy) * 1.1) return { dx: x - i.xr, dy, u };
+    }
+    return { dx: 16, dy: (rnd() * 2 - 1) * i.b * .8, u: .1 };
+  }
+  function newIsland(el, formed) {
+    const g = islGoal(el);
+    if (!g) return null;
+    const narrow = narrowMQ.matches, tr = RV.trans, i = Object.assign({ el, t: formed ? 9 : 0, amp: formed ? 1 : 0, dead: false, td: 0, pres: formed ? 1 : 0, sand: [] }, g);
+    for (let k = 0, n = Math.round(RV.sand * (narrow ? .4 : 1)); k < n; k++) {
+      const s = Object.assign(sandSpot(i, narrow), { k: 1, wait: 0, off: 0, dur: 1, dr: 0, tone: k % 5 === 0 });
+      s.s = .7 + 1.3 * Math.pow(rnd(), 2.5) * (1 - .6 * s.u); s.a = (.95 - .45 * s.u) * (.6 + .4 * rnd());
+      s.dv = 10 + rnd() * 20; s.d0 = (s.dy < 0 ? -1 : 1) * (.5 + rnd() * 5);
+      if (!formed && tr === 'settle') Object.assign(s, { k: 0, wait: .2 + s.u * 1.0 + rnd() * .4, off: 6 + rnd() * 12, dur: .8 + rnd() * .5 });
+      if (!formed && tr === 'wash') Object.assign(s, { k: 0, wait: Math.max(0, i.xr + s.dx - i.xs) / GROW + .15 + rnd() * .4, off: 24 + rnd() * 40, dur: .7 + rnd() * .5 });
+      i.sand.push(s);
+    }
+    return i;
+  }
+  // 一粒沙此刻在哪、有多实：落定前在落点上游一点，慢下来停住
+  function sandAt(i, s) {
+    const tx = i.xr + s.dx + s.dr, ty = i.cy + s.dy, e = 1 - (1 - s.k) * (1 - s.k), x = tx - s.off * (1 - e);
+    const y = s.k < 1 && RV.trans === 'wash' ? riverY(i.cy + s.d0, x) * (1 - sm(e * 1.3)) + ty * sm(e * 1.3) : ty;
+    return [x, y, Math.min(1, s.k * 2.5) * (RV.trans === 'wash' ? 1 : i.amp * (i.dead ? i.amp : 1))];
+  }
+  function stepRiver(dt, moving) {
+    const rv = RVQ || (theme.dark ? RVS.c : RVS.a);
+    if (rv !== RV) { RV = rv; riv.isl = []; riv.loose = []; riv.parts = null; riv.el = riv.hov = null; riv.first = true; }
+    const el = $('.rail .item[aria-current="page"]'), narrow = narrowMQ.matches, tr = RV.trans;
+    riv.railR = narrow ? 1e5 : railEl.getBoundingClientRect().right;
+    if (el !== riv.el) {
+      for (const i of riv.isl) if (!i.peb && !i.dead) { i.dead = true; i.td = 0; }
+      const i = el && newIsland(el, riv.first || !moving);
+      if (i) riv.isl.push(i);
+      riv.el = el; riv.first = false;
+    }
+    const hv = RV.peb && navHover && navHover !== el && !narrow ? navHover : null;
+    if (hv !== riv.hov) {
+      for (const i of riv.isl) if (i.peb) i.target = 0;
+      const p = hv && riv.isl.find(i => i.peb && i.el === hv), g = hv && !p && islGoal(hv, true);
+      if (p) p.target = 1; else if (g) riv.isl.unshift(Object.assign({ el: hv, peb: true, amp: 0, target: 1, sand: [] }, g));
+      riv.hov = hv;
+    }
+    const sp = 1 + boost * 1.5;
+    for (const i of riv.isl) {
+      const g = islGoal(i.el, i.peb);
+      if (g) Object.assign(i, g);
+      if (i.peb) { i.amp = moving ? i.amp + (i.target - i.amp) * Math.min(1, dt * 6) : i.target; continue; }
+      if (moving) { i.t += dt; if (i.dead) i.td += dt; } else { i.t = 9; if (i.dead) i.td = 9; }
+      const to = i.dead ? 0 : 1;
+      i.amp = moving ? i.amp + (to - i.amp) * Math.min(1, dt * (tr === 'none' ? 6 : to ? 2.2 : 2.6)) : to;
+      i.pres = islEnv(i, (i.xl + i.xr) / 2);
+      for (let n = i.sand.length - 1; n >= 0; n--) {
+        const s = i.sand[n];
+        if (!moving) { s.k = 1; s.wait = 0; continue; }
+        if (i.dead) {
+          if (tr === 'settle') s.dr += s.dv * dt;
+          else if (tr === 'wash') {
+            const q = sandAt(i, s);
+            if (s.k > 0 && islEnv(i, q[0]) > .5) continue;
+            if (s.k > .4) riv.loose.push({ x: q[0], y: q[1], v: 40 + rnd() * 50, life: 1, s: s.s, a: s.a });
+            i.sand.splice(n, 1);
+          }
+        } else if (s.wait > 0) s.wait -= dt;
+        else if (s.k < 1) s.k = Math.min(1, s.k + dt / s.dur);
+      }
+    }
+    riv.isl = riv.isl.filter(i => i.peb ? i.target > 0 || i.amp > .01 : !i.dead || (tr === 'wash' ? i.td < (i.xe - i.xs + 110) / WASH + .05 : i.amp > .01));
+    if (moving) for (const p of riv.loose) { p.x += p.v * dt; p.life -= dt * 1.1; } else riv.loose.length = 0;
+    riv.loose = riv.loose.filter(p => p.life > 0);
+    // 水面上的光点：散在整片细流里；v=b/c 有一小部分贴着当前沙洲的岸走
+    if (rivGL()) return;
+    if (!riv.parts) riv.parts = Array.from({ length: RV.dust ? 1100 : 380 }, (_, n) => ({ u: rnd(), x: rnd() * 420 - 20, v: 34 + rnd() * 18, bank: n < 60 && !RV.dust ? (n % 2 ? -1 : 1) * (.5 + rnd() * 2.5) : 0, cy: NaN, al: 0 }));
+    let top = null;
+    for (const i of riv.isl) if (!i.peb && !i.dead) top = i;
+    const xb = narrow ? W + 20 : 380, ya = narrow && top ? top.cy - 70 : -12, yb = narrow && top ? top.cy + 70 : H + 12;
+    for (const p of riv.parts) {
+      if (p.bank) {
+        const want = top ? top.cy : NaN;
+        if (p.cy === want) p.al = Math.min(1, p.al + (moving ? dt * 1.2 : 1));
+        else if ((p.al -= moving ? dt * 3 : 1) <= 0) { p.al = 0; p.cy = want; p.x = rnd() * (xb + 20) - 20; }
+        p.y0 = p.cy + p.bank;
+      } else p.y0 = RV.dust ? ya + p.u * (yb - ya) : lineY(Math.round((ya + p.u * (yb - ya)) / SP));
+      if (moving && p.y0 === p.y0) { p.x += p.v * riverSpeed(p.y0, p.x) * sp * dt; if (p.x > xb + 10) p.x -= xb + 30; }
+    }
+  }
+  function drawRiver(c) {
+    if (!riv.isl.length && !riv.loose.length) return;
+    const narrow = narrowMQ.matches, col = theme.flow, dark = theme.dark;
+    let top = null;
+    for (const i of riv.isl) if (!i.peb && !i.dead) top = i;
+    const cyRef = top ? top.cy : riv.isl.length ? riv.isl[riv.isl.length - 1].cy : H / 2;
+    const ya = narrow ? cyRef - 70 : -12, yb = narrow ? cyRef + 70 : H + 12, xb = narrow ? W + 20 : 380, fin = narrow ? 40 : 18, fout = narrow ? W * .35 : 170;
+    const fade = x => Math.max(0, Math.min(1, x / fin, (xb - x) / fout));
+    const P = dark ? { far: .16, near: .2, bank: 1, lw: 1.4, glint: .6, gw: 1.6, hi: .25 } : { far: .05, near: .08, bank: .7, lw: 1, glint: .5, gw: 1.2, hi: 0 };
+    const gr = c.createLinearGradient(0, 0, xb, 0);
+    gr.addColorStop(0, rgba(col, 0)); gr.addColorStop(fin / xb, rgba(col, 1)); gr.addColorStop(1 - fout / xb, rgba(col, 1)); gr.addColorStop(1, rgba(col, 0));
+    const emOf = y0 => { let e = 0; for (const i of riv.isl) { const q = (y0 - i.cy) / (i.peb ? 20 : 46); e = Math.max(e, (i.peb ? .4 * i.amp : i.pres) * Math.exp(-q * q)); } return e; };
+    const fyOf = y0 => narrow ? Math.exp(-Math.pow((y0 - cyRef) / 52, 2)) : 1;
+    const colB = lighten(col, P.hi), bankA = P.bank * RV.bank;
+    c.lineWidth = P.lw;
+    for (let k = Math.floor(ya / SP); k <= Math.ceil(yb / SP) && !RV.dust; k++) {
+      const y0 = lineY(k), w = lineW(k), fy = fyOf(y0), em = emOf(y0);
+      if (P.far * w * fy < .004 && em < .03) continue;
+      if (em < .03) { c.strokeStyle = gr; c.globalAlpha = P.far * w * fy; }
+      else {
+        // 岸线不是另画的：同一根流线，挤得越密就越亮
+        const g = c.createLinearGradient(0, 0, xb, 0);
+        for (let x = 0; x <= xb; x += 10) {
+          let bank = 0, calm = 1;
+          for (const i of riv.isl) {
+            const h = islH(i, x), d = Math.abs(y0 - i.cy);
+            if (h > .4) bank = Math.max(bank, Math.min(1, (Math.sqrt(part(d, h) / Math.max(d, .8)) - 1) / 1.6) * Math.min(1, h / 7) * (i.peb ? .5 : 1));
+            else if (RV.chan && !i.peb) { const cg = chanG(i, x), dd = y0 - i.cy - 13, u = dd * dd / 1600; if (cg > .02) bank = Math.max(bank, Math.min(1, (1 / (1 - .86 * cg * Math.exp(-u) * (1 - 2 * u)) - 1) / 4)); }
+            else if (!i.peb && x >= i.xe) calm *= 1 - .7 * i.pres * Math.exp(-(d * d) / 90) * Math.exp(-(x - i.xe) / 70);
+          }
+          g.addColorStop(Math.min(1, x / xb), rgba(bank > .4 ? colB : col, (P.far * w + P.near * w * em * sm((x - 14) / 30) + bankA * Math.sqrt(bank)) * calm * fade(x) * fy));
+        }
+        c.strokeStyle = g; c.globalAlpha = 1;
+      }
+      c.beginPath();
+      for (let x = 0; x <= xb; x += 4) { const y = riverY(y0, x); x ? c.lineTo(x, y) : c.moveTo(x, y); }
+      c.stroke();
+    }
+    c.lineWidth = P.gw; c.strokeStyle = rgba(lighten(col, dark ? .35 : 0), 1);
+    for (const p of riv.parts || []) {
+      if (!(p.y0 >= ya && p.y0 <= yb) || p.x < 0 || (p.bank && !RV.glint)) continue;
+      const len = 8 + 9 * riverSpeed(p.y0, p.x);
+      const e = (p.bank ? RV.glint * p.al * (top ? top.pres * sm((p.x - top.xs + 30) / 30) * sm((top.xe + 6 - p.x) / 60) : 0) : RV.dust ? .5 : .14 + .3 * emOf(p.y0)) * fade(p.x) * fyOf(p.y0);
+      if (e < .02) continue;
+      c.globalAlpha = P.glint * e;
+      c.beginPath();
+      for (let s = 0; s <= 3; s++) { const x = p.x - len + s * len / 3, y = riverY(p.y0, x); s ? c.lineTo(x, y) : c.moveTo(x, y); }
+      c.stroke();
+    }
+    // 别的标签底下把水擦淡，边缘羽化，免得读成下划线或者一块补丁
+    const sc = c.getTransform().a;
+    c.globalCompositeOperation = 'destination-out'; c.fillStyle = '#000'; c.shadowColor = '#000'; c.shadowBlur = 5 * sc; c.globalAlpha = dark ? .4 : .5;
+    for (const it of $$('.rail .item, .rail .glabel, .rail .word')) {
+      if (it === riv.el) continue;
+      range.selectNodeContents(it);
+      const r = range.getBoundingClientRect();
+      if (r.width) c.fillRect(r.left - 1, r.top + 2, r.width + 2, r.height - 4);
+    }
+    c.shadowBlur = 0; c.shadowColor = 'transparent';
+    c.globalCompositeOperation = 'lighter';
+    // 沙：每一粒是一个小点；每隔几粒带一团很淡的晕，晕叠起来就是洲面——烟熏下它就是那一汪光
+    const key = col.join() + dark;
+    if (riv.sprKey !== key) {
+      const s = riv.spr = document.createElement('canvas');
+      s.width = s.height = 64;
+      const g = s.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+      rg.addColorStop(0, rgba(col, 1)); rg.addColorStop(.45, rgba(col, .38)); rg.addColorStop(1, rgba(col, 0));
+      g.fillStyle = rg; g.fillRect(0, 0, 64, 64); riv.sprKey = key;
+    }
+    const S = dark ? { r: .8, a: .8, R: 20, ta: .2, hi: .35 } : { r: .5, a: .62, R: 11, ta: .04, hi: 0 };
+    c.fillStyle = c.strokeStyle = rgba(lighten(col, S.hi), 1); c.lineWidth = dark ? 1.4 : 1;
+    for (const i of riv.isl) for (const s of i.sand) {
+      if (s.wait > 0) continue;
+      const q = sandAt(i, s), f = q[2] * fyOf(q[1]) * fade(q[0] + fin);
+      if (f < .02) continue;
+      if (s.tone) { c.globalAlpha = S.ta * RV.tone * s.a * f; c.drawImage(riv.spr, q[0] - S.R, q[1] - S.R, S.R * 2, S.R * 2); }
+      c.globalAlpha = S.a * s.a * f; c.beginPath(); c.arc(q[0], q[1], s.s * S.r, 0, 6.2832); c.fill();
+    }
+    for (const p of riv.loose) {
+      c.globalAlpha = S.a * p.a * p.life * .7 * fade(p.x) * fyOf(p.y);
+      c.beginPath(); c.moveTo(p.x - 5, p.y); c.lineTo(p.x, p.y); c.stroke();
+    }
+    c.globalAlpha = 1;
+  }
+
+  // 有含义的流：订阅源 → 节点池/规则与配置 → 设备；rate 是每秒光点数，对应拉取频率
+  const SPEC = [
+    ['s1', 'p1', 'data', .9], ['s1', 'p2', 'data', .6], ['s2', 'p2', 'stale', .16], ['s3', 'p1', 'data', .35],
+    ['p1', 'd1', 'data', .9], ['p1', 'd2', 'data', .55], ['p1', 'd3', 'data', .05], ['p2', 'd1', 'data', .6], ['p2', 'd2', 'data', .45],
+    ['c1', 'd1', 'rule', .4], ['c1', 'd2', 'rule', .3], ['c1', 'd3', 'rule', .03],
+    ['f1', 'd1', 'rule', .4], ['f1', 'd2', 'rule', .3], ['f1', 'd3', 'rule', .03],
+    ['x1', 'p1', 'pend', 0, 0], ['x2', 'f1', 'pend', 0, -44],
+  ];
+  const ports = $$('.port').map(el => ({ el, id: el.dataset.port, dir: el.classList.contains('in') ? 'in' : 'out', spike: 0, last: -1, tone: '', links: [] }));
+  const portOf = (id, dir) => ports.find(p => p.id === id && p.dir === dir);
+  const links = SPEC.map(([from, to, type, rate, bow]) => ({
+    from, to, type, rate, pend: type === 'pend', bow: bow || 0, parts: [], acc: Math.random(), lift: 0, vis: 1, hold: 0, g: null, len: 1,
+    pa: portOf(from, 'out'), pb: portOf(to, 'in'),
+  }));
+  links.forEach(l => { l.pa && l.pa.links.push(l); l.pb && l.pb.links.push(l); });
+  const linkOf = (a, b) => links.find(l => l.from === a && l.to === b);
+  const entOf = id => $(`.ent[data-node="${id}"], .note[data-node="${id}"]`);
+
+  const bez = (g, t) => {
+    const u = 1 - t, [a, b, c, d] = g;
+    return { x: u * u * u * a.x + 3 * u * u * t * b.x + 3 * u * t * t * c.x + t * t * t * d.x, y: u * u * u * a.y + 3 * u * u * t * b.y + 3 * u * t * t * c.y + t * t * t * d.y };
+  };
+  const center = el => { const r = el.getBoundingClientRect(); return r.width ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null; };
+  function geom() {
+    const narrow = narrowMQ.matches;
+    for (const l of links) {
+      const a = l.pa && center(l.pa.el), b = l.pb && center(l.pb.el);
+      if (!a || !b) { l.g = null; continue; }
+      const dy = b.y - a.y;
+      let c1, c2;
+      if (narrow) {
+        const k = 14 + Math.min(22, Math.abs(dy) * .04) - l.bow * .2;
+        c1 = { x: a.x - k, y: a.y + dy * .25 }; c2 = { x: b.x - k, y: b.y - dy * .25 };
+      } else if (l.pend) {
+        c1 = { x: a.x + l.bow, y: a.y + Math.max(50, dy * .55) }; c2 = { x: b.x - 56 + l.bow * .5, y: b.y };
+      } else {
+        const dx = Math.max(60, Math.abs(b.x - a.x) * .5);
+        c1 = { x: a.x + dx, y: a.y }; c2 = { x: b.x - dx, y: b.y };
+      }
+      l.g = [a, c1, c2, b];
+      let len = 0, p = a;
+      for (let i = 1; i <= 20; i++) { const q = bez(l.g, i / 20); len += Math.hypot(q.x - p.x, q.y - p.y); p = q; }
+      l.len = Math.max(1, len);
+    }
+  }
+
+  let state = 'pending', pendGone = false;
+  const active = l => !(l.pend && pendGone);
+  function related(ids) {
+    const set = new Set(), nodes = new Set(ids);
+    const walk = fwd => {
+      const seen = new Set(ids), q = [...ids];
+      while (q.length) {
+        const n = q.shift();
+        for (const l of links) {
+          if (!active(l)) continue;
+          const u = fwd ? l.from : l.to, v = fwd ? l.to : l.from;
+          if (u === n) { set.add(l); nodes.add(v); if (!seen.has(v)) { seen.add(v); q.push(v); } }
+        }
+      }
+    };
+    walk(true); walk(false);
+    return { set, nodes };
+  }
+  let hoverSet = new Set(), hoverKey = '';
+  function setHover(el) {
+    const key = el ? el.dataset.node : '';
+    if (key === hoverKey) return;
+    hoverKey = key;
+    const r = el ? related(key.split(' ')) : { set: new Set(), nodes: new Set() };
+    hoverSet = r.set;
+    $$('.ent, .note').forEach(e => e.classList.toggle('lit', r.nodes.has(e.dataset.node)));
+    wake();
+  }
+  document.addEventListener('pointerover', e => setHover(e.target.closest('[data-node]')));
+  root.addEventListener('pointerleave', () => setHover(null));
+  document.addEventListener('focusin', e => setHover(e.target.closest('[data-node]')));
+
+  let mx = 0, my = 0, mxS = 0, myS = 0;
+  addEventListener('pointermove', e => { mx = e.clientX / W * 2 - 1; my = e.clientY / H * 2 - 1; }, { passive: true });
+
+  let T = 0, boost = 0;
+  const colorOf = l => l.type === 'rule' ? theme.flow2 : (l.type === 'pend' || l.type === 'stale') ? theme.amber : theme.flow;
+  function update(l, dt, moving) {
+    const inSet = hoverSet.has(l);
+    let visT = hoverSet.size && !inSet ? .08 : 1;
+    if (!active(l)) visT = 0;
+    let liftT = inSet ? 1 : 0;
+    if (l.hold > 0) { liftT = 1; l.hold -= dt; }
+    const k = moving ? Math.min(1, dt * 6) : 1;
+    l.lift += (liftT - l.lift) * k;
+    l.vis += (visT - l.vis) * k;
+    if (moving && l.rate > 0) {
+      l.acc += dt * l.rate * (1 + boost * 2);
+      while (l.acc >= 1) { l.acc -= 1; l.parts.push({ s: 0, v: 80 + Math.random() * 60 }); }
+    }
+    if (moving) for (const p of l.parts) p.s += p.v * dt;
+    if (l.parts.length) l.parts = l.parts.filter(p => {
+      if (p.s < l.len) return true;
+      if (l.pb) l.pb.spike = Math.max(l.pb.spike, p.big ? 1 : .3);
+      if (p.cb) p.cb();
+      return false;
+    });
+  }
+  function draw(c, l, A, near) {
+    if (A < .01 || !l.g) return;
+    const liquid = theme.liquid, col = colorOf(l), core = l.type === 'pend' ? col : lighten(col, theme.coreK), [a, b, cc, d] = l.g;
+    let base = l.type === 'stale' ? .5 : l.type === 'rule' ? .8 : 1;
+    if (l.type === 'pend') base = .72 + .1 * Math.sin(T * 2.2);
+    const al = liquid ? A * base : A * base * (near ? 1.25 : 1) * theme.gain;
+    if (near) nearInk = true;
+    c.beginPath(); c.moveTo(a.x, a.y); c.bezierCurveTo(b.x, b.y, cc.x, cc.y, d.x, d.y);
+    if (liquid) {
+      // 清透：路径本身只是一根细线，光在跑动的点上；被点亮的路径才是一根通了光的纤芯
+      c.strokeStyle = rgba(col, al * (near ? .15 : .06)); c.lineWidth = near ? 13 : 11; c.stroke();
+      c.strokeStyle = rgba(col, al * (near ? .95 : .4)); c.lineWidth = near ? 2.2 : 1.3; c.stroke();
+      if (near) { c.strokeStyle = rgba(lighten(col, .8), al * .8); c.lineWidth = .8; c.stroke(); }
+    } else {
+      c.strokeStyle = rgba(col, al * (near ? .22 : .16)); c.lineWidth = near ? 12 : 16; c.stroke();
+      c.strokeStyle = rgba(core, al * (near ? .9 : .6)); c.lineWidth = near ? 2.2 : 3; c.stroke();
+    }
+    for (const p of l.parts) {
+      const big = !!p.big, pc = liquid ? (big ? lighten(col, .3) : col) : big ? lighten(col, .55) : core, n = 14, step = big ? 9 : 5;
+      const tw = liquid ? (big ? 3.4 : near ? 2.4 : 2) : (big ? 4 : 2.6) * (near ? 1 : 1.5);
+      let prev = null;
+      for (let i = 0; i <= n; i++) {
+        const s = p.s - i * step; if (s < 0) break;
+        const q = bez(l.g, Math.min(1, s / l.len));
+        if (prev) {
+          c.strokeStyle = rgba(pc, al * (1 - i / n) * .9);
+          c.lineWidth = tw;
+          c.beginPath(); c.moveTo(prev.x, prev.y); c.lineTo(q.x, q.y); c.stroke();
+        }
+        prev = q;
+      }
+      const h = bez(l.g, Math.min(1, p.s / l.len));
+      if (big || liquid) { c.fillStyle = rgba(col, al * (big ? .35 : .14)); c.beginPath(); c.arc(h.x, h.y, big ? 16 : 7, 0, 6.283); c.fill(); }
+      c.fillStyle = rgba(pc, al); c.beginPath(); c.arc(h.x, h.y, liquid ? (big ? 4.4 : near ? 2.8 : 2.4) : big ? 4.6 : (near ? 3 : 5), 0, 6.283); c.fill();
+    }
+  }
+  function updatePorts(dt) {
+    for (const p of ports) {
+      let g = 0, tone = 'flow';
+      for (const l of p.links) {
+        const base = l.type === 'pend' ? .75 : .28 + .5 * Math.min(1, l.rate * 1.4);
+        const v = l.vis * (base + .6 * l.lift);
+        if (v > g) { g = v; tone = l.type === 'rule' ? 'rule' : (l.type === 'pend' || l.type === 'stale') ? 'amber' : 'flow'; }
+      }
+      p.spike = Math.max(0, p.spike - dt * 1.4);
+      g = Math.min(1, g + p.spike);
+      if (Math.abs(g - p.last) > .015) { p.el.style.setProperty('--g', g.toFixed(3)); p.last = g; }
+      if (tone !== p.tone) { p.el.dataset.tone = tone; p.tone = tone; }
+    }
+  }
+
+  // 只在布局可能变化时重算几何；减少动态效果时只在有变化时重画；页面隐藏时停下
+  let geomUntil = 0, drawUntil = 0, raf = 0, last = performance.now();
+  const settle = (ms = 900) => { geomUntil = Math.max(geomUntil, performance.now() + ms); wake(ms); };
+  function wake(ms = 700) { drawUntil = Math.max(drawUntil, performance.now() + ms); }
+  function frame(now) {
+    raf = 0;
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    const moving = !reduce.matches;
+    if (now < geomUntil) { geom(); if (theme.liquid) papGeom(); }
+    if (moving || now < drawUntil) {
+      if (moving) T += dt * (1 + boost);
+      boost = Math.max(0, boost - dt * .35);
+      if (moving) { mxS += (mx - mxS) * Math.min(1, dt * 3); myS += (my - myS) * Math.min(1, dt * 3); } else { mxS = myS = 0; }
+      L.deep.el.style.transform = `translate3d(${(-mxS * 14).toFixed(2)}px,${(-myS * 10).toFixed(2)}px,0)`;
+      L.mid.el.style.transform = L.near.el.style.transform = `translate3d(${(-mxS * 4).toFixed(2)}px,${(-myS * 3).toFixed(2)}px,0)`;
+      sheen.style.transform = `translate3d(${(mxS * 60).toFixed(1)}px,0,0)`;
+      const deepDrawn = drawDeep(dt, moving);
+      const cm = begin(L.mid), cn = begin(L.near); nearInk = false;
+      for (const l of links) { update(l, dt, moving); draw(cm, l, l.vis * (1 - l.lift), false); draw(cn, l, l.vis * l.lift, true); }
+      if (FLOW) { stepRiver(dt, moving); if (!rivGL()) drawRiver(theme.liquid ? cm : cn); }
+      updatePorts(dt);
+      if (theme.liquid) drawGlass(deepDrawn, dt, moving);
+    }
+    if (!document.hidden) raf = requestAnimationFrame(frame);
+  }
+  function start() { if (!raf && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); raf = 0; } else { wake(); start(); } });
+
+  // 批准：纸放平、铅笔变墨，改动沿光流写进节点池和配置；设备拉取后才算送达
+  let timers = [], pulled = 0;
+  const later = (ms, fn) => { const id = setTimeout(fn, reduce.matches ? Math.min(ms, 10) : ms); timers.push(id); return id; };
+  const slot = $('.p-slot'), inner = $('.p-inner'), prop = $('.proposal'), retline = $('.retline');
+  const fold = $('.p-fold'), changes = $('.p-changes'), undoBtn = $('#undo');
+  const K = k => $(`[data-k="${k}"]`);
+  const initial = new Map($$('[data-k]').map(el => [el, { html: el.innerHTML, cls: el.className, st: el.dataset.state }]));
+  const ringed = [portOf('p1', 'in'), portOf('f1', 'in')];
+  const ring = on => ringed.forEach(p => p.el.classList.toggle('ring', on));
+  function setStatus(text, st) { const s = K('status'); s.innerHTML = `<i class="dot"></i><span>${text}</span>`; s.dataset.state = st; }
+  function setMast(ver, text) { K('ver').textContent = ver; K('mast').textContent = text; }
+  const set = (k, html) => { K(k).innerHTML = html; };
+  function flash(id) { const e = entOf(id); if (!e) return; e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); }
+  function burst(l, cb) {
+    if (!l || !l.g || reduce.matches) { cb && cb(); return; }
+    l.parts.push({ s: 0, v: 520, big: true, cb });
+    l.hold = Math.max(l.hold, 1.4);
+    wake(2500);
+  }
+  function morph(apply, fade) {
+    const go = () => {
+      const h0 = inner.offsetHeight;
+      slot.style.height = h0 + 'px';
+      apply();
+      const h1 = inner.offsetHeight;
+      void slot.offsetHeight;
+      slot.style.transition = 'height .55s cubic-bezier(.2,.8,.2,1)';
+      slot.style.height = h1 + 'px';
+      prop.classList.remove('fading');
+      settle(900);
+      later(620, () => { slot.style.transition = ''; slot.style.height = ''; });
+    };
+    if (fade) { prop.classList.add('fading'); later(240, go); } else go();
+  }
+  function approve() {
+    if (state !== 'pending') return;
+    state = 'approved'; boost = 1;
+    prop.classList.add('approved'); fold.inert = true;
+    setStatus('正在写入', 'live'); setMast('r127', '正在写入 r128');
+    later(950, () => prop.classList.add('inked'));
+    let n = 0; const done = () => { if (++n === 2) generated(); };
+    later(420, () => {
+      burst(linkOf('x1', 'p1'), () => { set('p1-n', '15'); set('p1-l2', '主力机场 12 · 自建 VPS 3'); flash('p1'); done(); });
+      burst(linkOf('x2', 'f1'), () => { set('f1-l2', 'URL 重写 3 条 · MITM 主机名 2 个'); flash('f1'); done(); });
+    });
+    settle(1000);
+  }
+  function generated() {
+    ring(false); pendGone = true;
+    setStatus('已生成 r128，等设备拉取', 'live'); setMast('r128', '0/3 台设备已拉取');
+    set('d1-l2', '<i class="wait" aria-hidden="true"></i>r128 待拉取'); set('d2-l2', '<i class="wait" aria-hidden="true"></i>r128 待拉取');
+    set('d3-behind', '落后 9 版');
+    later(380, () => pull('d1'));
+    later(900, () => morph(() => { prop.classList.add('receipt'); changes.inert = true; undoBtn.hidden = false; }, true));
+    later(1250, () => pull('d2'));
+  }
+  function pull(d) {
+    const ls = links.filter(l => l.to === d && !l.pend);
+    let n = 0;
+    ls.forEach(l => burst(l, () => {
+      if (++n < ls.length) return;
+      set(d + '-ver', 'r128'); set(d + '-l2', '刚刚拉取'); flash(d);
+      pulled++; boost = Math.max(boost, .5);
+      setStatus(`已批准 · r128 · ${pulled}/3 台设备已拉取${pulled === 2 ? ' · Clash Mi 3 天未拉取' : ''}`, 'live');
+      setMast('r128', `${pulled}/3 台设备已拉取`);
+    }));
+  }
+  function reject() {
+    if (state !== 'pending') return;
+    state = 'returned'; pendGone = true; ring(false); fold.inert = true;
+    setMast('r127', '3 台设备');
+    prop.classList.add('leaving'); settle(700);
+    later(520, () => morph(() => { prop.hidden = true; retline.hidden = false; $('#undo-return').focus({ preventScroll: true }); }));
+    later(5600, () => morph(() => { retline.hidden = true; }));
+  }
+  function replay() {
+    timers.forEach(clearTimeout); timers = [];
+    state = 'pending'; pulled = 0; boost = 0; pendGone = false;
+    prop.className = 'proposal paper'; prop.hidden = false; retline.hidden = true; undoBtn.hidden = true;
+    fold.inert = false; changes.inert = false;
+    slot.style.height = ''; slot.style.transition = '';
+    for (const [el, v] of initial) { el.innerHTML = v.html; el.className = v.cls; if (v.st) el.dataset.state = v.st; }
+    $$('.flash').forEach(e => e.classList.remove('flash'));
+    links.forEach(l => { l.parts = []; l.hold = 0; });
+    ring(true); settle(900);
+  }
+  $('#approve').addEventListener('click', approve);
+  $('#reject').addEventListener('click', reject);
+  $('#replay').addEventListener('click', replay);
+  undoBtn.addEventListener('click', replay);
+  $('#undo-return').addEventListener('click', replay);
+  $$('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+  $$('.rail .item').forEach(a => a.addEventListener('click', () => {
+    $$('.rail .item[aria-current]').forEach(x => x.removeAttribute('aria-current'));
+    a.setAttribute('aria-current', 'page'); wake(2500);
+  }));
+
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : darkMQ.matches;
+  function syncPressed() { $$('[data-glass-set]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.glassSet === 'dark') === isDark()))); }
+  $$('[data-glass-set]').forEach(b => b.addEventListener('click', () => { root.dataset.theme = b.dataset.glassSet; }));
+  const onTheme = () => { const was = theme.liquid; readTheme(); if (was !== theme.liquid) resize(); syncPressed(); settle(300); };
+  new MutationObserver(onTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  darkMQ.addEventListener('change', onTheme);
+  narrowMQ.addEventListener('change', () => settle(300));
+  reduce.addEventListener('change', () => { wake(); start(); });
+
+  new ResizeObserver(() => settle(120)).observe($('.table'));
+  addEventListener('resize', () => { resize(); settle(200); });
+  addEventListener('scroll', () => settle(80), { passive: true });
+  if (document.fonts) document.fonts.ready.then(() => settle(300));
+
+  readTheme(); resize(); syncPressed(); ring(true); settle(1200); start();
+})();
+</script>
+</body>
+</html>

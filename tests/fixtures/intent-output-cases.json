@@ -1,0 +1,1962 @@
+[
+  {
+    "id": "default-plain",
+    "profile": "",
+    "settings": {}
+  },
+  {
+    "id": "default-raw",
+    "profile": "raw",
+    "settings": {}
+  },
+  {
+    "id": "default-lazycat",
+    "profile": "lazycat",
+    "settings": {}
+  },
+  {
+    "id": "field-clash_fake_ip_filter",
+    "profile": "lazycat",
+    "settings": {
+      "clash_fake_ip_filter": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "clash_fake_ip_filter"
+    ]
+  },
+  {
+    "id": "field-clash_always_real_ip",
+    "profile": "lazycat",
+    "settings": {
+      "clash_always_real_ip": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "clash_always_real_ip"
+    ]
+  },
+  {
+    "id": "field-clash_dns_enable",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enable": false
+    },
+    "covered_keys": [
+      "clash_dns_enable"
+    ]
+  },
+  {
+    "id": "field-clash_dns_listen",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_listen": "127.0.0.1:15353"
+    },
+    "covered_keys": [
+      "clash_dns_listen"
+    ]
+  },
+  {
+    "id": "field-clash_dns_enhanced_mode",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip"
+    },
+    "covered_keys": [
+      "clash_dns_enhanced_mode"
+    ]
+  },
+  {
+    "id": "field-clash_dns_use_hosts",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_use_hosts": false
+    },
+    "covered_keys": [
+      "clash_dns_use_hosts"
+    ]
+  },
+  {
+    "id": "field-clash_mixed_port",
+    "profile": "lazycat",
+    "settings": {
+      "clash_mixed_port": 17890
+    },
+    "covered_keys": [
+      "clash_mixed_port"
+    ]
+  },
+  {
+    "id": "field-clash_udp_default_enabled",
+    "profile": "lazycat",
+    "settings": {
+      "clash_udp_default_enabled": false
+    },
+    "covered_keys": [
+      "clash_udp_default_enabled"
+    ]
+  },
+  {
+    "id": "field-clash_dns_default_nameserver",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_default_nameserver": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "clash_dns_default_nameserver"
+    ]
+  },
+  {
+    "id": "field-clash_dns_nameserver",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_nameserver": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "clash_dns_nameserver"
+    ]
+  },
+  {
+    "id": "field-clash_dns_fallback",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_fallback": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "clash_dns_fallback"
+    ]
+  },
+  {
+    "id": "field-clash_tun_enable",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_enable": true
+    },
+    "covered_keys": [
+      "clash_tun_enable"
+    ]
+  },
+  {
+    "id": "field-clash_tun_stack",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_stack": "gvisor"
+    },
+    "covered_keys": [
+      "clash_tun_stack"
+    ]
+  },
+  {
+    "id": "field-clash_tun_auto_route",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_auto_route": false
+    },
+    "covered_keys": [
+      "clash_tun_auto_route"
+    ]
+  },
+  {
+    "id": "field-clash_tun_auto_detect_interface",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_auto_detect_interface": false
+    },
+    "covered_keys": [
+      "clash_tun_auto_detect_interface"
+    ]
+  },
+  {
+    "id": "field-clash_tun_dns_hijack",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_dns_hijack": [
+        "any:5353"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_dns_hijack"
+    ]
+  },
+  {
+    "id": "field-clash_tun_strict_route",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_strict_route": false
+    },
+    "covered_keys": [
+      "clash_tun_strict_route"
+    ]
+  },
+  {
+    "id": "field-tun_excluded_routes",
+    "profile": "lazycat",
+    "settings": {
+      "tun_excluded_routes": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "tun_excluded_routes"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_always_real_ip",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_always_real_ip": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_always_real_ip"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_tun_excluded_routes",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_tun_excluded_routes": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_tun_excluded_routes"
+    ]
+  },
+  {
+    "id": "field-surge_always_real_ip",
+    "profile": "lazycat",
+    "settings": {
+      "surge_always_real_ip": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "surge_always_real_ip"
+    ]
+  },
+  {
+    "id": "field-surge_tun_excluded_routes",
+    "profile": "lazycat",
+    "settings": {
+      "surge_tun_excluded_routes": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "surge_tun_excluded_routes"
+    ]
+  },
+  {
+    "id": "field-clash_dns_nameserver_policy",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_nameserver_policy": {
+        "example.com": "1.1.1.1"
+      }
+    },
+    "covered_keys": [
+      "clash_dns_nameserver_policy"
+    ]
+  },
+  {
+    "id": "field-surge_skip_proxy",
+    "profile": "lazycat",
+    "settings": {
+      "surge_skip_proxy": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "surge_skip_proxy"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_skip_proxy",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_skip_proxy": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_skip_proxy"
+    ]
+  },
+  {
+    "id": "field-clash_tun_include_routes",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_include_routes": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_include_routes"
+    ]
+  },
+  {
+    "id": "field-clash_ipv6",
+    "profile": "lazycat",
+    "settings": {
+      "clash_ipv6": true
+    },
+    "covered_keys": [
+      "clash_ipv6"
+    ]
+  },
+  {
+    "id": "field-clash_tcp_concurrent",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tcp_concurrent": true
+    },
+    "covered_keys": [
+      "clash_tcp_concurrent"
+    ]
+  },
+  {
+    "id": "field-clash_allow_lan",
+    "profile": "lazycat",
+    "settings": {
+      "clash_allow_lan": true
+    },
+    "covered_keys": [
+      "clash_allow_lan"
+    ]
+  },
+  {
+    "id": "field-clash_log_level",
+    "profile": "lazycat",
+    "settings": {
+      "clash_log_level": "debug"
+    },
+    "covered_keys": [
+      "clash_log_level"
+    ]
+  },
+  {
+    "id": "field-clash_profile_store_selected",
+    "profile": "lazycat",
+    "settings": {
+      "clash_profile_store_selected": false
+    },
+    "covered_keys": [
+      "clash_profile_store_selected"
+    ]
+  },
+  {
+    "id": "field-clash_profile_store_fake_ip",
+    "profile": "lazycat",
+    "settings": {
+      "clash_profile_store_fake_ip": true
+    },
+    "covered_keys": [
+      "clash_profile_store_fake_ip"
+    ]
+  },
+  {
+    "id": "field-clash_external_controller",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_controller": "127.0.0.1:19090"
+    },
+    "covered_keys": [
+      "clash_external_controller"
+    ]
+  },
+  {
+    "id": "field-clash_secret",
+    "profile": "lazycat",
+    "settings": {
+      "clash_secret": "synthetic-controller-key"
+    },
+    "covered_keys": [
+      "clash_secret"
+    ]
+  },
+  {
+    "id": "field-clash_external_ui",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_ui": "ui"
+    },
+    "covered_keys": [
+      "clash_external_ui"
+    ]
+  },
+  {
+    "id": "field-clash_external_ui_name",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_ui_name": "synthetic-panel"
+    },
+    "covered_keys": [
+      "clash_external_ui_name"
+    ]
+  },
+  {
+    "id": "field-clash_external_ui_url",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_ui_url": "https://example.com/ui.zip"
+    },
+    "covered_keys": [
+      "clash_external_ui_url"
+    ]
+  },
+  {
+    "id": "field-clash_dns_fake_ip_range",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_fake_ip_range": "198.19.0.1/16"
+    },
+    "covered_keys": [
+      "clash_dns_fake_ip_range"
+    ]
+  },
+  {
+    "id": "field-clash_dns_fake_ip_filter_mode",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_fake_ip_filter_mode": "blacklist"
+    },
+    "covered_keys": [
+      "clash_dns_fake_ip_filter_mode"
+    ]
+  },
+  {
+    "id": "field-clash_dns_respect_rules",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_respect_rules": false
+    },
+    "covered_keys": [
+      "clash_dns_respect_rules"
+    ]
+  },
+  {
+    "id": "field-clash_dns_proxy_server_nameserver",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_proxy_server_nameserver": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "clash_dns_proxy_server_nameserver"
+    ]
+  },
+  {
+    "id": "field-clash_dns_direct_nameserver",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_direct_nameserver": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "clash_dns_direct_nameserver"
+    ]
+  },
+  {
+    "id": "field-clash_tun_include_uid",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_include_uid": [
+        "1000"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_include_uid"
+    ]
+  },
+  {
+    "id": "field-clash_tun_exclude_uid",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_exclude_uid": [
+        "1000"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_exclude_uid"
+    ]
+  },
+  {
+    "id": "field-clash_tun_include_package",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_include_package": [
+        "com.example.app"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_include_package"
+    ]
+  },
+  {
+    "id": "field-clash_tun_exclude_package",
+    "profile": "lazycat",
+    "settings": {
+      "clash_tun_exclude_package": [
+        "com.example.app"
+      ]
+    },
+    "covered_keys": [
+      "clash_tun_exclude_package"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_enable",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_enable": true
+    },
+    "covered_keys": [
+      "clash_sniffer_enable"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_force_dns_mapping",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_force_dns_mapping": true
+    },
+    "covered_keys": [
+      "clash_sniffer_force_dns_mapping"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_parse_pure_ip",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_parse_pure_ip": true
+    },
+    "covered_keys": [
+      "clash_sniffer_parse_pure_ip"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_override_destination",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_override_destination": true
+    },
+    "covered_keys": [
+      "clash_sniffer_override_destination"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_http_ports",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_http_ports": [
+        "443",
+        "8443"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_http_ports"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_tls_ports",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_tls_ports": [
+        "9443"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_tls_ports"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_quic_ports",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_quic_ports": [
+        "9443"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_quic_ports"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_force_domain",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_force_domain": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_force_domain"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_skip_domain",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_skip_domain": [
+        "*.example.com"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_skip_domain"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_skip_src_address",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_skip_src_address": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_skip_src_address"
+    ]
+  },
+  {
+    "id": "field-clash_sniffer_skip_dst_address",
+    "profile": "lazycat",
+    "settings": {
+      "clash_sniffer_skip_dst_address": [
+        "192.0.2.0/24"
+      ]
+    },
+    "covered_keys": [
+      "clash_sniffer_skip_dst_address"
+    ]
+  },
+  {
+    "id": "field-surge_ipv6",
+    "profile": "lazycat",
+    "settings": {
+      "surge_ipv6": false
+    },
+    "covered_keys": [
+      "surge_ipv6"
+    ]
+  },
+  {
+    "id": "field-surge_loglevel",
+    "profile": "lazycat",
+    "settings": {
+      "surge_loglevel": "verbose"
+    },
+    "covered_keys": [
+      "surge_loglevel"
+    ]
+  },
+  {
+    "id": "field-surge_dns_server",
+    "profile": "lazycat",
+    "settings": {
+      "surge_dns_server": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "surge_dns_server"
+    ]
+  },
+  {
+    "id": "field-surge_encrypted_dns_server",
+    "profile": "lazycat",
+    "settings": {
+      "surge_encrypted_dns_server": [
+        "1.1.1.1"
+      ]
+    },
+    "covered_keys": [
+      "surge_encrypted_dns_server"
+    ]
+  },
+  {
+    "id": "field-surge_encrypted_dns_follow_outbound_mode",
+    "profile": "lazycat",
+    "settings": {
+      "surge_encrypted_dns_follow_outbound_mode": true
+    },
+    "covered_keys": [
+      "surge_encrypted_dns_follow_outbound_mode"
+    ]
+  },
+  {
+    "id": "field-surge_http_api",
+    "profile": "lazycat",
+    "settings": {
+      "surge_http_api": "127.0.0.1:16171"
+    },
+    "covered_keys": [
+      "surge_http_api"
+    ]
+  },
+  {
+    "id": "field-surge_http_api_secret",
+    "profile": "lazycat",
+    "settings": {
+      "surge_http_api_secret": "synthetic-surge-key"
+    },
+    "covered_keys": [
+      "surge_http_api_secret"
+    ]
+  },
+  {
+    "id": "field-surge_http_api_tls",
+    "profile": "lazycat",
+    "settings": {
+      "surge_http_api_tls": true
+    },
+    "covered_keys": [
+      "surge_http_api_tls"
+    ]
+  },
+  {
+    "id": "field-surge_http_api_web_dashboard",
+    "profile": "lazycat",
+    "settings": {
+      "surge_http_api_web_dashboard": true
+    },
+    "covered_keys": [
+      "surge_http_api_web_dashboard"
+    ]
+  },
+  {
+    "id": "field-surge_host_records",
+    "profile": "lazycat",
+    "settings": {
+      "surge_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "covered_keys": [
+      "surge_host_records"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_host_records",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "covered_keys": [
+      "shadowrocket_host_records"
+    ]
+  },
+  {
+    "id": "field-clash_host_records",
+    "profile": "lazycat",
+    "settings": {
+      "clash_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "covered_keys": [
+      "clash_host_records"
+    ]
+  },
+  {
+    "id": "field-surge_proxy_group_timeout",
+    "profile": "lazycat",
+    "settings": {
+      "surge_proxy_group_timeout": 6
+    },
+    "covered_keys": [
+      "surge_proxy_group_timeout"
+    ]
+  },
+  {
+    "id": "field-surge_proxy_group_tolerance",
+    "profile": "lazycat",
+    "settings": {
+      "surge_proxy_group_tolerance": 51
+    },
+    "covered_keys": [
+      "surge_proxy_group_tolerance"
+    ]
+  },
+  {
+    "id": "field-surge_block_quic",
+    "profile": "lazycat",
+    "settings": {
+      "surge_block_quic": "all-proxy"
+    },
+    "covered_keys": [
+      "surge_block_quic"
+    ]
+  },
+  {
+    "id": "field-surge_mitm_skip_server_cert_verify",
+    "profile": "lazycat",
+    "settings": {
+      "surge_mitm_skip_server_cert_verify": true
+    },
+    "covered_keys": [
+      "surge_mitm_skip_server_cert_verify"
+    ]
+  },
+  {
+    "id": "field-surge_mitm_h2",
+    "profile": "lazycat",
+    "settings": {
+      "surge_mitm_h2": true
+    },
+    "covered_keys": [
+      "surge_mitm_h2"
+    ]
+  },
+  {
+    "id": "field-surge_mitm_tcp_connection",
+    "profile": "lazycat",
+    "settings": {
+      "surge_mitm_tcp_connection": true
+    },
+    "covered_keys": [
+      "surge_mitm_tcp_connection"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_ipv6",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_ipv6": false
+    },
+    "covered_keys": [
+      "shadowrocket_ipv6"
+    ]
+  },
+  {
+    "id": "field-surge_url_rewrite",
+    "profile": "lazycat",
+    "settings": {
+      "surge_url_rewrite": [
+        "^http://example.com/(.*) http://example.net/$1 302"
+      ]
+    },
+    "covered_keys": [
+      "surge_url_rewrite"
+    ]
+  },
+  {
+    "id": "field-surge_mitm_hostname",
+    "profile": "lazycat",
+    "settings": {
+      "surge_mitm_hostname": [
+        "example.com"
+      ]
+    },
+    "covered_keys": [
+      "surge_mitm_hostname"
+    ]
+  },
+  {
+    "id": "field-surge_header_rewrite",
+    "profile": "lazycat",
+    "settings": {
+      "surge_header_rewrite": [
+        "^https://example.com/ header-add X-Test synthetic"
+      ]
+    },
+    "covered_keys": [
+      "surge_header_rewrite"
+    ]
+  },
+  {
+    "id": "field-surge_body_rewrite",
+    "profile": "lazycat",
+    "settings": {
+      "surge_body_rewrite": [
+        "^https://example.com/ header-add X-Test synthetic"
+      ]
+    },
+    "covered_keys": [
+      "surge_body_rewrite"
+    ]
+  },
+  {
+    "id": "field-surge_jq_body_rewrite",
+    "profile": "lazycat",
+    "settings": {
+      "surge_jq_body_rewrite": [
+        "^https://example.com/ header-add X-Test synthetic"
+      ]
+    },
+    "covered_keys": [
+      "surge_jq_body_rewrite"
+    ]
+  },
+  {
+    "id": "field-surge_map_local",
+    "profile": "lazycat",
+    "settings": {
+      "surge_map_local": [
+        "^http://example.com/mock data-type=text data=\"synthetic\""
+      ]
+    },
+    "covered_keys": [
+      "surge_map_local"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_url_rewrite",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_url_rewrite": [
+        "^http://example.com/(.*) http://example.net/$1 302"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_url_rewrite"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_mitm_hostname",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_mitm_hostname": [
+        "example.com"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_mitm_hostname"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_map_local",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_map_local": [
+        "^http://example.com/mock data-type=text data=\"synthetic\""
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_map_local"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_script_request",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_script_request": [
+        "test = type=http-response,pattern=^https://example.com/,script-path=https://example.com/test.js,requires-body=1"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_script_request"
+    ]
+  },
+  {
+    "id": "field-shadowrocket_script_response",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_script_response": [
+        "test = type=http-response,pattern=^https://example.com/,script-path=https://example.com/test.js,requires-body=1"
+      ]
+    },
+    "covered_keys": [
+      "shadowrocket_script_response"
+    ]
+  },
+  {
+    "id": "card-excluded-routes-shared",
+    "profile": "lazycat",
+    "settings": {
+      "tun_excluded_routes": [
+        "192.0.2.0/24"
+      ]
+    },
+    "card": "excluded-routes:shared",
+    "family": "excluded-routes"
+  },
+  {
+    "id": "card-ipv6-policy-shared",
+    "profile": "lazycat",
+    "settings": {
+      "surge_ipv6": false
+    },
+    "card": "ipv6-policy:shared",
+    "family": "ipv6-policy"
+  },
+  {
+    "id": "card-control-api-access-shared",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_controller": "127.0.0.1:19090",
+      "clash_secret": "synthetic-controller-key"
+    },
+    "card": "control-api-access:shared",
+    "family": "control-api-access"
+  },
+  {
+    "id": "card-mihomo-runtime-native-clash",
+    "profile": "lazycat",
+    "settings": {
+      "clash_log_level": "debug",
+      "clash_mixed_port": 17890,
+      "clash_allow_lan": true,
+      "clash_udp_default_enabled": false
+    },
+    "card": "mihomo-runtime-native:clash",
+    "family": "mihomo-runtime-native"
+  },
+  {
+    "id": "card-mihomo-profile-store-clash",
+    "profile": "lazycat",
+    "settings": {
+      "clash_profile_store_selected": false,
+      "clash_profile_store_fake_ip": true
+    },
+    "card": "mihomo-profile-store:clash",
+    "family": "mihomo-profile-store"
+  },
+  {
+    "id": "card-mihomo-external-ui-clash",
+    "profile": "lazycat",
+    "settings": {
+      "clash_external_ui": "ui",
+      "clash_external_ui_name": "synthetic-panel",
+      "clash_external_ui_url": "https://example.com/ui.zip"
+    },
+    "card": "mihomo-external-ui:clash",
+    "family": "mihomo-external-ui"
+  },
+  {
+    "id": "card-surge-runtime-native-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_loglevel": "verbose",
+      "surge_proxy_group_timeout": 6,
+      "surge_proxy_group_tolerance": 51,
+      "surge_block_quic": "all-proxy",
+      "surge_http_api_tls": true,
+      "surge_http_api_web_dashboard": true
+    },
+    "card": "surge-runtime-native:surge",
+    "family": "surge-runtime-native"
+  },
+  {
+    "id": "card-skip-proxy-shared",
+    "profile": "lazycat",
+    "settings": {
+      "surge_skip_proxy": [
+        "*.example.com"
+      ]
+    },
+    "card": "skip-proxy:shared",
+    "family": "skip-proxy"
+  },
+  {
+    "id": "card-skip-proxy-mihomo",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "skip-proxy:mihomo",
+    "family": "skip-proxy"
+  },
+  {
+    "id": "card-real-host-dns-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_always_real_ip": [
+        "*.example.com"
+      ]
+    },
+    "card": "real-host-dns:surge",
+    "family": "real-host-dns"
+  },
+  {
+    "id": "card-real-host-dns-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_always_real_ip": [
+        "*.example.com"
+      ]
+    },
+    "card": "real-host-dns:shadowrocket",
+    "family": "real-host-dns"
+  },
+  {
+    "id": "card-real-host-dns-mihomo",
+    "profile": "lazycat",
+    "settings": {
+      "clash_fake_ip_filter": [
+        "*.example.com"
+      ]
+    },
+    "card": "real-host-dns:mihomo",
+    "family": "real-host-dns"
+  },
+  {
+    "id": "card-host-records-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "card": "host-records:surge",
+    "family": "host-records"
+  },
+  {
+    "id": "card-host-records-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "card": "host-records:shadowrocket",
+    "family": "host-records"
+  },
+  {
+    "id": "card-host-records-mihomo",
+    "profile": "lazycat",
+    "settings": {
+      "clash_host_records": {
+        "example.com": "192.0.2.11",
+        "second.example.com": "192.0.2.12"
+      }
+    },
+    "card": "host-records:mihomo",
+    "family": "host-records"
+  },
+  {
+    "id": "card-mihomo-dns-behavior-clash",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enable": false,
+      "clash_dns_listen": "127.0.0.1:15353",
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_use_hosts": false,
+      "clash_dns_fake_ip_range": "198.19.0.1/16",
+      "clash_dns_fake_ip_filter_mode": "blacklist",
+      "clash_dns_respect_rules": false,
+      "clash_dns_nameserver_policy": {
+        "example.com": "1.1.1.1"
+      },
+      "clash_tun_dns_hijack": [
+        "any:53",
+        "tcp://any:53"
+      ],
+      "clash_sniffer_force_dns_mapping": true
+    },
+    "card": "mihomo-dns-behavior:clash",
+    "family": "mihomo-dns-behavior"
+  },
+  {
+    "id": "card-mihomo-dns-upstreams-clash",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_default_nameserver": [
+        "1.1.1.1"
+      ],
+      "clash_dns_nameserver": [
+        "1.1.1.1"
+      ],
+      "clash_dns_fallback": [
+        "1.1.1.1"
+      ],
+      "clash_dns_proxy_server_nameserver": [
+        "1.1.1.1"
+      ],
+      "clash_dns_direct_nameserver": [
+        "1.1.1.1"
+      ]
+    },
+    "card": "mihomo-dns-upstreams:clash",
+    "family": "mihomo-dns-upstreams"
+  },
+  {
+    "id": "card-url-rewrite-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_url_rewrite": [
+        "^http://example.com/(.*) http://example.net/$1 302"
+      ]
+    },
+    "card": "url-rewrite:surge",
+    "family": "url-rewrite"
+  },
+  {
+    "id": "card-url-rewrite-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_url_rewrite": [
+        "^http://example.com/(.*) http://example.net/$1 302"
+      ]
+    },
+    "card": "url-rewrite:shadowrocket",
+    "family": "url-rewrite"
+  },
+  {
+    "id": "card-url-rewrite-mihomo",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "url-rewrite:mihomo",
+    "family": "url-rewrite"
+  },
+  {
+    "id": "card-map-local-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_map_local": [
+        "^http://example.com/mock data-type=text data=\"synthetic\""
+      ]
+    },
+    "card": "map-local:surge",
+    "family": "map-local"
+  },
+  {
+    "id": "card-map-local-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_map_local": [
+        "^http://example.com/mock data-type=text data=\"synthetic\""
+      ]
+    },
+    "card": "map-local:shadowrocket",
+    "family": "map-local"
+  },
+  {
+    "id": "card-map-local-mihomo",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "map-local:mihomo",
+    "family": "map-local"
+  },
+  {
+    "id": "card-script-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_script_request": [
+        "test = type=http-response,pattern=^https://example.com/,script-path=https://example.com/test.js,requires-body=1"
+      ],
+      "shadowrocket_script_response": [
+        "test = type=http-response,pattern=^https://example.com/,script-path=https://example.com/test.js,requires-body=1"
+      ]
+    },
+    "card": "script:shadowrocket",
+    "family": "script"
+  },
+  {
+    "id": "card-script-surge",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "script:surge",
+    "family": "script"
+  },
+  {
+    "id": "card-script-mihomo",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "script:mihomo",
+    "family": "script"
+  },
+  {
+    "id": "card-mitm-surge",
+    "profile": "lazycat",
+    "settings": {
+      "surge_mitm_hostname": [
+        "example.com"
+      ],
+      "surge_mitm_skip_server_cert_verify": true,
+      "surge_mitm_h2": true,
+      "surge_mitm_tcp_connection": true
+    },
+    "card": "mitm:surge",
+    "family": "mitm"
+  },
+  {
+    "id": "card-mitm-shadowrocket",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_mitm_hostname": [
+        "example.com"
+      ]
+    },
+    "card": "mitm:shadowrocket",
+    "family": "mitm"
+  },
+  {
+    "id": "card-mitm-mihomo",
+    "profile": "lazycat",
+    "settings": {},
+    "card": "mitm:mihomo",
+    "family": "mitm"
+  },
+  {
+    "id": "existing-test_subscription_builder_new-1",
+    "profile": "lazycat",
+    "settings": {
+      "surge_skip_proxy": [
+        "6.6.6.6/32,",
+        "2000::6666/128"
+      ],
+      "surge_tun_excluded_routes": [
+        "6.6.6.6/32",
+        "2000::6666/128"
+      ],
+      "shadowrocket_skip_proxy": [
+        "6.6.6.6/32,",
+        "2000::6666/128"
+      ],
+      "shadowrocket_tun_excluded_routes": [
+        "6.6.6.6/32",
+        "2000::6666/128"
+      ]
+    },
+    "fixture": "test_subscription_builder_new.py:536"
+  },
+  {
+    "id": "existing-test_subscription_builder_new-2",
+    "profile": "lazycat",
+    "settings": {
+      "surge_host_records": {
+        "subhub.devbox.heiyu.space": "203.0.113.10"
+      },
+      "shadowrocket_host_records": {
+        "subhub.prodbox.heiyu.space": "203.0.113.11"
+      },
+      "clash_host_records": {
+        "subhub.devbox.heiyu.space": "203.0.113.10"
+      }
+    },
+    "fixture": "test_subscription_builder_new.py:577"
+  },
+  {
+    "id": "existing-test_subscription_builder_new-3",
+    "profile": "lazycat",
+    "settings": {
+      "surge_host_records": {
+        "subhub.devbox.heiyu.space": "192.168.0.108",
+        "cookiecloud.devbox.heiyu.space": "localhost"
+      },
+      "shadowrocket_host_records": {
+        "cookiecloud.prodbox.heiyu.space": "127.0.0.1"
+      },
+      "clash_host_records": {
+        "subhub.devbox.heiyu.space": "192.168.0.108"
+      }
+    },
+    "fixture": "test_subscription_builder_new.py:671"
+  },
+  {
+    "id": "existing-test_subscription_builder_new-4",
+    "profile": "lazycat",
+    "settings": {
+      "clash_fake_ip_filter": [
+        "+.custom.test"
+      ],
+      "clash_always_real_ip": [
+        "*.custom.test"
+      ],
+      "clash_dns_enable": false,
+      "clash_dns_listen": "0.0.0.0:5353",
+      "clash_dns_enhanced_mode": "redir-host",
+      "clash_mixed_port": 17890,
+      "clash_udp_default_enabled": false,
+      "clash_dns_default_nameserver": [
+        "1.1.1.1"
+      ],
+      "clash_dns_nameserver": [
+        "https://dns.google/dns-query"
+      ],
+      "clash_dns_fallback": [
+        "tls://9.9.9.9"
+      ],
+      "clash_tun_enable": false,
+      "clash_tun_stack": "system",
+      "clash_tun_auto_route": false,
+      "clash_tun_auto_detect_interface": false,
+      "clash_tun_dns_hijack": [
+        "any:5353"
+      ],
+      "clash_tun_strict_route": false,
+      "tun_excluded_routes": [
+        "10.0.0.0/8"
+      ],
+      "shadowrocket_always_real_ip": [
+        "*.sr.custom.test"
+      ],
+      "shadowrocket_tun_excluded_routes": [
+        "172.16.0.0/12"
+      ],
+      "surge_always_real_ip": [
+        "*.surge.custom.test"
+      ],
+      "surge_tun_excluded_routes": [
+        "100.64.0.0/10"
+      ]
+    },
+    "fixture": "test_subscription_builder_new.py:900"
+  },
+  {
+    "id": "existing-test_subscription_builder_new-5",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_url_rewrite": [
+        "^https://example.com/a https://example.com/b 302"
+      ],
+      "shadowrocket_map_local": [
+        "^https://example.com/mock data-type=text data=\"ok\" status-code=200"
+      ],
+      "shadowrocket_mitm_hostname": [
+        "example.com",
+        "*.example.net"
+      ],
+      "shadowrocket_script_request": [
+        "type=http-request,pattern=^https://example.com/api,script-path=https://example.com/request.js"
+      ],
+      "shadowrocket_script_response": [
+        "type=http-response,pattern=^https://example.com/api,requires-body=1,script-path=https://example.com/response.js"
+      ]
+    },
+    "fixture": "test_subscription_builder_new.py:975"
+  },
+  {
+    "id": "existing-test_mihomo_capabilities-1",
+    "profile": "lazycat",
+    "settings": {
+      "clash_ipv6": true,
+      "clash_profile_store_selected": true,
+      "clash_profile_store_fake_ip": true,
+      "clash_external_controller": "127.0.0.1:9090",
+      "clash_secret": "api-secret-01",
+      "clash_external_ui": "ui",
+      "clash_external_ui_name": "metacube",
+      "clash_external_ui_url": "https://example.com/ui.tgz"
+    },
+    "fixture": "test_mihomo_capabilities.py:64"
+  },
+  {
+    "id": "existing-test_mihomo_capabilities-2",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_fake_ip_range": "198.18.0.1/16",
+      "clash_dns_fake_ip_filter_mode": "rule",
+      "clash_dns_proxy_server_nameserver": [
+        "https://doh.pub/dns-query"
+      ],
+      "clash_dns_direct_nameserver": [
+        "223.5.5.5"
+      ],
+      "clash_dns_respect_rules": true,
+      "clash_tun_enable": true,
+      "clash_tun_include_uid": [
+        1000,
+        1001
+      ],
+      "clash_tun_exclude_uid": [
+        0
+      ],
+      "clash_tun_include_package": [
+        "com.example.browser"
+      ],
+      "clash_tun_exclude_package": [
+        "com.example.games"
+      ],
+      "clash_sniffer_enable": true,
+      "clash_sniffer_force_dns_mapping": true,
+      "clash_sniffer_parse_pure_ip": false,
+      "clash_sniffer_override_destination": false,
+      "clash_sniffer_http_ports": [
+        80,
+        "8080-8880"
+      ],
+      "clash_sniffer_tls_ports": [
+        443,
+        8443
+      ],
+      "clash_sniffer_quic_ports": [
+        443,
+        8443
+      ],
+      "clash_sniffer_force_domain": [
+        "+.v2ex.com"
+      ],
+      "clash_sniffer_skip_domain": [
+        "Mijia Cloud"
+      ],
+      "clash_sniffer_skip_src_address": [
+        "10.0.0.0/8"
+      ],
+      "clash_sniffer_skip_dst_address": [
+        "192.168.0.0/16"
+      ]
+    },
+    "fixture": "test_mihomo_capabilities.py:102"
+  },
+  {
+    "id": "existing-test_mihomo_capabilities-3",
+    "profile": "lazycat",
+    "settings": {
+      "clash_profile_store_selected": true,
+      "clash_sniffer_enable": true,
+      "clash_always_real_ip": [
+        "*.pending.example"
+      ],
+      "clash_ipv6": true,
+      "clash_tcp_concurrent": true
+    },
+    "fixture": "test_mihomo_capabilities.py:241"
+  },
+  {
+    "id": "existing-test_mihomo_capabilities-4",
+    "profile": "lazycat",
+    "settings": {
+      "surge_skip_proxy": [
+        "example.com",
+        "10.0.0.0/8",
+        "*.local"
+      ]
+    },
+    "fixture": "test_mihomo_capabilities.py:275"
+  },
+  {
+    "id": "existing-test_mihomo_capabilities-5",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_tun_enable": true,
+      "surge_skip_proxy": [
+        "example.com",
+        "10.0.0.0/8"
+      ],
+      "clash_fake_ip_filter": [
+        "+.example.com"
+      ]
+    },
+    "fixture": "test_mihomo_capabilities.py:299"
+  },
+  {
+    "id": "existing-test_surge_capabilities-1",
+    "profile": "lazycat",
+    "settings": {
+      "surge_script": [
+        "example-script.js"
+      ],
+      "surge_script_request": [
+        "http-request ^https?://example.com script-path=script.js"
+      ],
+      "surge_mitm_h2": true,
+      "surge_mitm_tcp_connection": true,
+      "surge_smart_group": [
+        "Auto = smart-group, premium-1, medium-1"
+      ]
+    },
+    "fixture": "test_surge_capabilities.py:122"
+  },
+  {
+    "id": "existing-test_surge_capabilities-2",
+    "profile": "lazycat",
+    "settings": {
+      "surge_dns_server": [
+        "system",
+        "223.5.5.5",
+        "8.8.8.8"
+      ],
+      "surge_encrypted_dns_server": [
+        "https://1.1.1.1/dns-query"
+      ],
+      "surge_encrypted_dns_follow_outbound_mode": true,
+      "surge_loglevel": "notify",
+      "surge_host": {
+        "example.com": "1.2.3.4",
+        "*.example.net": "server:https://cloudflare-dns.com/dns-query",
+        "a.example.org": "alias:b.example.org"
+      },
+      "surge_mitm_hostname": [
+        "*.example.com",
+        "-*.apple.com"
+      ],
+      "surge_mitm_skip_server_cert_verify": false
+    },
+    "fixture": "test_surge_capabilities.py:144"
+  },
+  {
+    "id": "existing-test_surge_capabilities-3",
+    "profile": "lazycat",
+    "settings": {
+      "surge_http_api": "127.0.0.1:6170",
+      "surge_http_api_secret": "surge-secret-01"
+    },
+    "fixture": "test_surge_capabilities.py:178"
+  },
+  {
+    "id": "existing-test_surge_capabilities-4",
+    "profile": "lazycat",
+    "settings": {
+      "surge_block_quic": "all-proxy",
+      "surge_http_api": "127.0.0.1:6170",
+      "surge_http_api_tls": true,
+      "surge_http_api_web_dashboard": true
+    },
+    "fixture": "test_surge_capabilities.py:195"
+  },
+  {
+    "id": "existing-test_surge_capabilities-5",
+    "profile": "lazycat",
+    "settings": {
+      "surge_header_rewrite": [
+        "http-request ^https?://example.com header-add X-Debug 1"
+      ],
+      "surge_body_rewrite": [
+        "http-response ^https?://api.example.com s/foo/bar/g"
+      ],
+      "surge_jq_body_rewrite": [
+        "http-response-jq ^https?://api.example.com .items=[]"
+      ],
+      "surge_map_local": [
+        "^https?://surgetest\\.com/json data-type=text data=\"{}\" status-code=500"
+      ]
+    },
+    "fixture": "test_surge_capabilities.py:234"
+  },
+  {
+    "id": "existing-test_surge_capabilities-6",
+    "profile": "lazycat",
+    "settings": {
+      "surge_header_rewrite": [
+        "http-request ^https?://example.com header-add X-Debug 1"
+      ]
+    },
+    "fixture": "test_surge_capabilities.py:265"
+  },
+  {
+    "id": "existing-test_shadowrocket_capabilities-1",
+    "profile": "lazycat",
+    "settings": {
+      "shadowrocket_url_rewrite": [
+        "^https://example.com/rewrite https://example.com/ok 302"
+      ],
+      "shadowrocket_map_local": [
+        "^https?://example.com/mock data-type=text data=\"ok\" status-code=200"
+      ],
+      "shadowrocket_mitm_hostname": [
+        "example.com",
+        "*.example.net"
+      ],
+      "shadowrocket_script_request": [
+        "type=http-request,pattern=^https://example.com/api,script-path=https://example.com/request.js"
+      ],
+      "shadowrocket_script_response": [
+        "type=http-response,pattern=^https://example.com/api,requires-body=1,script-path=https://example.com/response.js"
+      ]
+    },
+    "fixture": "test_shadowrocket_capabilities.py:236"
+  },
+  {
+    "id": "fake-ip-blacklist",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_fake_ip_filter_mode": "blacklist",
+      "clash_fake_ip_filter": [
+        "*.example.com"
+      ]
+    }
+  },
+  {
+    "id": "fake-ip-whitelist",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_fake_ip_filter_mode": "whitelist",
+      "clash_fake_ip_filter": [
+        "*.example.com"
+      ]
+    }
+  },
+  {
+    "id": "fake-ip-rule",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_fake_ip_filter_mode": "rule",
+      "clash_fake_ip_filter": [
+        "DOMAIN,example.com,real-ip"
+      ]
+    }
+  },
+  {
+    "id": "preset-balanced",
+    "profile": "lazycat",
+    "preset": "balanced",
+    "settings": {}
+  },
+  {
+    "id": "preset-cheap",
+    "profile": "lazycat",
+    "preset": "cheap",
+    "settings": {}
+  },
+  {
+    "id": "preset-realtime",
+    "profile": "lazycat",
+    "preset": "realtime",
+    "settings": {}
+  },
+  {
+    "id": "preset-streaming",
+    "profile": "lazycat",
+    "preset": "streaming",
+    "settings": {}
+  },
+  {
+    "id": "preset-mobile",
+    "profile": "lazycat",
+    "preset": "mobile",
+    "settings": {}
+  },
+  {
+    "id": "contract-proxy-strict",
+    "profile": "lazycat",
+    "action": "proxy",
+    "strategy": "strict",
+    "settings": {}
+  },
+  {
+    "id": "contract-proxy-failover",
+    "profile": "lazycat",
+    "action": "proxy",
+    "strategy": "failover",
+    "settings": {}
+  },
+  {
+    "id": "contract-proxy-load-balance",
+    "profile": "lazycat",
+    "action": "proxy",
+    "strategy": "load-balance",
+    "settings": {}
+  },
+  {
+    "id": "contract-direct-strict",
+    "profile": "lazycat",
+    "action": "direct",
+    "strategy": "strict",
+    "settings": {}
+  },
+  {
+    "id": "contract-direct-failover",
+    "profile": "lazycat",
+    "action": "direct",
+    "strategy": "failover",
+    "settings": {}
+  },
+  {
+    "id": "contract-direct-load-balance",
+    "profile": "lazycat",
+    "action": "direct",
+    "strategy": "load-balance",
+    "settings": {}
+  },
+  {
+    "id": "contract-reject-strict",
+    "profile": "lazycat",
+    "action": "reject",
+    "strategy": "strict",
+    "settings": {}
+  },
+  {
+    "id": "contract-reject-failover",
+    "profile": "lazycat",
+    "action": "reject",
+    "strategy": "failover",
+    "settings": {}
+  },
+  {
+    "id": "contract-reject-load-balance",
+    "profile": "lazycat",
+    "action": "reject",
+    "strategy": "load-balance",
+    "settings": {}
+  },
+  {
+    "id": "rules-ip-literal",
+    "profile": "lazycat",
+    "rules_case": "ip-literal",
+    "settings": {}
+  },
+  {
+    "id": "rules-ip-no-resolve",
+    "profile": "lazycat",
+    "rules_case": "ip-no-resolve",
+    "settings": {}
+  },
+  {
+    "id": "rules-logical",
+    "profile": "lazycat",
+    "rules_case": "logical",
+    "settings": {}
+  },
+  {
+    "id": "rules-remote",
+    "profile": "lazycat",
+    "rules_case": "remote",
+    "settings": {}
+  },
+  {
+    "id": "rules-system-only",
+    "profile": "lazycat",
+    "rules_case": "system-only",
+    "settings": {}
+  },
+  {
+    "id": "rules-overlap",
+    "profile": "lazycat",
+    "rules_case": "overlap",
+    "settings": {}
+  },
+  {
+    "id": "rules-empty",
+    "profile": "lazycat",
+    "rules_case": "empty",
+    "settings": {}
+  },
+  {
+    "id": "rules-reject-variants",
+    "profile": "lazycat",
+    "rules_case": "reject-variants",
+    "settings": {}
+  },
+  {
+    "id": "rules-manual-provider",
+    "profile": "lazycat",
+    "rules_case": "manual-provider",
+    "settings": {}
+  },
+  {
+    "id": "nodes-existing-surge",
+    "profile": "lazycat",
+    "settings": {},
+    "node_fixture": "surge"
+  },
+  {
+    "id": "nodes-empty",
+    "profile": "lazycat",
+    "settings": {},
+    "node_fixture": "empty"
+  },
+  {
+    "id": "src-ip-custom-plain",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "custom",
+    "extras": []
+  },
+  {
+    "id": "src-ip-custom-other",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "custom",
+    "extras": [
+      "extended-matching"
+    ]
+  },
+  {
+    "id": "src-ip-custom-explicit",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "custom",
+    "extras": [
+      "no-resolve"
+    ]
+  },
+  {
+    "id": "src-ip-catalog-plain",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "catalog",
+    "extras": []
+  },
+  {
+    "id": "src-ip-catalog-other",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "catalog",
+    "extras": [
+      "extended-matching"
+    ]
+  },
+  {
+    "id": "src-ip-catalog-explicit",
+    "profile": "lazycat",
+    "settings": {},
+    "rules_case": "src-ip",
+    "source": "catalog",
+    "extras": [
+      "no-resolve"
+    ]
+  },
+  {
+    "id": "raw-nonfinite-inf",
+    "profile": "lazycat",
+    "settings": {},
+    "nonfinite": "inf"
+  },
+  {
+    "id": "raw-nonfinite-nan",
+    "profile": "lazycat",
+    "settings": {},
+    "nonfinite": "nan"
+  },
+  {
+    "id": "raw-nonfinite-1_0e999",
+    "profile": "lazycat",
+    "settings": {},
+    "nonfinite": "1.0e+999"
+  },
+  {
+    "id": "negative-nameserver-policy-list-field",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_nameserver_policy": {
+        "example.com": ["1.1.1.1"]
+      }
+    },
+    "expected_mihomo_failure": "Baseline stringifies list DNS values; DNS upstream scheme is invalid"
+  },
+  {
+    "id": "negative-nameserver-policy-list-card",
+    "profile": "lazycat",
+    "settings": {
+      "clash_dns_enable": false,
+      "clash_dns_listen": "127.0.0.1:15353",
+      "clash_dns_enhanced_mode": "fake-ip",
+      "clash_dns_use_hosts": false,
+      "clash_dns_fake_ip_range": "198.19.0.1/16",
+      "clash_dns_fake_ip_filter_mode": "blacklist",
+      "clash_dns_respect_rules": false,
+      "clash_dns_nameserver_policy": {"example.com": ["1.1.1.1"]},
+      "clash_tun_dns_hijack": ["any:53", "tcp://any:53"],
+      "clash_sniffer_force_dns_mapping": true
+    },
+    "expected_mihomo_failure": "Baseline stringifies list DNS values; DNS upstream scheme is invalid"
+  }
+]

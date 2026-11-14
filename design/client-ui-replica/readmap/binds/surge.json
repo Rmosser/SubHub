@@ -1,0 +1,969 @@
+{
+ "client": "surge",
+ "target": "surge",
+ "format": "ini",
+ "root": "home-general",
+ "roots": [
+  "home-general",
+  "home-capture",
+  "home-modify"
+ ],
+ "screens": [
+  {
+   "id": "home-general",
+   "title": "sg3-b（首页 · 通用）",
+   "parent": null,
+   "via": null,
+   "depth": 1,
+   "kind": "home",
+   "rows": 4,
+   "todo": "首页是卡片布局，三个分段（通用/捕获/修改）是同一屏的三个面"
+  },
+  {
+   "id": "home-capture",
+   "title": "sg3-b（首页 · 捕获）",
+   "parent": null,
+   "via": "segment:捕获",
+   "depth": 1,
+   "kind": "home",
+   "rows": 3
+  },
+  {
+   "id": "home-modify",
+   "title": "sg3-b（首页 · 修改）",
+   "parent": null,
+   "via": "segment:修改",
+   "depth": 1,
+   "kind": "home",
+   "rows": 3
+  },
+  {
+   "id": "modify-rewrite-menu",
+   "title": "重写规则（弹出菜单）",
+   "parent": "home-modify",
+   "via": "home-modify#0.2",
+   "depth": 2,
+   "kind": "menu",
+   "rows": 3
+  },
+  {
+   "id": "modify-mock",
+   "title": "Mock",
+   "parent": "home-modify",
+   "via": "home-modify#0.1",
+   "depth": 2,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "home-proxies",
+   "title": "代理服务器",
+   "parent": "home-general",
+   "via": "home-general#0.3",
+   "depth": 2,
+   "kind": "list",
+   "rows": 2,
+   "todo": "inventory 里没有策略组行的模板，[Proxy Group] 在这一屏暂时落不了脚"
+  },
+  {
+   "id": "home-rules",
+   "title": "规则",
+   "parent": "home-general",
+   "via": "home-general#0.4",
+   "depth": 2,
+   "kind": "list",
+   "rows": 3
+  },
+  {
+   "id": "home-dns",
+   "title": "DNS",
+   "parent": "home-general",
+   "via": "home-general#1.0",
+   "depth": 2,
+   "kind": "form",
+   "rows": 5
+  },
+  {
+   "id": "home-local-dns",
+   "title": "本地 DNS 映射",
+   "parent": "home-general",
+   "via": "home-general#1.1",
+   "depth": 2,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "capture-mitm",
+   "title": "HTTPS 解密",
+   "parent": "home-capture",
+   "via": "home-capture#1.1",
+   "depth": 2,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "capture-mitm-hosts",
+   "title": "MITM",
+   "parent": "home-capture",
+   "via": "home-capture#1.2",
+   "depth": 2,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "more-advanced",
+   "title": "高级",
+   "parent": "home-general",
+   "via": "home-general#3.0",
+   "depth": 2,
+   "kind": "form",
+   "rows": 5
+  },
+  {
+   "id": "modify-url-rewrite",
+   "title": "URL 重定向",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.0",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "modify-header-rewrite",
+   "title": "Header 重写",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.1",
+   "depth": 3,
+   "kind": "list",
+   "rows": 1
+  },
+  {
+   "id": "modify-body-rewrite",
+   "title": "Body 重写",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.2",
+   "depth": 3,
+   "kind": "list",
+   "rows": 2
+  },
+  {
+   "id": "modify-mock-edit",
+   "title": "Mock",
+   "parent": "modify-mock",
+   "via": "modify-mock#1.0",
+   "depth": 3,
+   "kind": "form",
+   "rows": 3
+  },
+  {
+   "id": "home-proxy-edit",
+   "title": "代理",
+   "parent": "home-proxies",
+   "via": "home-proxies#0.0",
+   "depth": 3,
+   "kind": "form",
+   "rows": 7,
+   "todo": "表单只按 Shadowsocks 记录，其他协议的字段行不同"
+  },
+  {
+   "id": "more-advanced-http-api",
+   "title": "HTTP API & Web 面板",
+   "parent": "more-advanced",
+   "via": "more-advanced#2.1",
+   "depth": 3,
+   "kind": "form",
+   "rows": 6
+  },
+  {
+   "id": "more-advanced-latency",
+   "title": "延迟测试",
+   "parent": "more-advanced",
+   "via": "more-advanced#0.1",
+   "depth": 3,
+   "kind": "form",
+   "rows": 1
+  },
+  {
+   "id": "more-advanced-ipv6",
+   "title": "IPv6",
+   "parent": "more-advanced",
+   "via": "more-advanced#0.4",
+   "depth": 3,
+   "kind": "form",
+   "rows": 1
+  },
+  {
+   "id": "more-advanced-advset",
+   "title": "高级设置",
+   "parent": "more-advanced",
+   "via": "more-advanced#3.1",
+   "depth": 3,
+   "kind": "form",
+   "rows": 4
+  },
+  {
+   "id": "modify-body-rewrite-edit",
+   "title": "Body 重写",
+   "parent": "modify-body-rewrite",
+   "via": "modify-body-rewrite#1.0",
+   "depth": 4,
+   "kind": "form",
+   "rows": 4,
+   "todo": "表单只按 JSON JQ 形态记录，Text Regex 形态的字段行没有采集"
+  }
+ ],
+ "rows": [
+  {
+   "row": "home-general#0.3",
+   "label": "代理服务器",
+   "bind": {
+    "kind": "count",
+    "ini": "Proxy"
+   },
+   "explain": "所有节点都列在这里，SubHub 写入了全部可用节点。"
+  },
+  {
+   "row": "home-general#0.4",
+   "label": "代理规则",
+   "bind": {
+    "kind": "count",
+    "ini": "Rule"
+   },
+   "explain": "决定每个请求走哪个节点，SubHub 写入整套分流规则。"
+  },
+  {
+   "row": "home-general#1.0",
+   "label": "DNS 设置",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": [
+     "dns-server",
+     "encrypted-dns-server"
+    ]
+   },
+   "explain": "手机用谁来查域名，SubHub 指定了解析服务器。"
+  },
+  {
+   "row": "home-general#1.1",
+   "label": "本地 DNS 映射",
+   "bind": {
+    "kind": "count",
+    "ini": "Host"
+   },
+   "explain": "把某些域名固定指到指定地址，SubHub 写了这些对应。"
+  },
+  {
+   "row": "home-capture#1.0",
+   "label": "MitM",
+   "bind": {
+    "kind": "exists",
+    "ini": "MITM",
+    "key": "hostname"
+   },
+   "paper": "打开 MitM 总开关，SubHub 写的解密名单才生效。"
+  },
+  {
+   "row": "home-capture#1.1",
+   "label": "配置",
+   "bind": {
+    "kind": "exists",
+    "ini": "MITM"
+   },
+   "explain": "HTTPS 解密的细节开关，SubHub 只写了其中几项。"
+  },
+  {
+   "row": "home-capture#1.2",
+   "label": "主机名",
+   "bind": {
+    "kind": "count",
+    "ini": "MITM",
+    "key": "hostname",
+    "split": ","
+   },
+   "explain": "只对这些域名解密 HTTPS，名单由 SubHub 写入。"
+  },
+  {
+   "row": "home-modify#0.0",
+   "label": "HTTP 重写",
+   "bind": {
+    "kind": "exists",
+    "ini": [
+     "URL Rewrite",
+     "Header Rewrite",
+     "Body Rewrite",
+     "Map Local"
+    ]
+   },
+   "paper": "打开 HTTP 重写，SubHub 写的重写规则才会运行。",
+   "todo": "未在真机核对这个开关是否同时管 Mock（[Map Local]）"
+  },
+  {
+   "row": "home-modify#0.1",
+   "label": "Mock",
+   "bind": {
+    "kind": "count",
+    "ini": "Map Local"
+   },
+   "explain": "让指定网址直接返回本地内容，条目由 SubHub 写入。"
+  },
+  {
+   "row": "home-modify#0.2",
+   "label": "重写规则",
+   "bind": {
+    "kind": "exists",
+    "ini": [
+     "URL Rewrite",
+     "Header Rewrite",
+     "Body Rewrite"
+    ]
+   },
+   "explain": "改写网址、请求头和正文，SubHub 写的规则都在里面。"
+  },
+  {
+   "row": "modify-rewrite-menu#0.0",
+   "label": "URL 重写",
+   "bind": {
+    "kind": "count",
+    "ini": "URL Rewrite"
+   },
+   "explain": "把网址换成另一个或直接拦掉，规则由 SubHub 写入。"
+  },
+  {
+   "row": "modify-rewrite-menu#0.1",
+   "label": "Header 重写",
+   "bind": {
+    "kind": "count",
+    "ini": "Header Rewrite"
+   },
+   "explain": "增删改请求头或响应头，规则由 SubHub 写入。"
+  },
+  {
+   "row": "modify-rewrite-menu#0.2",
+   "label": "Body 重写",
+   "bind": {
+    "kind": "count",
+    "ini": "Body Rewrite"
+   },
+   "explain": "改写请求或响应的正文，规则由 SubHub 写入。"
+  },
+  {
+   "row": "modify-url-rewrite#1.0",
+   "label": "无项目",
+   "bind": {
+    "kind": "list",
+    "ini": "URL Rewrite",
+    "sep": " ",
+    "label_col": 0,
+    "sub_col": 2
+   },
+   "explain": "每行一条改写：匹配的网址、换成什么、用哪种方式。"
+  },
+  {
+   "row": "modify-header-rewrite#1.0",
+   "label": "无项目",
+   "bind": {
+    "kind": "list",
+    "ini": "Header Rewrite",
+    "sep": " ",
+    "label_col": 1,
+    "sub_col": 2,
+    "max_cols": 3
+   },
+   "explain": "每行一条：匹配的网址，以及对哪个头做什么改动。",
+   "todo": "采集时列表为空，手机上副标题的真实排版没见过"
+  },
+  {
+   "row": "modify-body-rewrite#1.0",
+   "label": "<URL 正则>",
+   "bind": {
+    "kind": "list",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "match": "^http-(request|response)-jq\\s",
+    "label_col": 1,
+    "sub_col": [
+     0,
+     2
+    ],
+    "max_cols": 3
+   },
+   "explain": "用 jq 改写 JSON 响应，每行是 SubHub 写的一条。"
+  },
+  {
+   "row": "modify-body-rewrite#1.1",
+   "label": "<URL 正则>",
+   "bind": {
+    "kind": "list",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "match": "^http-(request|response)\\s",
+    "label_col": 1,
+    "sub_col": [
+     0,
+     2
+    ],
+    "max_cols": 3
+   },
+   "explain": "用正则替换正文里的文字，每行是 SubHub 写的一条。",
+   "todo": "这种行在 inventory 里没有详情屏（to 为空），点了不推入"
+  },
+  {
+   "row": "modify-body-rewrite-edit#0.0",
+   "label": "HTTP 方向",
+   "bind": {
+    "kind": "item",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "col": 0,
+    "map": {
+     "http-request-jq": "Request",
+     "http-request": "Request",
+     "http-response-jq": "Response",
+     "http-response": "Response"
+    }
+   },
+   "explain": "改的是发出去的请求还是收到的响应，SubHub 已选好。"
+  },
+  {
+   "row": "modify-body-rewrite-edit#0.1",
+   "label": "修改模式",
+   "bind": {
+    "kind": "item",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "col": 0,
+    "map": {
+     "http-request-jq": "JSON JQ",
+     "http-response-jq": "JSON JQ",
+     "http-request": "Text Regex",
+     "http-response": "Text Regex"
+    }
+   },
+   "explain": "按文字正则改还是按 JSON 结构改，SubHub 已选好。"
+  },
+  {
+   "row": "modify-body-rewrite-edit#1.0",
+   "label": "URL 正则",
+   "bind": {
+    "kind": "item",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "col": 1,
+    "max_cols": 3
+   },
+   "explain": "哪些网址会被改写，这条正则由 SubHub 写入。"
+  },
+  {
+   "row": "modify-body-rewrite-edit#2.0",
+   "label": "JQ 表达式",
+   "bind": {
+    "kind": "item",
+    "ini": "Body Rewrite",
+    "sep": " ",
+    "col": 2,
+    "max_cols": 3,
+    "unquote": true
+   },
+   "explain": "具体怎么改 JSON，这段表达式由 SubHub 写入。"
+  },
+  {
+   "row": "modify-mock#1.0",
+   "label": "<URL 正则>",
+   "bind": {
+    "kind": "list",
+    "ini": "Map Local",
+    "sep": " ",
+    "label_col": 0,
+    "sub_param": "data"
+   },
+   "explain": "匹配到的网址不再联网，直接返回 SubHub 给的内容。",
+   "todo": "[Map Local] 行是用户原样填的，data=/data-type= 的写法没有样本可核对"
+  },
+  {
+   "row": "modify-mock-edit#0.0",
+   "label": "URL 正则",
+   "bind": {
+    "kind": "item",
+    "ini": "Map Local",
+    "sep": " ",
+    "col": 0
+   },
+   "explain": "哪些网址会被替换成本地内容，正则由 SubHub 写入。"
+  },
+  {
+   "row": "modify-mock-edit#1.0",
+   "label": "数据类型",
+   "bind": {
+    "kind": "item",
+    "ini": "Map Local",
+    "sep": " ",
+    "param": "data-type"
+   },
+   "explain": "返回内容是文本还是文件，SubHub 按条目写好。",
+   "todo": "缺 data-type 时手机默认显示哪一项未核对"
+  },
+  {
+   "row": "modify-mock-edit#2.0",
+   "label": "数据内容",
+   "bind": {
+    "kind": "item",
+    "ini": "Map Local",
+    "sep": " ",
+    "param": "data",
+    "unquote": true
+   },
+   "explain": "实际返回给 App 的内容，由 SubHub 写入。"
+  },
+  {
+   "row": "home-proxies#0.0",
+   "label": "<节点名>",
+   "bind": {
+    "kind": "list",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "label_part": "name",
+    "sub_pos": [
+     0,
+     1
+    ]
+   },
+   "explain": "一个节点一行：名字、协议和服务器，全由 SubHub 写入。"
+  },
+  {
+   "row": "home-proxies#2.0",
+   "label": "UDP 回退行为",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "udp-policy-not-supported-behaviour",
+    "map": {
+     "REJECT": "阻止",
+     "DIRECT": "直连"
+    }
+   },
+   "explain": "节点不支持 UDP 时怎么办，SubHub 固定写成阻止。",
+   "todo": "DIRECT 对应的手机文案是推测"
+  },
+  {
+   "row": "home-proxy-edit#0.0",
+   "label": "名称",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "part": "name"
+   },
+   "explain": "节点在列表里显示的名字，由 SubHub 统一命名。"
+  },
+  {
+   "row": "home-proxy-edit#1.0",
+   "label": "代理类型",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 0,
+    "map": {
+     "ss": "Shadowsocks",
+     "trojan": "Trojan",
+     "vmess": "VMess",
+     "tuic": "TUIC",
+     "tuic-v5": "TUIC v5",
+     "hysteria2": "Hysteria 2",
+     "anytls": "AnyTLS",
+     "wireguard": "WireGuard",
+     "http": "HTTP",
+     "https": "HTTPS",
+     "socks5": "SOCKS5"
+    }
+   },
+   "explain": "这个节点用哪种协议连接，SubHub 按来源写入。",
+   "todo": "除 Shadowsocks 外的手机文案是推测"
+  },
+  {
+   "row": "home-proxy-edit#2.0",
+   "label": "服务器地址",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 1
+   },
+   "explain": "节点服务器的地址，SubHub 按来源写入。"
+  },
+  {
+   "row": "home-proxy-edit#2.1",
+   "label": "端口号",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "pos": 2
+   },
+   "explain": "节点服务器的端口，SubHub 按来源写入。"
+  },
+  {
+   "row": "home-proxy-edit#2.2",
+   "label": "加密方式",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "param": "encrypt-method"
+   },
+   "explain": "节点的加密算法，要和服务器一致，SubHub 写入。"
+  },
+  {
+   "row": "home-proxy-edit#2.3",
+   "label": "密码",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "param": "password",
+    "mask": true
+   },
+   "explain": "连接节点用的密码，SubHub 写入，这里默认打码。"
+  },
+  {
+   "row": "home-proxy-edit#2.4",
+   "label": "UDP Relay",
+   "bind": {
+    "kind": "item",
+    "ini": "Proxy",
+    "line": "kv-list",
+    "param": "udp-relay"
+   },
+   "explain": "这个节点是否转发 UDP 流量，SubHub 按节点写入。"
+  },
+  {
+   "row": "home-rules#1.0",
+   "label": "<规则值>",
+   "bind": {
+    "kind": "list",
+    "ini": "Rule",
+    "sep": ",",
+    "match": "^(?!FINAL,)",
+    "label_col": 1,
+    "sub_col": [
+     0,
+     2
+    ]
+   },
+   "explain": "从上往下匹配，命中就走后面的策略，SubHub 写入。"
+  },
+  {
+   "row": "home-rules#1.1",
+   "label": "默认策略",
+   "bind": {
+    "kind": "value",
+    "ini": "Rule",
+    "match": "^FINAL,",
+    "sep": ",",
+    "col": 1
+   },
+   "explain": "前面都没命中时走哪个策略，SubHub 写在最后一行。"
+  },
+  {
+   "row": "home-rules#2.0",
+   "label": "在 DNS 失败时使用默认策略",
+   "bind": {
+    "kind": "exists",
+    "ini": "Rule",
+    "match": "^FINAL,.*\\bdns-failed\\b"
+   },
+   "explain": "域名查不到时也走默认策略，SubHub 写成了开。"
+  },
+  {
+   "row": "home-dns#0.0",
+   "label": "使用系统 DNS 服务器",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "dns-server",
+    "re": "^\\s*system\\s*$"
+   },
+   "explain": "只用系统给的 DNS，SubHub 没写别的服务器时选它。",
+   "todo": "SubHub 不写 dns-server 时手机选中哪一项未核对"
+  },
+  {
+   "row": "home-dns#0.1",
+   "label": "使用自定义 DNS 服务器",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "dns-server",
+    "re": "^(?!.*\\bsystem\\b).+$"
+   },
+   "explain": "只用下面列出的 DNS，SubHub 写了服务器就选它。"
+  },
+  {
+   "row": "home-dns#0.2",
+   "label": "混合系统和自定义 DNS 服务器",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "dns-server",
+    "re": "\\bsystem\\b\\s*,|,\\s*system\\b"
+   },
+   "explain": "系统 DNS 和下面列的一起用，SubHub 都写时选它。"
+  },
+  {
+   "row": "home-dns#1.0",
+   "label": "<DNS 地址>",
+   "bind": {
+    "kind": "list",
+    "ini": "General",
+    "key": "dns-server",
+    "split": ","
+   },
+   "explain": "查域名用的服务器，每行一个，由 SubHub 写入。"
+  },
+  {
+   "row": "home-dns#2.0",
+   "label": "加密 DNS",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "encrypted-dns-server"
+   },
+   "explain": "用加密方式查域名的服务器，SubHub 写了就优先用它。"
+  },
+  {
+   "row": "home-local-dns#1.0",
+   "label": "无项目",
+   "bind": {
+    "kind": "list",
+    "ini": "Host",
+    "sep": "=",
+    "label_col": 0,
+    "sub_col": 1
+   },
+   "explain": "左边域名固定解析到右边地址，每行由 SubHub 写入。"
+  },
+  {
+   "row": "capture-mitm#2.0",
+   "label": "安装证书",
+   "bind": {
+    "kind": "exists",
+    "ini": "MITM",
+    "key": "hostname"
+   },
+   "paper": "生成并安装证书，再到系统设置里信任它。"
+  },
+  {
+   "row": "capture-mitm#3.0",
+   "label": "跳过服务端证书验证",
+   "bind": {
+    "kind": "value",
+    "ini": "MITM",
+    "key": "skip-server-cert-verify"
+   },
+   "explain": "是否不检查对方网站的证书，SubHub 按配置写入。"
+  },
+  {
+   "row": "capture-mitm#3.1",
+   "label": "MITM over HTTP/2",
+   "bind": {
+    "kind": "value",
+    "ini": "MITM",
+    "key": "h2"
+   },
+   "explain": "解密时是否支持 HTTP/2，SubHub 按配置写入。"
+  },
+  {
+   "row": "capture-mitm-hosts#1.0",
+   "label": "无项目",
+   "bind": {
+    "kind": "list",
+    "ini": "MITM",
+    "key": "hostname",
+    "split": ","
+   },
+   "explain": "只有名单里的域名会被解密，每行由 SubHub 写入。"
+  },
+  {
+   "row": "more-advanced#0.1",
+   "label": "延迟测试",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "proxy-test-url"
+   },
+   "explain": "测节点快慢用的设置，SubHub 只写了测试网址。"
+  },
+  {
+   "row": "more-advanced#0.4",
+   "label": "IPv6",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "ipv6"
+   },
+   "explain": "IPv6 相关设置，SubHub 只写了查不查 IPv6。"
+  },
+  {
+   "row": "more-advanced#2.1",
+   "label": "HTTP API & Web 面板",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "http-api"
+   },
+   "explain": "让别的程序控制 Surge，SubHub 写了地址和密码。"
+  },
+  {
+   "row": "more-advanced#3.0",
+   "label": "日志等级",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "loglevel"
+   },
+   "explain": "日志记得多细，SubHub 按配置写入。"
+  },
+  {
+   "row": "more-advanced#3.1",
+   "label": "高级设置",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": [
+     "encrypted-dns-follow-outbound-mode",
+     "always-real-ip",
+     "tun-excluded-routes",
+     "skip-proxy"
+    ]
+   },
+   "explain": "一组底层开关，SubHub 只写了其中四项。"
+  },
+  {
+   "row": "more-advanced-http-api#0.0",
+   "label": "HTTP API",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "http-api"
+   },
+   "explain": "是否开放控制接口，SubHub 写了地址就算打开。"
+  },
+  {
+   "row": "more-advanced-http-api#1.0",
+   "label": "端口",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "http-api",
+    "re": ":(\\d+)\\s*$"
+   },
+   "explain": "控制接口监听的端口，由 SubHub 写入。"
+  },
+  {
+   "row": "more-advanced-http-api#1.1",
+   "label": "密码",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "http-api",
+    "re": "^(.*)@",
+    "mask": true
+   },
+   "explain": "访问控制接口用的密码，SubHub 写入，默认打码。"
+  },
+  {
+   "row": "more-advanced-http-api#2.0",
+   "label": "允许由 Wi-Fi 控制",
+   "bind": {
+    "kind": "exists",
+    "ini": "General",
+    "key": "http-api",
+    "re": "(^|@)0\\.0\\.0\\.0:"
+   },
+   "explain": "同一 Wi-Fi 的设备能否来控制，SubHub 按地址写入。",
+   "todo": "监听 0.0.0.0 等于这个开关为开，是 inventory 里的推断"
+  },
+  {
+   "row": "more-advanced-http-api#3.0",
+   "label": "HTTPS",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "http-api-tls"
+   },
+   "explain": "控制接口是否走 HTTPS，SubHub 按配置写入。"
+  },
+  {
+   "row": "more-advanced-http-api#4.0",
+   "label": "Web 面板",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "http-api-web-dashboard"
+   },
+   "explain": "是否开放网页版控制面板，SubHub 按配置写入。"
+  },
+  {
+   "row": "more-advanced-latency#1.0",
+   "label": "代理测试 URL",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "proxy-test-url"
+   },
+   "explain": "测节点延迟时访问的网址，SubHub 固定写了一个。"
+  },
+  {
+   "row": "more-advanced-ipv6#0.0",
+   "label": "IPv6 DNS 查询",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "ipv6"
+   },
+   "explain": "查域名时要不要 IPv6 地址，SubHub 按配置写入。",
+   "todo": "这一行对应 [General] ipv6 是 inventory 里的推断"
+  },
+  {
+   "row": "more-advanced-advset#4.0",
+   "label": "开启",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "encrypted-dns-follow-outbound-mode"
+   },
+   "explain": "加密 DNS 是否跟着代理出口走，SubHub 按配置写入。"
+  },
+  {
+   "row": "more-advanced-advset#8.0",
+   "label": "always-real-ip",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "always-real-ip"
+   },
+   "explain": "这些域名始终返回真实 IP，名单由 SubHub 写入。"
+  },
+  {
+   "row": "more-advanced-advset#12.0",
+   "label": "tun-excluded-routes",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "tun-excluded-routes"
+   },
+   "explain": "这些网段不进 Surge，走本机网络，SubHub 写入。"
+  },
+  {
+   "row": "more-advanced-advset#14.0",
+   "label": "skip-proxy",
+   "bind": {
+    "kind": "value",
+    "ini": "General",
+    "key": "skip-proxy"
+   },
+   "explain": "访问这些地址时不走系统代理设置，但仍按规则分流。"
+  }
+ ],
+ "unbound_placeholders": []
+}

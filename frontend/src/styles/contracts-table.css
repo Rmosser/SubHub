@@ -1,0 +1,65 @@
+/* 路由契约表：名称是标题，路由动作是唯一带淡色点的标签，其余属性是弱文字；字段标签是面板上的小字，不再用全大写。 */
+.contracts-table-shell {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.contracts-table__stack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contracts-table__contract-name {
+  color: var(--k-ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.contracts-table__field-block {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contracts-table__field-label {
+  color: var(--k-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.contracts-table__multiline {
+  min-width: 0;
+  color: var(--k-ink);
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contracts-table__badge-wrap {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.contracts-table__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  color: var(--k-muted);
+  font-size: 12.5px;
+  line-height: 19px;
+}
+
+.contracts-table__meta > span + span::before {
+  content: "·";
+  margin: 0 6px;
+  opacity: 0.7;
+}

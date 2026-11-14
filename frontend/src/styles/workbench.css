@@ -1,0 +1,28 @@
+:root { font-family: var(--f-sans); color: var(--k-ink); }
+body { margin: 0; font-variant-numeric: tabular-nums; }
+*, *::before, *::after { box-sizing: border-box; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--g-lit); outline-offset: 3px; }
+.workbench-page-intro { margin: 8px 0 0; max-width: 650px; font-size: 14px; line-height: 22px; color: var(--k-muted); }
+.workbench-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 6px 0 2px; }
+.workbench-toolbar-summary { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--k-muted); }
+.workbench-toolbar-summary strong { color: var(--k-ink); font-weight: 600; }
+.workbench-list { position: relative; isolation: isolate; border-radius: var(--k-plate-r); }
+.workbench-list::before, .device-card::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--k-plate); -webkit-backdrop-filter: var(--k-plate-filter); backdrop-filter: var(--k-plate-filter); box-shadow: var(--k-plate-edge); pointer-events: none; }
+.workbench-empty { padding: 56px 24px; text-align: center; color: var(--k-muted); }.workbench-empty h3 { color: var(--k-ink); font-size: 20px; margin: 12px 0 8px; }.workbench-empty p { margin: 0 auto; max-width: 420px; line-height: 22px; }.workbench-empty-mark { width: 44px; height: 44px; display: grid; place-items: center; margin: auto; border-radius: 12px; color: var(--k-muted); box-shadow: inset 0 0 0 1px var(--g-ctl-edge); font-size: 24px; }
+.device-list { display: grid; gap: 16px; }
+.device-card { position: relative; isolation: isolate; border-radius: var(--k-plate-r); padding: 24px; min-width: 0; }
+.device-card:focus-within { z-index: 2; }
+.device-card-header { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; }
+.device-card-identity { display: flex; align-items: center; gap: 14px; min-width: 0; }.device-glyph { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; color: var(--k-muted); box-shadow: inset 0 0 0 1px var(--g-ctl-edge); flex-shrink: 0; }.device-card h2 { margin: 0; font-size: 18px; font-weight: 600; overflow-wrap: anywhere; }.device-card-key { font-size: 12px; color: var(--k-muted); margin-top: 4px; overflow-wrap: anywhere; }
+.device-delivery > * { min-width: 0; max-width: 100%; }
+.device-delivery { min-width: 0; display: grid; grid-template-columns: 180px minmax(0,1fr) auto; align-items: end; gap: 16px; }.device-delivery-label { display: block; color: var(--k-muted); font-size: 11px; margin-bottom: 6px; }.device-url { display: block; background: color-mix(in srgb, var(--k-ink) 4%, transparent); box-shadow: inset 0 0 0 1px var(--g-rule); border-radius: 7px; padding: 9px 12px; font: 12px/18px var(--f-mono); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--k-muted); }.device-delivery-actions { display: flex; gap: 8px; }
+.device-card-footer { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--g-rule); color: var(--k-muted); font-size: 12px; }.device-card-footer details { margin-left: auto; }.device-card-footer summary { cursor: pointer; }.device-secret { display: flex; align-items: center; gap: 8px; padding-top: 8px; }
+@media (max-width: 1200px) { .device-delivery { grid-template-columns: 160px minmax(0,1fr); }.device-delivery-actions { grid-column: 2; } }
+@media (max-width: 650px) { .device-card { padding: 20px 16px; }.device-delivery { grid-template-columns: minmax(0,1fr); gap: 12px; }.device-delivery-actions { grid-column: 1; flex-wrap: wrap; }.device-card-header { gap: 10px; }.device-card-footer details { margin-left: 0; }.workbench-toolbar-summary { gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+.workbench-copy-control { display: inline-block; }
+.workbench-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 650px) {
+  .device-delivery-actions button { min-height: 44px; min-width: 44px; }
+}

@@ -1,0 +1,21 @@
+/* 随包自托管的 Geist 与 Geist Mono（SIL OFL 1.1，许可随包放在 public/fonts/OFL-Geist.txt，构建后在 /manage/fonts/OFL-Geist.txt），不走 CDN。
+   只覆盖拉丁、数字与常用标点；中文落到系统的苹方 / 雅黑。 */
+@font-face {
+  font-family: "Geist";
+  src: url("../assets/fonts/geist-latin.v1.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+2248, U+2260, U+2264-2265;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../assets/fonts/geist-mono-latin.v1.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+2248, U+2260, U+2264-2265;
+}
+:root {
+  --f-sans: "Geist", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  --f-mono: "Geist Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+}
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--f-sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-synthesis-weight: none; }
+button, input, select, textarea { font-family: inherit; }

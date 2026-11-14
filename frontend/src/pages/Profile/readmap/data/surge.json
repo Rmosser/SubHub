@@ -1,0 +1,2640 @@
+{
+ "client": "surge",
+ "target": "surge",
+ "format": "ini",
+ "theme": "ios26",
+ "root": "home-general",
+ "roots": [
+  "home-general",
+  "home-capture",
+  "home-modify"
+ ],
+ "geometry": {
+  "content_top": 147.4,
+  "row_h": 53.0,
+  "row_h_sub": 61,
+  "group_gap": 33.0,
+  "nav_cy": 100.3,
+  "sheet": {
+   "top": 62,
+   "radius": 38
+  }
+ },
+ "tabs": null,
+ "screens": {
+  "home-general": {
+   "id": "home-general",
+   "title": "{name}",
+   "parent": null,
+   "via": null,
+   "kind": "home",
+   "sheet": false,
+   "nav": {
+    "left": null,
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "出站模式",
+     "rows": [
+      {
+       "id": "home-general#0.0",
+       "label": "直接连接",
+       "ctl": "segmented",
+       "rel": "d",
+       "layer": "a",
+       "about": "所有请求都直接连接，不走代理。"
+      },
+      {
+       "id": "home-general#0.1",
+       "label": "全局代理",
+       "ctl": "segmented",
+       "rel": "d",
+       "layer": "a",
+       "about": "所有请求都走同一个代理策略。"
+      },
+      {
+       "id": "home-general#0.2",
+       "label": "规则模式",
+       "ctl": "segmented",
+       "rel": "d",
+       "layer": "a",
+       "about": "按规则决定每个请求怎么走。"
+      },
+      {
+       "id": "home-general#0.3",
+       "label": "代理服务器",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-proxies",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Proxy"
+       },
+       "explain": "所有节点都列在这里，SubHub 写入了全部可用节点。"
+      },
+      {
+       "id": "home-general#0.4",
+       "label": "代理规则",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-rules",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Rule"
+       },
+       "explain": "决定每个请求走哪个节点，SubHub 写入整套分流规则。"
+      }
+     ]
+    },
+    {
+     "header": "DNS",
+     "footer": "覆盖系统 DNS 设置，加密 DNS 和配置本地 DNS 映射记录",
+     "rows": [
+      {
+       "id": "home-general#1.0",
+       "label": "DNS 设置",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-dns",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": [
+         "dns-server",
+         "encrypted-dns-server"
+        ]
+       },
+       "explain": "手机用谁来查域名，SubHub 指定了解析服务器。"
+      },
+      {
+       "id": "home-general#1.1",
+       "label": "本地 DNS 映射",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-local-dns",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Host"
+       },
+       "explain": "把某些域名固定指到指定地址，SubHub 写了这些对应。"
+      }
+     ]
+    },
+    {
+     "header": "Surge Ponte",
+     "footer": "Surge Ponte 是运行 Surge Mac, iOS 和 tvOS 的设备之间的私有 Mesh 网络",
+     "rows": [
+      {
+       "id": "home-general#2.0",
+       "label": "配置",
+       "ctl": "button",
+       "rel": "n",
+       "layer": "a",
+       "about": "设置 Surge 设备之间的私有网状网络 Ponte。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-general#3.0",
+       "label": "更多设置",
+       "ctl": "link",
+       "rel": "",
+       "layer": "a",
+       "about": "进入高级设置：网络优化、Wi-Fi 访问、日志等。",
+       "to": "more-advanced",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "segment": true,
+   "shell": {
+    "profile": "打开配置列表，切换 Surge 正在用的配置。App 自己的操作，SubHub 不写它。",
+    "start": "启动或停止 Surge 的 VPN。App 自己的操作，SubHub 不写它。",
+    "bar:home": "首页标签，就是现在这一页。",
+    "bar:tools": "打开「工具」页：最近请求、DNS 结果、实时统计、网络诊断等。App 自己的页面，SubHub 不写它。",
+    "bar:more": "打开「更多」页：始终开启、配置同步、外观等 App 设置。SubHub 不写它。"
+   }
+  },
+  "home-capture": {
+   "id": "home-capture",
+   "title": "{name}",
+   "parent": null,
+   "via": "segment:捕获",
+   "kind": "home",
+   "sheet": false,
+   "nav": {
+    "left": null,
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "捕获流量",
+     "footer": "捕获 HTTP 请求与响应数据并保存，也可以查看 TCP 和 UDP 会话",
+     "rows": [
+      {
+       "id": "home-capture#0.0",
+       "label": "捕获流量",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "开始捕获并保存 HTTP 请求与响应数据。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-capture#0.1",
+       "label": "最近请求",
+       "ctl": "button",
+       "rel": "",
+       "layer": "a",
+       "about": "查看最近经过 Surge 的请求记录。"
+      },
+      {
+       "id": "home-capture#0.2",
+       "label": "设置",
+       "ctl": "button",
+       "rel": "d",
+       "layer": "a",
+       "about": "设置请求记录的过滤器和磁盘捕获的上限。"
+      }
+     ]
+    },
+    {
+     "header": "MitM",
+     "footer": "使用中间人攻击（MitM）解密 HTTPS 流量，以查看其内容和使用高级功能",
+     "rows": [
+      {
+       "id": "home-capture#1.0",
+       "label": "MitM",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "HTTPS 解密的总开关，打开后才会解密名单里的域名。",
+       "acc": "switch",
+       "bind": {
+        "kind": "exists",
+        "ini": "MITM",
+        "key": "hostname"
+       },
+       "paper": "打开 MitM 总开关，SubHub 写的解密名单才生效。"
+      },
+      {
+       "id": "home-capture#1.1",
+       "label": "配置",
+       "ctl": "button",
+       "rel": "p",
+       "layer": "p",
+       "to": "capture-mitm",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "MITM"
+       },
+       "explain": "HTTPS 解密的细节开关，SubHub 只写了其中几项。"
+      },
+      {
+       "id": "home-capture#1.2",
+       "label": "主机名",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "capture-mitm-hosts",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "MITM",
+        "key": "hostname",
+        "split": ","
+       },
+       "explain": "只对这些域名解密 HTTPS。"
+      }
+     ]
+    },
+    {
+     "header": "数据包捕获",
+     "footer": "捕获网络层 TCP/UDP/ICMP 数据包供查看和分析",
+     "rows": [
+      {
+       "id": "home-capture#2.0",
+       "label": "数据包捕获",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "开始抓取 TCP、UDP、ICMP 数据包供分析。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-capture#2.1",
+       "label": "捕获结果",
+       "ctl": "button",
+       "rel": "",
+       "layer": "a",
+       "about": "查看已保存的数据包捕获结果。"
+      },
+      {
+       "id": "home-capture#2.2",
+       "label": "限制器",
+       "ctl": "button",
+       "rel": "d",
+       "layer": "a",
+       "about": "设置数据包捕获的类型、时长、大小和数量上限。"
+      }
+     ]
+    }
+   ],
+   "segment": true,
+   "shell": {
+    "profile": "打开配置列表，切换 Surge 正在用的配置。App 自己的操作，SubHub 不写它。",
+    "start": "启动或停止 Surge 的 VPN。App 自己的操作，SubHub 不写它。",
+    "bar:home": "首页标签，就是现在这一页。",
+    "bar:tools": "打开「工具」页：最近请求、DNS 结果、实时统计、网络诊断等。App 自己的页面，SubHub 不写它。",
+    "bar:more": "打开「更多」页：始终开启、配置同步、外观等 App 设置。SubHub 不写它。"
+   }
+  },
+  "home-modify": {
+   "id": "home-modify",
+   "title": "{name}",
+   "parent": null,
+   "via": "segment:修改",
+   "kind": "home",
+   "sheet": false,
+   "nav": {
+    "left": null,
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "HTTP 重写",
+     "footer": "重定向 HTTP 请求或者修改请求或响应的 Header 和 Body",
+     "rows": [
+      {
+       "id": "home-modify#0.0",
+       "label": "HTTP 重写",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "HTTP 重写的总开关，关掉后重写规则都不运行。",
+       "acc": "switch",
+       "bind": {
+        "kind": "exists",
+        "ini": [
+         "URL Rewrite",
+         "Header Rewrite",
+         "Body Rewrite",
+         "Map Local"
+        ]
+       },
+       "paper": "打开 HTTP 重写，SubHub 写的重写规则才会运行。"
+      },
+      {
+       "id": "home-modify#0.1",
+       "label": "Mock",
+       "ctl": "button",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-mock",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Map Local"
+       },
+       "explain": "让指定网址直接返回本地内容。"
+      },
+      {
+       "id": "home-modify#0.2",
+       "label": "重写规则",
+       "ctl": "menu",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-rewrite-menu",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": [
+         "URL Rewrite",
+         "Header Rewrite",
+         "Body Rewrite"
+        ]
+       },
+       "explain": "改写网址、请求头和正文，SubHub 写的规则都在里面。"
+      }
+     ]
+    },
+    {
+     "header": "脚本",
+     "footer": "使用 JavaScript 扩展 Surge 的各项功能，或修改网络请求与响应",
+     "rows": [
+      {
+       "id": "home-modify#1.0",
+       "label": "脚本",
+       "ctl": "toggle",
+       "rel": "d",
+       "layer": "a",
+       "about": "脚本功能的总开关，打开后脚本才会运行。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-modify#1.1",
+       "label": "编辑器",
+       "ctl": "button",
+       "rel": "",
+       "layer": "a",
+       "about": "打开脚本编辑器，编写 JavaScript 脚本。"
+      },
+      {
+       "id": "home-modify#1.2",
+       "label": "脚本",
+       "ctl": "button",
+       "rel": "n",
+       "layer": "p",
+       "about": "列出配置里的脚本，可在此新增。"
+      }
+     ]
+    },
+    {
+     "header": "模块",
+     "footer": "模块是一系列设置的集合，可用于覆盖当前配置的部分设定",
+     "rows": [
+      {
+       "id": "home-modify#2.0",
+       "label": "模块",
+       "ctl": "button",
+       "rel": "d",
+       "layer": "a",
+       "about": "管理模块：叠加在配置上的一组设置，可逐个开关。"
+      }
+     ]
+    }
+   ],
+   "segment": true,
+   "shell": {
+    "profile": "打开配置列表，切换 Surge 正在用的配置。App 自己的操作，SubHub 不写它。",
+    "start": "启动或停止 Surge 的 VPN。App 自己的操作，SubHub 不写它。",
+    "bar:home": "首页标签，就是现在这一页。",
+    "bar:tools": "打开「工具」页：最近请求、DNS 结果、实时统计、网络诊断等。App 自己的页面，SubHub 不写它。",
+    "bar:more": "打开「更多」页：始终开启、配置同步、外观等 App 设置。SubHub 不写它。"
+   }
+  },
+  "modify-rewrite-menu": {
+   "id": "modify-rewrite-menu",
+   "title": "重写规则",
+   "parent": "home-modify",
+   "via": "home-modify#0.2",
+   "kind": "menu",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "重写规则",
+     "rows": [
+      {
+       "id": "modify-rewrite-menu#0.0",
+       "label": "URL 重写",
+       "ctl": "menu-item",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-url-rewrite",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "URL Rewrite"
+       },
+       "explain": "把网址换成另一个或直接拦掉。"
+      },
+      {
+       "id": "modify-rewrite-menu#0.1",
+       "label": "Header 重写",
+       "ctl": "menu-item",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-header-rewrite",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Header Rewrite"
+       },
+       "explain": "增删改请求头或响应头。"
+      },
+      {
+       "id": "modify-rewrite-menu#0.2",
+       "label": "Body 重写",
+       "ctl": "menu-item",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-body-rewrite",
+       "acc": "chevron",
+       "bind": {
+        "kind": "count",
+        "ini": "Body Rewrite"
+       },
+       "explain": "改写请求或响应的正文。"
+      }
+     ]
+    }
+   ]
+  },
+  "modify-mock": {
+   "id": "modify-mock",
+   "title": "Mock",
+   "parent": "home-modify",
+   "via": "home-modify#0.1",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "您可以模拟 API 服务器并返回静态响应。此功能也可称为 Map Local 或 API Mocking。如果你想动态返回响应，请使用脚本。",
+     "rows": [
+      {
+       "id": "modify-mock#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条 Mock，让某些网址返回固定内容。"
+      }
+     ]
+    },
+    {
+     "footer": "在任意一行上长按可调整顺序。",
+     "rows": [
+      {
+       "id": "modify-mock#1.0",
+       "label": "<URL 正则>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-mock-edit",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Map Local",
+        "sep": " ",
+        "label_col": 0,
+        "sub_param": "data"
+       },
+       "explain": "匹配到的网址不再联网，直接返回 SubHub 给的内容。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-mock#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "home-proxies": {
+   "id": "home-proxies",
+   "title": "代理服务器",
+   "parent": "home-general",
+   "via": "home-general#0.3",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "代理",
+     "rows": [
+      {
+       "id": "home-proxies#0.0",
+       "label": "<节点名>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "home-proxy-edit",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "label_part": "name",
+        "sub_pos": [
+         0,
+         1
+        ]
+       },
+       "explain": "一个节点一行：名字、协议和服务器。"
+      },
+      {
+       "id": "home-proxies#0.1",
+       "label": "添加代理…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "手动添加一个代理节点。"
+      }
+     ]
+    },
+    {
+     "header": "策略组",
+     "footer": "在任意一行上长按可调整顺序。",
+     "rows": [
+      {
+       "id": "home-proxies#1.0",
+       "label": "新的策略组…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新建策略组，把多个节点编成一组。"
+      }
+     ]
+    },
+    {
+     "header": "选项",
+     "footer": "并非所有代理服务器都支持 UDP 转发，当一个 UDP 会话尝试使用一个不支持 UDP 转发的代理服务器时，Surge 默认会回退至直连。可修改为阻止以避免潜在的隐私泄漏隐患。",
+     "rows": [
+      {
+       "id": "home-proxies#2.0",
+       "label": "UDP 回退行为",
+       "ctl": "popup",
+       "rel": "w",
+       "layer": "p",
+       "acc": "updown",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "udp-policy-not-supported-behaviour",
+        "map": {
+         "REJECT": "阻止",
+         "DIRECT": "直连"
+        }
+       },
+       "explain": "节点不支持 UDP 时怎么办，SubHub 固定写成阻止。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "home-rules": {
+   "id": "home-rules",
+   "title": "规则",
+   "parent": "home-general",
+   "via": "home-general#0.4",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "rows": [
+      {
+       "id": "home-rules#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条规则。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-rules#1.0",
+       "label": "<规则值>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Rule",
+        "sep": ",",
+        "match": "^(?!FINAL,)",
+        "label_col": 1,
+        "sub_col": [
+         0,
+         2
+        ]
+       },
+       "explain": "从上往下匹配，命中就走后面的策略。"
+      },
+      {
+       "id": "home-rules#1.1",
+       "label": "默认策略",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "value",
+        "ini": "Rule",
+        "match": "^FINAL,",
+        "sep": ",",
+        "col": 1
+       },
+       "explain": "前面都没命中时走哪个策略，SubHub 写在最后一行。"
+      }
+     ]
+    },
+    {
+     "header": "选项",
+     "footer": "如果 DNS 查找失败，请使用 FINAL 规则，否则请求将失败。",
+     "rows": [
+      {
+       "id": "home-rules#2.0",
+       "label": "在 DNS 失败时使用默认策略",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "exists",
+        "ini": "Rule",
+        "match": "^FINAL,.*\\bdns-failed\\b"
+       },
+       "explain": "域名查不到时也走默认策略，SubHub 写成了开。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-rules#3.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选规则。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "home-dns": {
+   "id": "home-dns",
+   "title": "DNS",
+   "parent": "home-general",
+   "via": "home-general#1.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "DNS 服务器",
+     "footer": "你可以使用该选项强制替代系统的 DNS 服务器设置，使用 , 分隔多个服务器。为了性能考虑 Surge 会向所有服务器并发进行请求。",
+     "rows": [
+      {
+       "id": "home-dns#0.0",
+       "label": "使用系统 DNS 服务器",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "dns-server",
+        "re": "^\\s*system\\s*$"
+       },
+       "explain": "只用系统给的 DNS，SubHub 没写别的服务器时选它。"
+      },
+      {
+       "id": "home-dns#0.1",
+       "label": "使用自定义 DNS 服务器",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "dns-server",
+        "re": "^(?!.*\\bsystem\\b).+$"
+       },
+       "explain": "只用下面列出的 DNS，SubHub 写了服务器就选它。"
+      },
+      {
+       "id": "home-dns#0.2",
+       "label": "混合系统和自定义 DNS 服务器",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "dns-server",
+        "re": "\\bsystem\\b\\s*,|,\\s*system\\b"
+       },
+       "explain": "系统 DNS 和下面列的一起用，SubHub 都写时选它。"
+      }
+     ]
+    },
+    {
+     "header": "自定义 DNS 服务器",
+     "rows": [
+      {
+       "id": "home-dns#1.0",
+       "label": "<DNS 地址>",
+       "ctl": "list-item",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "General",
+        "key": "dns-server",
+        "split": ","
+       },
+       "explain": "查域名用的服务器，每行一个。"
+      },
+      {
+       "id": "home-dns#1.1",
+       "label": "增加服务器…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "再添加一个 DNS 服务器。"
+      }
+     ]
+    },
+    {
+     "header": "加密 DNS",
+     "footer": "如果在此配置了 DNS 服务器，传统 DNS 将仅用于连通性测试和解析服务器 URL 中的域名。\n\n支持的协议：\n• DNS over HTTPS: https://example.com\n• DNS over HTTP/3: h3://example.com\n• DNS over QUIC: quic://example.com\n• DNS over TLS: tls://example.com\n• DNS over TCP: tcp://example.com\n\nDNS over TCP 未加密，默认使用 53 端口，请仅用于可信服务器。",
+     "rows": [
+      {
+       "id": "home-dns#2.0",
+       "label": "加密 DNS",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "solo": true,
+       "placeholder": "加密 DNS",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "encrypted-dns-server"
+       },
+       "explain": "用加密方式查域名的服务器，SubHub 写了就优先用它。"
+      }
+     ]
+    },
+    {
+     "footer": "默认情况下，使用代理策略时域名解析一定在远端服务器上进行。\n开启该选项后，如果访问的域名配置有本地 DNS 映射，Surge 将使用本地 IP 地址进行请求，不在远端进行解析。\n仅对配置了 IP 地址的本地 DNS 映射生效。",
+     "rows": [
+      {
+       "id": "home-dns#3.0",
+       "label": "Surge Private DDNS",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "a",
+       "about": "解析 Surge Mac 绑定的私有 .sgddns 域名。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-dns#3.1",
+       "label": "代理请求本地 DNS 映射",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "开启后，代理请求遇到本地映射的域名就用本地 IP。",
+       "acc": "switch"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "home-local-dns": {
+   "id": "home-local-dns",
+   "title": "本地 DNS 映射",
+   "parent": "home-general",
+   "via": "home-general#1.1",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "该功能基本等同于 /etc/hosts。",
+     "rows": [
+      {
+       "id": "home-local-dns#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条域名到地址的映射。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-local-dns#1.0",
+       "label": "无项目",
+       "ctl": "placeholder",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "empty_only": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Host",
+        "sep": "=",
+        "label_col": 0,
+        "sub_col": 1
+       },
+       "explain": "左边域名固定解析到右边地址。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-local-dns#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "capture-mitm": {
+   "id": "capture-mitm",
+   "title": "HTTPS 解密",
+   "parent": "home-capture",
+   "via": "home-capture#1.1",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "证书",
+     "rows": [
+      {
+       "id": "capture-mitm#0.0",
+       "label": "<CA 名称>",
+       "ctl": "readonly",
+       "rel": "d",
+       "layer": "a",
+       "about": "当前使用的 CA 证书，并显示是否已被系统信任。",
+       "ph": true
+      }
+     ]
+    },
+    {
+     "footer": "你也可以使用自己的 CA 证书，请将证书转化为 Base64 编码的 PKCS #12 格式，使用文本编辑模式填入。",
+     "rows": [
+      {
+       "id": "capture-mitm#1.0",
+       "label": "生成新的 CA 证书",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "生成一张新的 CA 证书，用于 HTTPS 解密。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "footer": "安装后，请在设置 > 通用 > 关于 > 证书信任设置 中启动该证书。",
+     "rows": [
+      {
+       "id": "capture-mitm#2.0",
+       "label": "安装证书",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "把 CA 证书安装到手机，之后还要在系统里信任它。",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "MITM",
+        "key": "hostname"
+       },
+       "paper": "生成并安装证书，再到系统设置里信任它。"
+      }
+     ]
+    },
+    {
+     "header": "选项",
+     "footer": "使用 HTTP/2 协议进行 MITM 解密，可在高并发下优化性能。",
+     "rows": [
+      {
+       "id": "capture-mitm#3.0",
+       "label": "跳过服务端证书验证",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "MITM",
+        "key": "skip-server-cert-verify"
+       },
+       "explain": "是否不检查对方网站的证书。"
+      },
+      {
+       "id": "capture-mitm#3.1",
+       "label": "MITM over HTTP/2",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "MITM",
+        "key": "h2"
+       },
+       "explain": "解密时是否支持 HTTP/2。"
+      }
+     ]
+    },
+    {
+     "footer": "当 QUIC 连接（即 HTTP/3）命中 MITM 主机名列表时，自动阻止该 QUIC 连接，使得连接回退至 HTTP/2 或 HTTP/1.1，以使得其可被 MITM。",
+     "rows": [
+      {
+       "id": "capture-mitm#4.0",
+       "label": "自动屏蔽 QUIC",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "阻止命中解密名单的 QUIC 连接，让它回退以便解密。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "capture-mitm#5.0",
+       "label": "将证书导出至 .crt 文件",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "把 CA 证书导出成 .crt 文件。",
+       "acc": "chevron"
+      },
+      {
+       "id": "capture-mitm#5.1",
+       "label": "将证书导出至 .p12 文件",
+       "ctl": "disclosure",
+       "rel": "",
+       "layer": "x",
+       "about": "把 CA 证书和私钥导出成 .p12 文件。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "capture-mitm-hosts": {
+   "id": "capture-mitm-hosts",
+   "title": "MITM",
+   "parent": "home-capture",
+   "via": "home-capture#1.2",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "Surge 仅会解密这里指定的主机名的请求。\n\n•可使用通配符 * 和 ?\n•可使用前缀 - 将特定主机名排除\n•默认解密发往 443 端口的请求；其他端口上嗅探到 SNI 匹配的 TLS 请求同样会被解密\n  •可使用后缀 :port 仅解密特定端口\n  •可使用后缀 :0 解密所有端口\n查看手册获取更多信息\n\niOS 系统和某些应用有严格的安全策略，仅信任某些特定的证书，对这些域名启动解密可能导致问题，如 *.apple.com, *.icloud.com。",
+     "rows": [
+      {
+       "id": "capture-mitm-hosts#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "添加一个要解密的主机名。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "capture-mitm-hosts#1.0",
+       "label": "无项目",
+       "ctl": "placeholder",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "empty_only": true,
+       "bind": {
+        "kind": "list",
+        "ini": "MITM",
+        "key": "hostname",
+        "split": ","
+       },
+       "explain": "只有名单里的域名会被解密。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "capture-mitm-hosts#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "more-advanced": {
+   "id": "more-advanced",
+   "title": "高级",
+   "parent": "home-general",
+   "via": "home-general#3.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "通用",
+     "rows": [
+      {
+       "id": "more-advanced#0.0",
+       "label": "网络优化",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "并发 DNS、Wi-Fi 助理、混合网络等提速选项。",
+       "acc": "chevron"
+      },
+      {
+       "id": "more-advanced#0.1",
+       "label": "延迟测试",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "more-advanced-latency",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "proxy-test-url"
+       },
+       "explain": "测节点快慢用的设置，SubHub 只写了测试网址。"
+      },
+      {
+       "id": "more-advanced#0.2",
+       "label": "子网设置覆盖",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "在特定网络下覆盖部分设置，或临时停用 Surge。",
+       "acc": "chevron"
+      },
+      {
+       "id": "more-advanced#0.3",
+       "label": "GeoIP 数据库",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "GeoIP 数据库的更新与自定义下载地址。",
+       "acc": "chevron"
+      },
+      {
+       "id": "more-advanced#0.4",
+       "label": "IPv6",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "more-advanced-ipv6",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "ipv6"
+       },
+       "explain": "IPv6 相关设置，SubHub 只写了查不查 IPv6。"
+      },
+      {
+       "id": "more-advanced#0.5",
+       "label": "接管模式",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "a",
+       "about": "选择 Surge 接管流量的方式：TUN、加系统代理或子路由。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "header": "Wi-Fi 访问",
+     "footer": "Surge 可以作为一个标准的 HTTP/SOCKS5 代理服务器向 Wi-Fi 网络下的其他设备提供服务器。默认 HTTP 端口号：6152，SOCKS5 端口号：6153",
+     "rows": [
+      {
+       "id": "more-advanced#1.0",
+       "label": "允许 Wi-Fi 访问",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让同一 Wi-Fi 下的其他设备把这台手机当代理用。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced#1.1",
+       "label": "允许个人热点访问",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让连这台手机热点的设备也能用它的代理。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced#1.2",
+       "label": "HTTP 代理服务端口",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "对外提供 HTTP 代理时用的端口。",
+       "acc": "chevron"
+      },
+      {
+       "id": "more-advanced#1.3",
+       "label": "SOCKS5 代理服务端口",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "对外提供 SOCKS5 代理时用的端口。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "header": "远程控制",
+     "footer": "允许远程 Surge 面板或 Surge CLI 进行管理控制。",
+     "rows": [
+      {
+       "id": "more-advanced#2.0",
+       "label": "远端控制器",
+       "ctl": "disclosure",
+       "rel": "n",
+       "layer": "p",
+       "about": "允许远程 Surge 面板或 Surge CLI 管理这台设备。",
+       "acc": "chevron"
+      },
+      {
+       "id": "more-advanced#2.1",
+       "label": "HTTP API & Web 面板",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "more-advanced-http-api",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "http-api"
+       },
+       "explain": "让别的程序控制 Surge，SubHub 写了地址和密码。"
+      }
+     ]
+    },
+    {
+     "header": "高级",
+     "rows": [
+      {
+       "id": "more-advanced#3.0",
+       "label": "日志等级",
+       "ctl": "popup",
+       "rel": "w",
+       "layer": "p",
+       "acc": "updown",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "loglevel"
+       },
+       "explain": "日志记得多细。"
+      },
+      {
+       "id": "more-advanced#3.1",
+       "label": "高级设置",
+       "ctl": "disclosure",
+       "rel": "p",
+       "layer": "p",
+       "to": "more-advanced-advset",
+       "acc": "chevron",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": [
+         "encrypted-dns-follow-outbound-mode",
+         "always-real-ip",
+         "tun-excluded-routes",
+         "skip-proxy"
+        ]
+       },
+       "explain": "一组底层开关，SubHub 只写了其中四项。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "modify-url-rewrite": {
+   "id": "modify-url-rewrite",
+   "title": "URL 重定向",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.0",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "Surge 可以修改发送到服务器的 HTTP Header，以及修改返回响应的 Header。",
+     "rows": [
+      {
+       "id": "modify-url-rewrite#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条 URL 重写。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-url-rewrite#1.0",
+       "label": "无项目",
+       "ctl": "placeholder",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "empty_only": true,
+       "bind": {
+        "kind": "list",
+        "ini": "URL Rewrite",
+        "sep": " ",
+        "label_col": 0,
+        "sub_col": 2
+       },
+       "explain": "每行一条改写：匹配的网址、换成什么、用哪种方式。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-url-rewrite#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "modify-header-rewrite": {
+   "id": "modify-header-rewrite",
+   "title": "Header 重写",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.1",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "Surge 可以修改发送到服务器的 HTTP Header，以及修改返回响应的 Header。",
+     "rows": [
+      {
+       "id": "modify-header-rewrite#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条 Header 重写。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-header-rewrite#1.0",
+       "label": "无项目",
+       "ctl": "placeholder",
+       "rel": "w",
+       "layer": "p",
+       "ph": true,
+       "empty_only": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Header Rewrite",
+        "sep": " ",
+        "label_col": 1,
+        "sub_col": 2,
+        "max_cols": 3
+       },
+       "explain": "每行一条：匹配的网址，以及对哪个头做什么改动。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-header-rewrite#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "modify-body-rewrite": {
+   "id": "modify-body-rewrite",
+   "title": "Body 重写",
+   "parent": "modify-rewrite-menu",
+   "via": "modify-rewrite-menu#0.2",
+   "kind": "list",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "Surge 可以重写 HTTP 请求或响应的 Body，用正则表达式替换原始内容。如果你需要进行更灵活的修改，请使用脚本。",
+     "rows": [
+      {
+       "id": "modify-body-rewrite#0.0",
+       "label": "新增…",
+       "ctl": "action",
+       "rel": "",
+       "layer": "x",
+       "about": "新增一条 Body 重写。"
+      }
+     ]
+    },
+    {
+     "footer": "在任意一行上长按可调整顺序。",
+     "rows": [
+      {
+       "id": "modify-body-rewrite#1.0",
+       "label": "<URL 正则>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "to": "modify-body-rewrite-edit",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "match": "^http-(request|response)-jq\\s",
+        "label_col": 1,
+        "sub_col": [
+         0,
+         2
+        ],
+        "max_cols": 3
+       },
+       "explain": "用 jq 改写 JSON 响应，每行是 SubHub 写的一条。"
+      },
+      {
+       "id": "modify-body-rewrite#1.1",
+       "label": "<URL 正则>",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "ph": true,
+       "bind": {
+        "kind": "list",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "match": "^http-(request|response)\\s",
+        "label_col": 1,
+        "sub_col": [
+         0,
+         2
+        ],
+        "max_cols": 3
+       },
+       "explain": "用正则替换正文里的文字，每行是 SubHub 写的一条。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-body-rewrite#2.0",
+       "label": "搜索",
+       "ctl": "searchfield",
+       "rel": "",
+       "layer": "a",
+       "about": "按关键字筛选列表。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "modify-mock-edit": {
+   "id": "modify-mock-edit",
+   "title": "Mock",
+   "parent": "modify-mock",
+   "via": "modify-mock#1.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "URL 正则表达式",
+     "rows": [
+      {
+       "id": "modify-mock-edit#0.0",
+       "label": "URL 正则",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Map Local",
+        "sep": " ",
+        "col": 0
+       },
+       "explain": "哪些网址会被替换成本地内容。"
+      }
+     ]
+    },
+    {
+     "header": "数据源",
+     "rows": [
+      {
+       "id": "modify-mock-edit#1.0",
+       "label": "数据类型",
+       "ctl": "popup",
+       "rel": "w",
+       "layer": "p",
+       "acc": "updown",
+       "bind": {
+        "kind": "item",
+        "ini": "Map Local",
+        "sep": " ",
+        "param": "data-type"
+       },
+       "explain": "返回内容是文本还是文件，SubHub 按条目写好。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-mock-edit#2.0",
+       "label": "数据内容",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Map Local",
+        "sep": " ",
+        "param": "data",
+        "unquote": true
+       },
+       "explain": "实际返回给 App 的内容。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "modify-mock-edit#3.0",
+       "label": "自定义状态码",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "返回内容时使用的 HTTP 状态码。"
+      },
+      {
+       "id": "modify-mock-edit#3.1",
+       "label": "自定义响应 Header",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "给返回内容加上自定义的响应头。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "home-proxy-edit": {
+   "id": "home-proxy-edit",
+   "title": "代理",
+   "parent": "home-proxies",
+   "via": "home-proxies#0.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "名称",
+     "rows": [
+      {
+       "id": "home-proxy-edit#0.0",
+       "label": "名称",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "part": "name"
+       },
+       "explain": "节点在列表里显示的名字，由 SubHub 统一命名。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-proxy-edit#1.0",
+       "label": "代理类型",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 0,
+        "map": {
+         "ss": "Shadowsocks",
+         "trojan": "Trojan",
+         "vmess": "VMess",
+         "tuic": "TUIC",
+         "tuic-v5": "TUIC v5",
+         "hysteria2": "Hysteria 2",
+         "anytls": "AnyTLS",
+         "wireguard": "WireGuard",
+         "http": "HTTP",
+         "https": "HTTPS",
+         "socks5": "SOCKS5"
+        }
+       },
+       "explain": "这个节点用哪种协议连接。"
+      }
+     ]
+    },
+    {
+     "header": "服务器信息",
+     "rows": [
+      {
+       "id": "home-proxy-edit#2.0",
+       "label": "服务器地址",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 1
+       },
+       "explain": "节点服务器的地址。"
+      },
+      {
+       "id": "home-proxy-edit#2.1",
+       "label": "端口号",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "pos": 2
+       },
+       "explain": "节点服务器的端口。"
+      },
+      {
+       "id": "home-proxy-edit#2.2",
+       "label": "加密方式",
+       "ctl": "disclosure",
+       "rel": "w",
+       "layer": "p",
+       "acc": "chevron",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "param": "encrypt-method"
+       },
+       "explain": "节点的加密算法，要和服务器一致。"
+      },
+      {
+       "id": "home-proxy-edit#2.3",
+       "label": "密码",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "param": "password",
+        "mask": true
+       },
+       "explain": "连接节点用的密码。"
+      },
+      {
+       "id": "home-proxy-edit#2.4",
+       "label": "UDP Relay",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "item",
+        "ini": "Proxy",
+        "line": "kv-list",
+        "param": "udp-relay"
+       },
+       "explain": "这个节点是否转发 UDP 流量。"
+      }
+     ]
+    },
+    {
+     "header": "选项",
+     "rows": [
+      {
+       "id": "home-proxy-edit#3.0",
+       "label": "Obfs",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "给流量加一层混淆伪装，要和服务器一致。",
+       "acc": "chevron"
+      },
+      {
+       "id": "home-proxy-edit#3.1",
+       "label": "Obfs Host",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "混淆时伪装成访问的主机名。"
+      }
+     ]
+    },
+    {
+     "footer": "该选项仅影响和代理服务器间的连接，因此仅当服务器主机名为域名时有意义。若配置了跳板代理，由于在跳板远端进行 DNS 解析，该选项无效。",
+     "rows": [
+      {
+       "id": "home-proxy-edit#4.0",
+       "label": "TCP Fast Open (Experimental)",
+       "ctl": "toggle",
+       "rel": "u",
+       "layer": "p",
+       "about": "建连时少等一次往返，实验功能，需服务器支持。",
+       "acc": "switch"
+      },
+      {
+       "id": "home-proxy-edit#4.1",
+       "label": "IPv4 & IPv6",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "连接节点服务器时用 IPv4、IPv6 还是两者都用。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "footer": "通过代理进行 QUIC 流量转发可能产生性能问题，开启该选项将阻止 QUIC 流量，以使得客户端回退至传统 HTTPS/TCP 协议。",
+     "rows": [
+      {
+       "id": "home-proxy-edit#5.0",
+       "label": "屏蔽 QUIC 流量",
+       "ctl": "popup",
+       "rel": "u",
+       "layer": "p",
+       "about": "阻止经这个节点的 QUIC，让应用回退到 TCP。",
+       "acc": "updown"
+      }
+     ]
+    },
+    {
+     "footer": "Shadow TLS 是一个流量混淆插件，可以将代理流量伪装为真实的 TLS 流量。详细信息请查看该项目的 GitHub 页面说明。",
+     "rows": [
+      {
+       "id": "home-proxy-edit#6.0",
+       "label": "Shadow TLS Version",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "Shadow TLS 混淆版本，把流量伪装成真实 TLS。",
+       "acc": "chevron"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "home-proxy-edit#7.0",
+       "label": "覆盖全局测试 URL",
+       "ctl": "textfield",
+       "rel": "u",
+       "layer": "p",
+       "about": "这个节点单独使用的测速网址，替代全局设置。"
+      }
+     ]
+    },
+    {
+     "footer": "使用一个代理连接另一个代理，该功能又被称为代理链或跳板代理。",
+     "rows": [
+      {
+       "id": "home-proxy-edit#8.0",
+       "label": "通过另一个代理连接",
+       "ctl": "disclosure",
+       "rel": "u",
+       "layer": "p",
+       "about": "先连另一个代理，再由它连到这个节点。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "more-advanced-http-api": {
+   "id": "more-advanced-http-api",
+   "title": "HTTP API & Web 面板",
+   "parent": "more-advanced",
+   "via": "more-advanced#2.1",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "footer": "让另一个 App 或者设备通过 HTTP API 控制 Surge 功能。",
+     "rows": [
+      {
+       "id": "more-advanced-http-api#0.0",
+       "label": "HTTP API",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "http-api"
+       },
+       "explain": "是否开放控制接口，SubHub 写了地址就算打开。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "more-advanced-http-api#1.0",
+       "label": "端口",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "http-api",
+        "re": ":(\\d+)\\s*$"
+       },
+       "explain": "控制接口监听的端口。"
+      },
+      {
+       "id": "more-advanced-http-api#1.1",
+       "label": "密码",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "http-api",
+        "re": "^(.*)@",
+        "mask": true
+       },
+       "explain": "访问控制接口用的密码。"
+      }
+     ]
+    },
+    {
+     "footer": "默认仅允许本地程序访问 HTTP API，开启后将允许 Wi-Fi 网络访问。",
+     "rows": [
+      {
+       "id": "more-advanced-http-api#2.0",
+       "label": "允许由 Wi-Fi 控制",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "exists",
+        "ini": "General",
+        "key": "http-api",
+        "re": "(^|@)0\\.0\\.0\\.0:"
+       },
+       "explain": "同一 Wi-Fi 的设备能否来控制。"
+      }
+     ]
+    },
+    {
+     "footer": "使用 HTTPS 替代 HTTP 协议。需要先配置 MITM 的 CA 证书，同时需要在客户端设备上手动安装并信任 CA 证书。",
+     "rows": [
+      {
+       "id": "more-advanced-http-api#3.0",
+       "label": "HTTPS",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "http-api-tls"
+       },
+       "explain": "控制接口是否走 HTTPS。"
+      }
+     ]
+    },
+    {
+     "footer": "开启该选项后可以通过浏览器控制 Surge。",
+     "rows": [
+      {
+       "id": "more-advanced-http-api#4.0",
+       "label": "Web 面板",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "http-api-web-dashboard"
+       },
+       "explain": "是否开放网页版控制面板。"
+      }
+     ]
+    },
+    {
+     "rows": [
+      {
+       "id": "more-advanced-http-api#5.0",
+       "label": "API 在线手册…",
+       "ctl": "link",
+       "rel": "",
+       "layer": "x",
+       "about": "打开 HTTP API 的在线说明文档。",
+       "acc": "chevron"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "more-advanced-latency": {
+   "id": "more-advanced-latency",
+   "title": "延迟测试",
+   "parent": "more-advanced",
+   "via": "more-advanced#0.1",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "互联网测试 URL",
+     "footer": "使用网络诊断功能时访问的 URL。",
+     "rows": [
+      {
+       "id": "more-advanced-latency#0.0",
+       "label": "互联网测试 URL",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "使用网络诊断功能时访问的网址。",
+       "solo": true,
+       "placeholder": "互联网测试 URL"
+      }
+     ]
+    },
+    {
+     "header": "代理测试 URL",
+     "footer": "测试代理策略时的 URL。",
+     "rows": [
+      {
+       "id": "more-advanced-latency#1.0",
+       "label": "代理测试 URL",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "solo": true,
+       "placeholder": "代理测试 URL",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "proxy-test-url"
+       },
+       "explain": "测节点延迟时访问的网址，SubHub 固定写了一个。"
+      }
+     ]
+    },
+    {
+     "footer": "Surge 将向该 URL 发送一个 HTTP HEAD 请求。测试只关心是否收到了返回数据，并不关心数据内容。仅支持 http:// 协议。",
+     "rows": [
+      {
+       "id": "more-advanced-latency#2.0",
+       "label": "测试超时",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "测试最多等几秒，超时算失败。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  },
+  "more-advanced-ipv6": {
+   "id": "more-advanced-ipv6",
+   "title": "IPv6",
+   "parent": "more-advanced",
+   "via": "more-advanced#0.4",
+   "kind": "form",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": null
+   },
+   "groups": [
+    {
+     "footer": "启用完整的 IPv6 支持。具体来说，启用此选项后，在访问域名时将查询该域名的AAAA记录。即使未启用此选项，也可以通过直接访问IPv6地址来访问IPv6网站。开启该选项可能会略微增加延迟，如果DNS服务器在查找AAAA记录时出现问题，则可能显著增加延迟。仅在必要时启用。",
+     "rows": [
+      {
+       "id": "more-advanced-ipv6#0.0",
+       "label": "IPv6 DNS 查询",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "ipv6"
+       },
+       "explain": "查域名时要不要 IPv6 地址。"
+      }
+     ]
+    },
+    {
+     "footer": "允许 Surge VIF 处理 IPv6 请求，当需要 Surge 处理直接使用 IPv6 地址的 raw TCP 请求时可开启。\n\n自动：仅在当前网络支持 IPv6，且 IPv6 查询开关打开的状态下开启\n总是：总是开启 IPv6 VIF。\n禁用：完全关闭 IPv6 VIF。",
+     "rows": [
+      {
+       "id": "more-advanced-ipv6#1.0",
+       "label": "IPv6 VIF",
+       "ctl": "popup",
+       "rel": "n",
+       "layer": "p",
+       "about": "是否让 Surge 虚拟网卡处理 IPv6：自动、总是或禁用。",
+       "acc": "updown"
+      }
+     ]
+    }
+   ]
+  },
+  "more-advanced-advset": {
+   "id": "more-advanced-advset",
+   "title": "高级设置",
+   "parent": "more-advanced",
+   "via": "more-advanced#3.1",
+   "kind": "form",
+   "sheet": false,
+   "nav": {
+    "left": "back",
+    "right": null
+   },
+   "groups": [
+    {
+     "header": "路由",
+     "footer": "默认情况下，部分请求可能不会被 Surge 接管。比如应用可以强行绑定物理网卡以绕过 Surge VIF。开启该选项后可以保证所有请求都由 Surge 所接管，没有泄漏，此时可将 Surge 当做防火墙使用。\n如果还想让 Surge 处理所有本地网络的请求，可开启包含本地网络请求选项。\n开启这些选项会引起严重的副作用，如 AirDrop、Xcode Debugger、Surge Dashboard USB 模式等无法正常使用，请仅在需要的特定情况下开启。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#0.0",
+       "label": "包含所有网络请求",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "强制所有请求都进 Surge，可当防火墙，但会影响 AirDrop 等。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced-advset#0.1",
+       "label": "包含本地网络请求",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让发往本地网络的请求也交给 Surge 处理。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced-advset#0.2",
+       "label": "包含 APNS",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让苹果推送通知的流量也进 Surge。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced-advset#0.3",
+       "label": "包含蜂窝服务",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让通话、短信等蜂窝服务流量也进 Surge。",
+       "acc": "switch"
+      },
+      {
+       "id": "more-advanced-advset#0.4",
+       "label": "包含设备通信",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "让与已连接设备之间的通信也进 Surge。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "show-error-page",
+     "footer": "当请求遇到错误时显示 HTTP 错误页面。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#1.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "请求出错时显示一个 HTTP 错误页面。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "show-error-page-for-reject",
+     "footer": "如果请求是普通 HTTP 请求，为 REJECT 策略显示错误网页。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#2.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "普通 HTTP 请求被拒绝时显示错误网页。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "auto-suspend",
+     "footer": "当发现当前网络由 Surge Gateway 所接管时，自动暂停 Surge iOS。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#3.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "发现当前网络已由 Surge Gateway 接管时自动暂停。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "encrypted-dns-follow-outbound-mode",
+     "footer": "默认情况下，加密 DNS 查询使用直连出站。启用此选项会让 DOH 跟随出站模式设置和规则。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#4.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "w",
+       "layer": "p",
+       "acc": "switch",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "encrypted-dns-follow-outbound-mode"
+       },
+       "explain": "加密 DNS 是否跟着代理出口走。"
+      }
+     ]
+    },
+    {
+     "header": "encrypted-dns-skip-cert-verification",
+     "footer": "跳过加密 DNS 服务器证书验证，这是不安全的。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#5.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "不验证加密 DNS 服务器的证书，不安全。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "allow-dns-svcb",
+     "footer": "iOS/macOS 系统可能会执行 SVCB 记录 DNS 查询而不是标准的 A 记录查询。这会导致 Surge 无法返回虚拟 IP 地址。因此默认情况下，禁止 SVCB 记录查询以强制系统执行 A 记录查询。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#6.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "允许系统做 SVCB 类型的 DNS 查询，默认禁止。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "hijack-dns",
+     "footer": "默认情况下，Surge 仅对发送到 Surge DNS 地址（198.18.0.x）的 DNS 查询返回伪造的 IP 地址。发送到标准 DNS 的查询将被转发。\n某些设备或软件总是使用硬编码的 DNS 服务器。（例如，Google 音箱始终使用 8.8.8.8）。您可以使用此选项劫持查询以获取伪造地址。\n您可以使用 hijack-dns = *:53 劫持所有 DNS 查询。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#7.0",
+       "label": "hijack-dns",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "拦下发往这些 DNS 地址的查询，返回虚拟 IP。",
+       "solo": true,
+       "placeholder": "逗号分隔"
+      }
+     ]
+    },
+    {
+     "header": "always-real-ip",
+     "footer": "此选项要求 Surge VIF 处理 DNS 查询时返回真实 IP 地址，而不是伪造的 IP 地址。\nDNS 请求包将被转发到上游 DNS 服务器。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#8.0",
+       "label": "always-real-ip",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "solo": true,
+       "placeholder": "逗号分隔",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "always-real-ip"
+       },
+       "explain": "这些域名始终返回真实 IP。"
+      }
+     ]
+    },
+    {
+     "header": "force-http-engine-hosts",
+     "footer": "强制让 Surge 将 TCP 连接视为 HTTP 请求。Surge 的 HTTP 引擎会处理这些请求，以开启高级功能，例如抓包、重写和脚本。\n支持通配符 * 和 ?。\n• 使用前缀 - 排除某个主机名。\n• 默认情况下，仅解密发送到 80 端口的请求。\n• 使用后缀 :port 允许其他端口。\n• 使用后缀 :0 允许所有端口。\n\n示例：\n• -*.apple.com: 排除所有发送到 *.apple.com 的 80 端口请求。\n• www.google.com: 对 www.google.com 的 80 端口强制使用 HTTP 处理。\n• www.google.com:8080: 对 www.google.com 的 8080 端口强制使用 HTTP 处理。\n• www.google.com:0: 对 www.google.com 的所有端口强制使用 HTTP 处理。\n• *:0: 对所有主机名的所有端口强制使用 HTTP 处理。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#9.0",
+       "label": "force-http-engine-hosts",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "把这些主机的 TCP 连接强制按 HTTP 处理，便于抓包改写。",
+       "solo": true,
+       "placeholder": "逗号分隔"
+      }
+     ]
+    },
+    {
+     "header": "always-raw-tcp-hosts",
+     "footer": "Surge 会自动对发往 80 与 443 端口的 TCP 请求进行协议嗅探，以开启 HTTP/HTTPS 相关的高级功能，同时优化性能，但这可能会导致一些兼容性问题。如果你遇到了问题，可以将主机名添加到此处，Surge 将不会对这些请求进行协议嗅探。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#10.0",
+       "label": "always-raw-tcp-hosts",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "这些主机不做协议嗅探，按原始 TCP 处理。",
+       "solo": true,
+       "placeholder": "逗号分隔"
+      }
+     ]
+    },
+    {
+     "header": "always-raw-tcp-keywords",
+     "footer": "在进行协议嗅探时，如果 HTTP Header 中出现特定关键词，则将该请求回退到原始 TCP 处理，这可以用来避免一些兼容性问题。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#11.0",
+       "label": "always-raw-tcp-keywords",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "请求头含这些关键词时，改按原始 TCP 处理。",
+       "solo": true,
+       "placeholder": "逗号分隔"
+      }
+     ]
+    },
+    {
+     "header": "tun-excluded-routes",
+     "footer": "Surge VIF 只能处理 TCP 和 UDP 协议。使用此选项绕过特定的 IP 范围以允许所有流量通过。\n注意：此选项仅适用于 Surge VIF。由 Surge 代理服务器处理的请求不受影响。结合 'skip-proxy' 和 'tun-excluded-routes' 确保特定的 HTTP 流量绕过 Surge。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#12.0",
+       "label": "tun-excluded-routes",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "solo": true,
+       "placeholder": "逗号分隔",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "tun-excluded-routes"
+       },
+       "explain": "这些网段不进 Surge，走本机网络。"
+      }
+     ]
+    },
+    {
+     "header": "tun-included-routes",
+     "footer": "默认情况下，Surge VIF 接口将自己声明为默认路由。但是，由于 Wi-Fi 接口有更小的路由，一些流量可能不会通过 Surge VIF 接口。使用此选项添加更小的路由。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#13.0",
+       "label": "tun-included-routes",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "额外添加较小的路由，让这些网段也进 Surge。",
+       "solo": true,
+       "placeholder": "逗号分隔"
+      }
+     ]
+    },
+    {
+     "header": "skip-proxy",
+     "footer": "注意：此选项的目的并不是阻止请求通过代理发出。\n在 iOS 版本中，此选项会强制将连接这些域名/IP 段的流量交由 Surge VIF 处理，而不是 Surge 代理。在 macOS 版本中，当启用 \"设置为系统代理\" 时，这些设置将应用到系统。该选项用于解决某些应用的兼容性问题。\n • 如需指定单一域名，请直接输入域名，例如 apple.com.\n • 如需指定整个域名下的所有网站，请在域名前加星号，例如 *apple.com.\n • 如需指定域名的特定子部分，请逐级指定，例如 store.apple.com.\n • 如需按 IP 地址指定主机或网络，请输入单个 IP（如 192.168.2.11）或一个地址范围，例如 192.168.2.* 或 192.168.2.0/24.\n注意：如果输入的是 IP 地址或地址范围，只有在使用该地址连接主机时才能绕过代理，而当通过解析到该地址的域名连接时则无法绕过代理。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#14.0",
+       "label": "skip-proxy",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "solo": true,
+       "placeholder": "空",
+       "bind": {
+        "kind": "value",
+        "ini": "General",
+        "key": "skip-proxy"
+       },
+       "explain": "访问这些地址时不走系统代理设置，但仍按规则分流。"
+      }
+     ]
+    },
+    {
+     "header": "exclude-simple-hostnames",
+     "footer": "就像 skip-proxy 参数一样。此选项让使用简单主机名（不带点）的请求由 Surge VIF 而不是 Surge 代理处理。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#15.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "不带点的简单主机名交给虚拟网卡，而非代理处理。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "proxy-test-udp",
+     "footer": "代理的默认 UDP 测试参数。例如：apple.com@1.0.0.1",
+     "rows": [
+      {
+       "id": "more-advanced-advset#16.0",
+       "label": "proxy-test-udp",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "测试代理 UDP 时默认使用的参数。",
+       "solo": true,
+       "placeholder": "空"
+      }
+     ]
+    },
+    {
+     "header": "wifi-access-http-auth",
+     "footer": "Require authentication for Surge HTTP proxy service.\nE.g.: username:password",
+     "rows": [
+      {
+       "id": "more-advanced-advset#17.0",
+       "label": "wifi-access-http-auth",
+       "ctl": "textfield",
+       "rel": "n",
+       "layer": "p",
+       "about": "给共享的 HTTP 代理设置用户名和密码。",
+       "solo": true,
+       "placeholder": "空"
+      }
+     ]
+    },
+    {
+     "header": "proxy-restricted-to-lan",
+     "footer": "Restrict proxy or gateway services to only accept devices from the current subnet. Enabled by default.",
+     "rows": [
+      {
+       "id": "more-advanced-advset#18.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "代理或网关服务只接受当前子网内的设备。",
+       "acc": "switch"
+      }
+     ]
+    },
+    {
+     "header": "icmp-forwarding",
+     "footer": "允许 Surge 转发 ICMP ping 数据包，关闭后 ping 将无法使用。",
+     "rows": [
+      {
+       "id": "more-advanced-advset#19.0",
+       "label": "开启",
+       "ctl": "toggle",
+       "rel": "n",
+       "layer": "p",
+       "about": "允许转发 ping 包，关掉后 ping 不可用。",
+       "acc": "switch"
+      }
+     ]
+    }
+   ]
+  },
+  "modify-body-rewrite-edit": {
+   "id": "modify-body-rewrite-edit",
+   "title": "Body 重写",
+   "parent": "modify-body-rewrite",
+   "via": "modify-body-rewrite#1.0",
+   "kind": "form",
+   "sheet": true,
+   "nav": {
+    "left": "close",
+    "right": "check"
+   },
+   "groups": [
+    {
+     "header": "模式",
+     "rows": [
+      {
+       "id": "modify-body-rewrite-edit#0.0",
+       "label": "HTTP 方向",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "col": 0,
+        "map": {
+         "http-request-jq": "Request",
+         "http-request": "Request",
+         "http-response-jq": "Response",
+         "http-response": "Response"
+        }
+       },
+       "explain": "改的是发出去的请求还是收到的响应，SubHub 已选好。"
+      },
+      {
+       "id": "modify-body-rewrite-edit#0.1",
+       "label": "修改模式",
+       "ctl": "segmented",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "col": 0,
+        "map": {
+         "http-request-jq": "JSON JQ",
+         "http-response-jq": "JSON JQ",
+         "http-request": "Text Regex",
+         "http-response": "Text Regex"
+        }
+       },
+       "explain": "按文字正则改还是按 JSON 结构改，SubHub 已选好。"
+      }
+     ]
+    },
+    {
+     "header": "URL 正则表达式",
+     "rows": [
+      {
+       "id": "modify-body-rewrite-edit#1.0",
+       "label": "URL 正则",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "col": 1,
+        "max_cols": 3
+       },
+       "explain": "哪些网址会被改写。"
+      }
+     ]
+    },
+    {
+     "footer": "使用 JQ 表达式操作 JSON 数据，如果 Body 并非 JSON 会导致请求失败。请搜索 JQ 项目文档以了解表达式编写方式。",
+     "rows": [
+      {
+       "id": "modify-body-rewrite-edit#2.0",
+       "label": "JQ 表达式",
+       "ctl": "textfield",
+       "rel": "w",
+       "layer": "p",
+       "bind": {
+        "kind": "item",
+        "ini": "Body Rewrite",
+        "sep": " ",
+        "col": 2,
+        "max_cols": 3,
+        "unquote": true
+       },
+       "explain": "具体怎么改 JSON。"
+      }
+     ]
+    }
+   ],
+   "shell": {
+    "nav:check": "保存这一页的修改并关上它。App 自己的操作，SubHub 不写它。"
+   }
+  }
+ }
+}

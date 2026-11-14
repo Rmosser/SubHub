@@ -1,0 +1,174 @@
+{
+ "app": "Shadowrocket 2.2.93 (3488)",
+ "style": "传统样式（整宽 grouped，不是 inset 卡片），自定义浅粉主题",
+ "device": {
+  "width_pt": 402,
+  "height_pt": 874,
+  "scale_capture": 1.5
+ },
+ "measurement": {
+  "source": "screencapture -l <镜像窗口> 得到 619×1357 px；手机屏幕在图中占 x 8–610、y 38–1348，即 603×1311 px = 402×874 pt，比例 1.5 px/pt，原点 (8,38)",
+  "how": "PIL 逐像素扫描：竖向取色段找分组、行与分隔线；横向取色段找卡片边与内边距；文字取墨迹外框（与底色差 >90）；圆角用圆拟合卡片左上角的缩进曲线；玻璃按钮和 tab 胶囊在叠了 pt 网格的放大图上人工读数",
+  "error": {
+   "length": "±0.7 pt（1 px），玻璃按钮与胶囊人工读数 ±1.5 pt",
+   "font_size": "由墨迹宽高按 PingFang 汉字约 0.96 em 宽、SF 大写约 0.705 em 高反推，±1 pt",
+   "color": "镜像串流有色彩偏移，实测值与 App 内主题值相差可达 ±8/通道；有主题表时以主题表为准"
+  },
+  "screens_used": [
+   "screens/shadowrocket/config-edit_1.png",
+   "inventory/_notes/shadowrocket-theme-colors.json"
+  ]
+ },
+ "color": {
+  "theme_table_note": "来自 设置 › 外观 › 颜色，原格式 #AARRGGBB，下面转成 CSS",
+  "page_bg": {
+   "theme": "#F5E8E7",
+   "measured": "#F1E9E7"
+  },
+  "cell_bg": {
+   "theme": "#EEE0DF",
+   "measured": "#EBE1DF"
+  },
+  "separator": {
+   "theme": "#F5E8E7",
+   "measured": "#F1E7E5"
+  },
+  "label": {
+   "theme": "#622229",
+   "measured_darkest": "#45161A"
+  },
+  "detail": {
+   "theme": "#AB8587",
+   "measured_darkest": "#9D8386"
+  },
+  "header_footer": {
+   "theme": "#AB8587"
+  },
+  "destructive": {
+   "theme": "#D15499"
+  },
+  "nav_bar": {
+   "theme": "transparent (#00FFFFFF)",
+   "measured_behind": "#FBEFEE（渐变到 #F6F2EF）"
+  },
+  "tab_selected": {
+   "theme": "#622229"
+  },
+  "tab_unselected": {
+   "theme": "rgba(98,34,41,0.40)（#67622229）"
+  },
+  "button": {
+   "theme": "#622229"
+  },
+  "ping_ok": {
+   "theme": "#20817B"
+  },
+  "ping_timeout": {
+   "theme": "#D15499"
+  },
+  "dot_default": {
+   "theme": "#20817B"
+  },
+  "tab_capsule_bg": {
+   "measured": "#F6EBEA（毛玻璃）"
+  },
+  "tab_selected_pill": {
+   "measured": "#E3D6D5"
+  }
+ },
+ "font": {
+  "family": "系统字体：-apple-system / SF Pro + PingFang SC",
+  "nav_title": {
+   "size_pt": 17,
+   "weight": "semibold",
+   "measured": "latest-shadowrocket.conf 墨迹高 14.0 pt（含升部）"
+  },
+  "row_label": {
+   "size_pt": 17,
+   "weight": "regular",
+   "measured": "Hosts 大写高 12.0 pt → 17 pt；汉字墨迹高 14.0–15.3 pt"
+  },
+  "row_detail": {
+   "size_pt": 17,
+   "weight": "regular",
+   "measured": "数字高 12.0–12.7 pt"
+  },
+  "tab_label": {
+   "size_pt": 10,
+   "weight": "medium",
+   "measured": "首页 墨迹宽 18.7 pt / 2 字"
+  }
+ },
+ "layout": {
+  "nav_bar": {
+   "content_top_pt": 115.3,
+   "button_diameter_pt": 44,
+   "back_button_x_pt": [
+    16,
+    60
+   ],
+   "button_center_y_pt": 84,
+   "right_button_x_pt": [
+    342,
+    386
+   ],
+   "title_center_y_pt": 84,
+   "note": "iOS 26 玻璃圆形按钮，细灰描边"
+  },
+  "group": {
+   "margin_x_pt": 0,
+   "corner_radius_pt": 0,
+   "first_group_top_pt": 132,
+   "gap_between_groups_pt": 37.3
+  },
+  "row": {
+   "height_pt": 48.8,
+   "measured": "第一组 10 行从 y132.0 到 620.0，共 488 pt，平均 48.8（单行 48.0/49.3 交替，受 1.5 px 取整影响）；误差 ±0.1",
+   "label_left_pt": 16.7,
+   "separator_inset_left_pt": 16.7,
+   "separator_inset_right_pt": 15,
+   "separator_thickness_pt": 1.3,
+   "chevron_right_edge_pt": 386,
+   "detail_right_edge_pt": 385.3,
+   "chevron_to_detail_gap_pt": 8
+  },
+  "tab_bar": {
+   "type": "悬浮胶囊",
+   "x_pt": [
+    21,
+    381
+   ],
+   "y_pt": [
+    792,
+    853
+   ],
+   "height_pt": 61,
+   "corner_radius_pt": 30.5,
+   "items": 4,
+   "selected_pill_x_pt": [
+    110,
+    207
+   ],
+   "icon_size_pt": 24,
+   "label_baseline_y_pt": 841
+  }
+ },
+ "icons": {
+  "chevron": {
+   "w_pt": 5.5,
+   "h_pt": 11.5,
+   "color": "detail"
+  },
+  "nav_back": {
+   "stroke_pt": 2,
+   "size_pt": [
+    11,
+    21
+   ]
+  },
+  "nav_plus": {
+   "size_pt": 22,
+   "stroke_pt": 1.5
+  }
+ }
+}

@@ -1,0 +1,1739 @@
+{
+ "app": "clash-mi",
+ "version": "1.0.31.1703，内核 mihomo 1.19.32",
+ "developer": "Supernova Nebula LLC",
+ "captured": "2026-11-11",
+ "device": "iPhone 17 Pro，iOS 27.2.1",
+ "state": "新装，未导入配置，未连接；覆写方案 = 内置-覆写",
+ "screens": [
+  {
+   "id": "home",
+   "kind": "settings",
+   "path": [
+    "首页"
+   ],
+   "title": "Clash Mi",
+   "nav": {},
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "未连接",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "连接 VPN 的总开关；没拨",
+       "order": 1
+      },
+      {
+       "label": "分流模式",
+       "control": "segmented",
+       "value": "规则（选中）/ 全局 / 直连",
+       "maps_to": "mode",
+       "layer": "app",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "note": "未核对是否盖过订阅里的 mode",
+       "order": 2
+      },
+      {
+       "label": "我的配置",
+       "control": "disclosure",
+       "value": "+ ›",
+       "to": "profiles",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "+ 是导入，没点",
+       "order": 3
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "应用设置",
+       "control": "disclosure",
+       "to": "app-settings",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "核心设置",
+       "control": "disclosure",
+       "to": "core-settings",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "核心日志",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "备份与同步",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 4
+      },
+      {
+       "label": "帮助",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 5
+      },
+      {
+       "label": "关于",
+       "control": "disclosure",
+       "to": "about",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 6
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "home.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "核心日志",
+     "reason": "运行日志，含访问记录"
+    },
+    {
+     "entry": "备份与同步",
+     "reason": "可能涉及 iCloud / WebDAV 账户"
+    },
+    {
+     "entry": "帮助",
+     "reason": "外链"
+    }
+   ]
+  },
+  {
+   "id": "profiles",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "我的配置"
+   ],
+   "title": "我的配置",
+   "nav": {
+    "left": "返回",
+    "right": "☁︎ 下载 / +"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profiles.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "右上 ☁︎ / +",
+     "reason": "导入动作"
+    }
+   ],
+   "note": "刚安装，列表为空"
+  },
+  {
+   "id": "core-settings",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置"
+   ],
+   "title": "核心设置",
+   "nav": {
+    "left": "返回",
+    "right": "📄（查看生成的配置，未进：含 Secret）"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "重置",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "重置动作，没点",
+       "order": 1,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "外部控制",
+       "control": "textfield",
+       "value": "127.0.0.1:9090",
+       "maps_to": "intent clash_external_controller → external-controller",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；无覆写开关；app-guide：内置-不覆写时仍覆盖 E-M-006",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "Secret",
+       "control": "textfield",
+       "value": "<redacted>",
+       "maps_to": "intent clash_secret → secret",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；无覆写开关；截图已涂黑；app-guide：内置-不覆写时仍覆盖 E-M-006",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "混合代理端口",
+       "control": "textfield",
+       "value": "7890",
+       "maps_to": "intent clash_mixed_port → mixed-port",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；无覆写开关；app-guide：端口在内置-不覆写时仍被改写 E-M-022",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "日志等级",
+       "control": "popup",
+       "value": "error ▾",
+       "maps_to": "intent clash_log_level → log-level",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；无覆写开关；app-guide：固定覆写为 error，订阅写 info 也没用 E-M-022",
+       "order": 4,
+       "info_icon": true
+      },
+      {
+       "label": "Pprof Address",
+       "control": "textfield",
+       "value": "127.0.0.1:4578（灰，占位）",
+       "maps_to": "（调试用，非 mihomo 配置键）",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 5,
+       "info_icon": false
+      },
+      {
+       "label": "Pprof",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 6,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "Unified Delay",
+       "control": "popup",
+       "value": "不覆写 ▾",
+       "maps_to": "unified-delay",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "IPv6",
+       "control": "popup",
+       "value": "禁用 ▾",
+       "maps_to": "intent clash_ipv6 → ipv6",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；app-guide：「禁用」在内置-不覆写时仍压过订阅，IPv6 节点不可用 E-M-022/023/024",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "TUN",
+       "control": "disclosure",
+       "to": "core-tun",
+       "maps_to": "tun",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "Geo RuleSet",
+       "control": "disclosure",
+       "to": "core-geo-ruleset",
+       "maps_to": "geox-url / geo-update-interval",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 4,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "分流模板",
+       "control": "disclosure",
+       "to": "core-diversion-template",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "disclosure",
+       "value": "内置-覆写 ›",
+       "to": "core-override",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "选「内置-不覆写」时本页各分区不生效；app-guide：内置-覆写会把订阅的 dns 整段、fake-ip-range、fake-ip-filter 换掉；SubHub 导入说明应让用户选「内置-不覆写」 E-M-008/011",
+       "order": 1,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "TCP并发握手",
+       "control": "popup",
+       "value": "不覆写 ▾",
+       "maps_to": "intent clash_tcp_concurrent → tcp-concurrent",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "TCP保活时间间隔",
+       "control": "textfield",
+       "value": "30 s（下划线可点）",
+       "maps_to": "keep-alive-interval",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "TLS全局指纹",
+       "control": "popup",
+       "value": "chrome ▾",
+       "maps_to": "global-client-fingerprint",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；app-guide：只在内置-覆写时写入，对 ≥1.19.27 内核无效 E-M-102",
+       "order": 3,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "局域网设备接入",
+       "control": "disclosure",
+       "to": "core-lan-access",
+       "maps_to": "allow-lan / bind-address / authentication",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "DNS",
+       "control": "disclosure",
+       "to": "core-dns",
+       "maps_to": "dns",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "NTP",
+       "control": "disclosure",
+       "to": "core-ntp",
+       "maps_to": "ntp",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "TLS",
+       "control": "disclosure",
+       "to": "core-tls",
+       "maps_to": "tls",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "嗅探",
+       "control": "disclosure",
+       "to": "core-sniffer",
+       "maps_to": "sniffer",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 4,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-settings_1.png",
+    "core-settings_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "重置",
+     "reason": "动作"
+    },
+    {
+     "entry": "右上 📄",
+     "reason": "显示生成的配置原文，含 Secret"
+    },
+    {
+     "entry": "Pprof",
+     "reason": "调试"
+    }
+   ],
+   "note": "每行左侧 ⓘ 是说明气泡；所有下拉没展开，值从行尾读出"
+  },
+  {
+   "id": "core-tun",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "TUN"
+   ],
+   "title": "TUN",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "（本分区覆写总开关）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "启用",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_tun_enable → tun.enable",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "IPv4地址段",
+       "control": "textfield",
+       "value": "172.19.0.1/30",
+       "maps_to": "tun.inet4-address",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；app-guide：运行时取 fake-ip-range 的前 /30，与界面值不一致 E-M-006",
+       "order": 3,
+       "info_icon": false
+      },
+      {
+       "label": "网络栈",
+       "control": "popup",
+       "value": "gvisor ▾",
+       "maps_to": "intent clash_tun_stack → tun.stack",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；app-guide：stack 在内置-不覆写时仍覆盖 E-M-011",
+       "order": 4,
+       "info_icon": true
+      },
+      {
+       "label": "MTU",
+       "control": "textfield",
+       "value": "1280",
+       "maps_to": "tun.mtu",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；app-guide：mtu 在内置-不覆写时仍覆盖 E-M-011",
+       "order": 5,
+       "info_icon": false
+      },
+      {
+       "label": "DNS劫持",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_tun_dns_hijack → tun.dns-hijack",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；app-guide：dns-hijack 在内置-不覆写时仍覆盖 E-M-011",
+       "order": 6,
+       "info_icon": true
+      },
+      {
+       "label": "严格路由",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_tun_strict_route → tun.strict-route",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 7,
+       "info_icon": true
+      },
+      {
+       "label": "默认路由",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_tun_auto_route → tun.auto-route",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 8,
+       "info_icon": false
+      },
+      {
+       "label": "includeAllNetworks",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 9,
+       "info_icon": true
+      },
+      {
+       "label": "excludeLocalNetworks",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 10,
+       "info_icon": true
+      },
+      {
+       "label": "excludeCellularServices",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 11,
+       "info_icon": true
+      },
+      {
+       "label": "excludeAPNs",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 12,
+       "info_icon": true
+      },
+      {
+       "label": "excludeDeviceCommunication",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 13,
+       "info_icon": true
+      },
+      {
+       "label": "enforceRoutes",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS NEPacketTunnel 选项）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 14,
+       "info_icon": true
+      },
+      {
+       "label": "ICMP 转发",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "tun.disable-icmp-forwarding（取反）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 15,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "附加HTTP代理到VPN",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "（iOS 系统 HTTP 代理）",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "允许绕过HTTP代理的域名",
+       "control": "disclosure",
+       "maps_to": "（iOS 系统代理例外）",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2,
+       "info_icon": false
+      },
+      {
+       "label": "隐藏VPN图标",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-tun_1.png",
+    "core-tun_2.png"
+   ]
+  },
+  {
+   "id": "core-geo-ruleset",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "Geo RuleSet"
+   ],
+   "title": "Geo RuleSet",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "更新时间间隔",
+       "control": "textfield",
+       "value": "2 d",
+       "maps_to": "geo-update-interval",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "使用代理下载Geo RuleSet",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2,
+       "info_icon": false
+      },
+      {
+       "label": "GeoSite",
+       "control": "textfield",
+       "value": "https://raw.githubuse…（截断）",
+       "maps_to": "geox-url.geosite",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 3,
+       "info_icon": false
+      },
+      {
+       "label": "GeoIp",
+       "control": "textfield",
+       "value": "https://raw.githubuse…（截断）",
+       "maps_to": "geox-url.geoip",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 4,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-geo-ruleset.png"
+   ],
+   "note": "无覆写开关"
+  },
+  {
+   "id": "core-diversion-template",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "分流模板"
+   ],
+   "title": "分流模板",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "规则提供者",
+       "control": "disclosure",
+       "maps_to": "rule-providers 模板",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "规则模板",
+       "control": "disclosure",
+       "maps_to": "rules 模板",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "代理组模板",
+       "control": "disclosure",
+       "maps_to": "proxy-groups 模板",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-diversion-template.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "三个子页",
+     "reason": "时间优先，未进"
+    }
+   ]
+  },
+  {
+   "id": "core-override",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "覆写"
+   ],
+   "title": "覆写",
+   "nav": {
+    "left": "返回",
+    "right": "☁︎ 下载 / +"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "内置-覆写",
+       "control": "radio",
+       "value": "选中（蓝色），副标题 Buildin",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "内置-不覆写",
+       "control": "radio",
+       "value": "副标题 Buildin",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-override.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "点选行",
+     "reason": "会切换覆写方案"
+    },
+    {
+     "entry": "☁︎ / +",
+     "reason": "导入动作"
+    }
+   ]
+  },
+  {
+   "id": "core-lan-access",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "局域网设备接入"
+   ],
+   "title": "局域网设备接入",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "启用",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_allow_lan → allow-lan",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "IP",
+       "control": "popup",
+       "value": "空 ▾",
+       "maps_to": "bind-address",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "授权",
+       "control": "textfield",
+       "value": "空（占位 username:pa…）",
+       "maps_to": "authentication",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；有值时属敏感值",
+       "order": 4,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-lan-access.png"
+   ]
+  },
+  {
+   "id": "core-dns",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "DNS"
+   ],
+   "title": "DNS",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "启用",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_dns_enable → dns.enable",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段；app-guide：内置-不覆写时订阅 DNS 原样保留 E-M-011",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "监听地址",
+       "control": "textfield",
+       "value": "0.0.0.0:53（灰）",
+       "maps_to": "intent clash_dns_listen → dns.listen",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "DoH H3优先",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "dns.prefer-h3",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 4,
+       "info_icon": true
+      },
+      {
+       "label": "使用系统Hosts",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "dns.use-system-hosts",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 5,
+       "info_icon": true
+      },
+      {
+       "label": "使用Hosts",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_dns_use_hosts → dns.use-hosts",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 6,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "hosts",
+       "control": "disclosure",
+       "maps_to": "hosts",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 1,
+       "info_icon": false
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "增强模式",
+       "control": "popup",
+       "value": "fake-ip ▾",
+       "maps_to": "intent clash_dns_enhanced_mode → dns.enhanced-mode",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "fake-ip 过滤模式",
+       "control": "popup",
+       "value": "blacklist ▾",
+       "maps_to": "intent clash_dns_fake_ip_filter_mode → dns.fake-ip-filter-mode",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "fake-ip 过滤",
+       "control": "disclosure",
+       "maps_to": "intent clash_fake_ip_filter → dns.fake-ip-filter",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 3,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "遵守[rules]规则",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_dns_respect_rules → dns.respect-rules",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 1,
+       "info_icon": true
+      },
+      {
+       "label": "默认 域名解析服务器",
+       "control": "disclosure",
+       "maps_to": "intent clash_dns_default_nameserver → dns.default-nameserver",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "域名解析服务器",
+       "control": "disclosure",
+       "maps_to": "intent clash_dns_nameserver → dns.nameserver",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "代理 域名解析服务器",
+       "control": "disclosure",
+       "maps_to": "intent clash_dns_proxy_server_nameserver → dns.proxy-server-nameserver",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 4,
+       "info_icon": true
+      },
+      {
+       "label": "直连 域名解析服务器",
+       "control": "disclosure",
+       "maps_to": "intent clash_dns_direct_nameserver → dns.direct-nameserver",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 5,
+       "info_icon": true
+      },
+      {
+       "label": "Fallback 域名解析服务器",
+       "control": "disclosure",
+       "maps_to": "intent clash_dns_fallback → dns.fallback",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 6,
+       "info_icon": true
+      },
+      {
+       "label": "Fallback GeoIp",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "dns.fallback-filter.geoip",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 7,
+       "info_icon": true
+      },
+      {
+       "label": "Fallback GeoIp 代码",
+       "control": "textfield",
+       "value": "空",
+       "maps_to": "dns.fallback-filter.geoip-code",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 8,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-dns_1.png",
+    "core-dns_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "hosts / fake-ip 过滤 / 各解析服务器子页",
+     "reason": "时间优先，未进"
+    }
+   ],
+   "note": "没看到 fake-ip-range 与 nameserver-policy 的行（SubHub 有 clash_dns_fake_ip_range / clash_dns_nameserver_policy）"
+  },
+  {
+   "id": "core-ntp",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "NTP"
+   ],
+   "title": "NTP",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "启用",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "ntp.enable",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "服务器",
+       "control": "textfield",
+       "value": "空（占位 必填）",
+       "maps_to": "ntp.server",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "端口",
+       "control": "textfield",
+       "value": "空（占位 必填）",
+       "maps_to": "ntp.port",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 4,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-ntp.png"
+   ]
+  },
+  {
+   "id": "core-tls",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "TLS"
+   ],
+   "title": "TLS",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "证书",
+       "control": "textfield",
+       "value": "空",
+       "maps_to": "tls.certificate",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "私钥",
+       "control": "textfield",
+       "value": "空",
+       "maps_to": "tls.private-key",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；有值时属敏感值",
+       "order": 3,
+       "info_icon": true
+      },
+      {
+       "label": "自定义证书",
+       "control": "disclosure",
+       "maps_to": "tls.custom-certifactes",
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-tls.png"
+   ]
+  },
+  {
+   "id": "core-sniffer",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "核心设置",
+    "嗅探"
+   ],
+   "title": "嗅探",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "覆写",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1,
+       "info_icon": false
+      },
+      {
+       "label": "启用",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_sniffer_enable → sniffer.enable",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段；SubHub 订阅里也写了这个字段",
+       "order": 2,
+       "info_icon": true
+      },
+      {
+       "label": "覆盖",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "sniffer.override-destination",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "覆写开时盖过订阅里的同名字段",
+       "order": 3,
+       "info_icon": true
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "core-sniffer.png"
+   ]
+  },
+  {
+   "id": "app-settings",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "应用设置"
+   ],
+   "title": "应用设置",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "重置",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "动作，没点",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "语言",
+       "control": "disclosure",
+       "value": "简体中文 ›",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "主题",
+       "control": "popup",
+       "value": "light ▾",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "主屏",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "跟随屏幕旋转",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "日志等级",
+       "control": "popup",
+       "value": "warning ▾",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "note": "App 自身日志，不是内核 log-level",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "UserAgent",
+       "control": "textfield",
+       "value": "ClashMeta/1.19.32; m…（截断）",
+       "maps_to": "订阅下载 UA",
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "SubHub 按 UA 识别客户端时会看到这个值",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "延迟测试URL",
+       "control": "textfield",
+       "value": "https://www.gsta…（截断）",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "延迟测试超时(ms)",
+       "control": "textfield",
+       "value": "5000",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "使用在线面板",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "本地面板端口",
+       "control": "textfield",
+       "value": "7066",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "始终开启连接",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "note": "按需连接",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "app-settings.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "重置",
+     "reason": "动作"
+    },
+    {
+     "entry": "语言 / 主屏",
+     "reason": "选择页，未进"
+    }
+   ]
+  },
+  {
+   "id": "about",
+   "kind": "settings",
+   "path": [
+    "首页",
+    "关于"
+   ],
+   "title": "关于",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "名称",
+       "control": "label",
+       "value": "Clash Mi",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "版本",
+       "control": "label",
+       "value": "1.0.31.1703",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "核心",
+       "control": "label",
+       "value": "mihomo 1.19.32",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "about.png"
+   ]
+  },
+  {
+   "id": "first-launch",
+   "kind": "settings",
+   "path": [
+    "首次启动"
+   ],
+   "title": "Your Privacy Comes First",
+   "nav": {},
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "允许 “Clash Mi” 使用无线数据？",
+       "control": "system-alert",
+       "value": "无线局域网与蜂窝网络 / 仅限无线局域网 / 不允许",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "用户 2026-11-11 指示选「无线局域网与蜂窝网络」",
+       "order": 1
+      },
+      {
+       "label": "Accept & Continue",
+       "control": "button",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "用户同意点；实际选完系统弹窗后 App 直接进了核心设置，这个按钮没点到",
+       "order": 2
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "first-launch-cellular-prompt.png"
+   ]
+  }
+ ]
+}

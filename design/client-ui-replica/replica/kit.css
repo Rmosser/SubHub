@@ -1,0 +1,136 @@
+/* iOS list kit — values come from tokens/<app>.json (pt == CSS px) */
+:root{
+  --font: -apple-system, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased}
+
+/* ---------- themes ---------- */
+.theme-shadowrocket{
+  --page:#F1E9E7; --cell:#EBE1DF; --sep:#F1E7E5;
+  --label:#622229; --detail:#AB8587; --header:#AB8587; --danger:#D15499;
+  --chevron:#AB8587; --nav-bg:#FBEFEE; --nav-title:#622229; --glyph:#622229;
+  --btn-border:rgba(98,34,41,.10); --btn-bg:rgba(255,255,255,.28);
+  --tab-bg:rgba(247,236,235,.72); --tab-border:rgba(98,34,41,.10); --tab-pill:#E3D6D5;
+  --tab-on:#622229; --tab-off:#877676; --tab-off-label:#0E0A09;
+  --row-h:48.8px; --label-x:16.7px; --sep-x:16.7px; --sep-right:15px; --sep-w:1.3px;
+  --group-gap:36.7px; --group-margin:0px; --radius:0px; --label-size:16px; --tab-stroke:1.25; --title-size:18px;
+}
+.theme-ios26{
+  --page:#F2F2F6; --cell:#FFFFFF; --sep:#ECECEC; --dim:#C5C5C7;
+  --label:#000; --detail:#878689; --subtitle:#838385; --header:#7F7F85; --footer:#7C7C80; --danger:#FF3B30; --accent:#4478F7;
+  --chevron:#C4C4C6; --nav-bg:#F2F2F6; --nav-title:#000; --glyph:#111;
+  --btn-border:rgba(0,0,0,.06); --btn-bg:rgba(255,255,255,.75);
+  --tab-bg:rgba(250,250,250,.92); --tab-border:rgba(0,0,0,.08); --tab-pill:#E8E8ED;
+  --tab-on:#4578F7; --tab-off:#111;
+  --row-h:53px; --label-x:21px; --sep-x:20px; --sep-right:20px; --sep-w:1.3px;
+  --group-gap:63px; --group-margin:16px; --radius:25px;
+  --row-pad-left:20.3px; --row-pad-right:20.7px; --row-pad-top:1.8px;
+  --header-x:36.7px; --header-font:600 16px/18px var(--font);
+  --footer-x:36.7px; --footer-right:20px; --footer-font:400 13px/16px var(--font); --footer-ls:-.3px;
+  --switch-off:#C5C5C7; --chev-w:7px; --chev-h:12.7px; --chev-gap:10.4px; --detail-ls:0px;
+  --sub-font:400 15px/17px var(--font); --sub-gap:2.3px; --sub-shift:-1.3px;
+  --title-size:17px; --label-size:17px;
+}
+
+/* ---------- device ---------- */
+.ios-screen{position:relative;width:402px;height:874px;overflow:hidden;background:var(--page);border-radius:var(--screen-radius,64px)}
+.statusbar{position:absolute;left:0;top:0;width:402px;height:54px;z-index:30;color:#000;pointer-events:none}
+.statusbar .time{position:absolute;left:40px;top:21px;font:600 18px/22px var(--font);letter-spacing:-.2px}
+.statusbar .island{position:absolute;left:138.7px;top:14.7px;width:124.6px;height:34.6px;border-radius:17.3px;background:#000}
+.statusbar .right{position:absolute;right:35px;top:25px;display:flex;gap:6px;align-items:center}
+
+/* ---------- sheet ---------- */
+.dim{position:absolute;inset:0;background:var(--dim,#C5C5C7)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--page);overflow:hidden}
+.sheet-body{position:absolute;left:0;width:402px;height:874px}
+.navbar.in-sheet{background:none}
+
+/* back sheet（叠在下面的一层 sheet）、底部悬浮搜索框 */
+.backsheet{position:absolute;bottom:0}
+.floatsearch{position:absolute;z-index:26;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.07);
+  box-shadow:0 4px 18px rgba(0,0,0,.06);display:flex;align-items:center;color:var(--search-text,#8A8A90);font:400 17px/22px var(--font)}
+.floatsearch svg{flex:none}
+.row .detail.popup{color:var(--popup-value,var(--accent))}
+.row .updown.popup{color:var(--popup-value,var(--accent))}
+
+/* ---------- nav ---------- */
+.navbar{position:absolute;left:0;top:0;width:402px;height:115.3px;z-index:20;
+  background:linear-gradient(var(--nav-bg) 0 80%, color-mix(in srgb,var(--nav-bg) 60%, var(--page)) 100%)}
+.navbtn{position:absolute;top:calc(var(--nav-cy,84px) - 22px);width:44px;height:44px;border-radius:22px;
+  background:var(--btn-bg);border:1px solid var(--btn-border);
+  box-shadow:0 1px 3px rgba(0,0,0,.04), inset 0 1px 0 rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center}
+.navbtn.left{left:16px}.navbtn.right{left:342px}
+.navbtn.primary{background:var(--accent);border-color:transparent;box-shadow:0 2px 6px rgba(69,120,247,.25)}
+.navtitle{position:absolute;left:70px;right:70px;top:calc(var(--nav-cy,84px) - 11px);height:22px;text-align:center;
+  font:600 var(--title-size,17px)/22px var(--font);color:var(--nav-title);letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- list ---------- */
+.scroll{position:absolute;left:0;top:0;width:402px}
+.group{position:absolute;left:var(--group-margin);right:var(--group-margin);background:var(--cell);border-radius:var(--radius);overflow:hidden}
+.gheader{position:absolute;left:var(--header-x,var(--label-x));right:0;font:var(--header-font,400 13px/18px var(--font));color:var(--header)}
+.gfooter{position:absolute;left:var(--footer-x,var(--label-x));right:var(--footer-right,var(--label-x));font:var(--footer-font,400 13px/18px var(--font));color:var(--footer,var(--header));white-space:pre-line;letter-spacing:var(--footer-ls,0)}
+.row{position:relative;height:var(--row-h);display:flex;align-items:center;padding:var(--row-pad-top,0.6px) var(--row-pad-right,16px) 0 var(--row-pad-left,var(--label-x))}
+.row + .row::before{content:"";position:absolute;top:-0.65px;left:var(--sep-x);right:var(--sep-right);height:var(--sep-w);background:var(--sep)}
+.row .label{flex:1;min-width:0;font:400 var(--label-size,17px)/22px var(--font);color:var(--label);letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .label.action{color:var(--label)}
+.row .label.danger{color:var(--danger);text-align:center}
+.row.has-sub .label{transform:translateY(var(--sub-shift,0px))}
+.row .sub{display:block;font:var(--sub-font,400 13px/16px var(--font));color:var(--subtitle,var(--detail));margin-top:var(--sub-gap,2px);letter-spacing:0}
+.row .detail{font:400 17px/22px var(--font);color:var(--detail);letter-spacing:var(--detail-ls,-.2px);margin-left:8px;white-space:nowrap}
+.row .chev{width:var(--chev-w,8px);height:var(--chev-h,14px);margin-left:var(--chev-gap,8px);flex:none;color:var(--chevron)}
+.row .updown{width:10px;height:16px;margin-left:5px;flex:none;color:var(--chevron)}
+.switch{width:63px;height:28px;border-radius:14px;background:var(--switch-off,#E9E9EB);position:relative;flex:none}
+.switch::after{content:"";position:absolute;left:2px;top:2px;width:37px;height:24px;border-radius:12px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.10)}
+.switch.on{background:var(--switch-on,var(--accent,#34C759))}.switch.on::after{left:24px}
+
+/* ---------- tab bar ---------- */
+.tabbar{position:absolute;top:792px;height:61px;border-radius:30.5px;z-index:25;
+  background:var(--tab-bg);border:1px solid var(--tab-border);
+  box-shadow:0 6px 24px rgba(0,0,0,.08);
+  backdrop-filter:blur(20px);display:flex;align-items:stretch;padding:4px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:26px;color:var(--tab-off)}
+.tab.on{background:var(--tab-pill);color:var(--tab-on)}
+.tab svg{width:28px;height:26px}
+.tab span{font:500 10px/12px var(--font);color:var(--tab-off-label,currentColor)}
+.tab.on span{color:var(--tab-on)}
+.tab svg *{stroke-width:var(--tab-stroke,1.6)}
+
+/* ---------- debugging overlays ---------- */
+.ann{position:absolute;right:4px;top:50%;transform:translateY(-50%);font:600 9px/12px var(--font);padding:1px 4px;border-radius:4px;background:#fff8;display:none}
+body.show-ann .ann{display:block}
+
+/* Clash（iOS 26 系）：和 ios26 一样，只覆盖实测不同的值 */
+.theme-clash{
+  --row-h:52.3px; --group-gap:56.6px; --popup-value:#4B84F8; --switch-on:#4D87FA; --detail:#8A8A8E; --header:#818186; --sep:#EDEDED;
+  --row-pad-right:17.3px; --dim:#C2C2C6;
+}
+.theme-clash .row .updown{margin-left:6.6px;margin-right:4px;width:9.4px;height:12.7px}
+
+/* Clash Mi（Flutter 自绘）—— tokens/clash-mi.json */
+.theme-clashmi{
+  --page:#F0F0F0; --cell:#FFFFFF; --sep:#D9D9DB; --label:#131317; --detail:#101016; --chevron:#222;
+  --nav-bg:#F0F0F0; --nav-title:#131317; --glyph:#131317;
+  --row-h:45.5px; --group-gap:8.6px; --group-margin:25.3px; --radius:10px;
+  --row-pad-left:20px; --row-pad-right:22px; --row-pad-top:0px; --label-size:14px; --title-size:18px;
+  --sep-x:18.7px; --sep-right:18px; --sep-w:1.33px; --chev-w:6.7px; --chev-h:11.4px; --chev-gap:8px;
+}
+.theme-clashmi .navbar{background:var(--nav-bg);height:auto}
+.theme-clashmi .navtitle{top:calc(var(--nav-cy) - 11px)}
+.theme-clashmi .group{box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.theme-clashmi .row + .row{margin-top:1.44px}
+.theme-clashmi .row + .row::before{top:-1.44px;height:1.33px}
+.theme-clashmi .row .label{letter-spacing:0}
+.navflat{position:absolute;display:block}
+.row .info{width:22px;height:22px;flex:none;margin-right:8px}
+.row .field{position:absolute;left:var(--field-x,191.4px);width:var(--field-w,142px);top:3.3px;bottom:2.6px;background:var(--field-bg,#F8F8F8);
+  font:400 17px/1 var(--font);color:var(--detail);display:flex;align-items:center;justify-content:flex-end;padding-right:16.7px;white-space:nowrap;overflow:hidden}
+.row .field.ph{color:#B5B5B8}
+.row .caret{width:8px;height:5px;margin-left:4px;flex:none}
+.row .detail.small{font:400 14px/18px var(--font);letter-spacing:0}
+.statusbar .crumb{position:absolute;left:30px;top:36.5px;font:600 10.5px/12px var(--font)}
+.statusbar.has-crumb .time{top:15px}
+.redact{position:absolute;background:#000;z-index:40}
+.scroll.clip{overflow:hidden}

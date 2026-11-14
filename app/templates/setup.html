@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="{{ 'en' if english else 'zh-CN' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SubHub · {{ 'Set up your workspace' if english else '初始化工作区' }}</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #000716; background: #f2f3f3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 20px 32px; background: #000716; color: white; font-size: 20px; font-weight: 700; }
+    main { max-width: 560px; margin: 64px auto; padding: 32px; background: white; border: 1px solid #d5dbdb; border-radius: 12px; }
+    h1 { margin: 0 0 24px; font-size: 28px; }
+    p { color: #414d5c; line-height: 1.6; }
+    button, a { font: inherit; }
+    button { margin-top: 16px; padding: 10px 24px; background: #0972d3; color: white; border: 0; border-radius: 20px; cursor: pointer; font-weight: 600; }
+    button:hover { background: #065ea8; }
+    button:disabled { background: #7d8998; cursor: wait; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #0972d3; outline-offset: 4px; }
+    #message { min-height: 24px; margin-top: 24px; }
+    .error { color: #d91515; }
+    a { color: #0972d3; }
+    @media(max-width: 620px) { main { margin: 32px 16px; padding: 24px; } }
+  </style>
+</head>
+<body>
+  <header>SubHub</header>
+  <main>
+    <h1>{{ 'Set up your workspace' if english else '初始化你的工作区' }}</h1>
+    <p>{{ 'Create a private workspace for your sources, rules, and device subscriptions. SubHub will generate and save the encryption key and your first device subscription.' if english else '创建你的专属工作区，保存订阅源、分流规则和设备订阅。SubHub 会自动生成并保存加密密钥和首个设备订阅。' }}</p>
+    <p>{{ 'After setup, add a subscription source in the console and copy a device subscription link.' if english else '初始化完成后，在控制台添加订阅源，再复制设备订阅链接。' }}</p>
+    <form id="setup-form">
+      <button id="initialize" type="submit">{{ 'Create workspace' if english else '创建工作区' }}</button>
+    </form>
+    <p id="message" role="status" aria-live="polite"></p>
+    <a id="continue" href="/manage" hidden>{{ 'Open console' if english else '进入控制台' }}</a>
+  </main>
+  <script>
+    const english = {{ english | tojson }};
+    const button = document.getElementById('initialize');
+    const message = document.getElementById('message');
+    document.getElementById('setup-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      message.className = '';
+      message.textContent = english ? 'Creating workspace…' : '正在创建工作区…';
+      try {
+        const response = await fetch('/api/setup/init', { method: 'POST', headers: { 'Accept': 'application/json' } });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.detail || (english ? 'Setup failed' : '初始化失败'));
+        message.textContent = english ? 'Workspace is ready.' : '工作区已就绪。';
+        document.getElementById('continue').hidden = false;
+        window.location.assign('/manage');
+      } catch (error) {
+        message.className = 'error';
+        message.textContent = error.message;
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

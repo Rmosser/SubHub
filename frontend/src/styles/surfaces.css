@@ -1,0 +1,293 @@
+/* 工作区的共享原语：页标题与分组刻在玻璃上，内容与等人处理的事都放在玻璃片上（--k-plate），
+   此刻的状态是光。所有工作区共用这一份写法；外壳与读图的材质见 glass.css / readmap.css。
+   --s-* 是本文件新增的 token；其余直接取 --g-* 与 --k-*。 */
+:root {
+  --s-err: #c4321f;
+  --s-dot-flow: var(--g-flow); --s-dot-teal: var(--g-flow-2); --s-dot-warm: #d5822a;
+  --s-dialog-veil: rgba(var(--g-shadow), .1);
+  --s-link-hover: #1745b5;
+  --s-drawer: rgba(246, 250, 249, .86);
+  --s-hit-block: 0px;
+  --s-hit-inline: 0px;
+  --s-icon-pad-block: 4px;
+  --s-icon-pad-inline: 4px;
+  --s-close-pad-inline: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-glass-theme="light"]) {
+    --s-err: #ff8f80;
+    --s-dot-warm: #f0aa48;
+    --s-dialog-veil: rgba(0, 0, 0, .18);
+    --s-link-hover: #b3c9ff;
+    --s-drawer: rgba(14, 25, 28, .86);
+  }
+}
+:root[data-glass-theme="dark"] {
+  --s-err: #ff8f80;
+  --s-dot-warm: #f0aa48;
+  --s-dialog-veil: rgba(0, 0, 0, .18);
+  --s-link-hover: #b3c9ff;
+  --s-drawer: rgba(14, 25, 28, .86);
+}
+
+/* ---- 页标题：刻在玻璃上 ---- */
+.s-page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; padding: 6px 0 4px; }
+.s-page-head h1 { margin: 0; font-size: 24px; line-height: 32px; font-weight: 600; color: var(--g-etch); text-shadow: var(--g-etch-shadow); overflow-wrap: anywhere; }
+.s-page-head p { margin: 6px 0 0; max-width: 640px; font-size: 14px; line-height: 22px; color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); }
+.s-page-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* ---- 分组：刻进玻璃的标题行，下面是它的面板 ---- */
+.s-section { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.s-section-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; min-height: 32px; }
+.s-section-head h2 { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--g-etch); text-shadow: var(--g-etch-shadow); }
+.s-section-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; font-size: 13px; line-height: 20px; color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); font-variant-numeric: tabular-nums; }
+.s-section-meta strong { color: var(--g-etch); font-weight: 600; }
+.s-section-fill { flex: 1 1 auto; }
+.s-section-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* ---- 内容面板：一片玻璃，不嵌套 ---- */
+/* 玻璃片的材质画在 ::before 上：片本身不是 backdrop root，片里的菜单仍能磨砂背后的玻璃；
+   片是一个层叠上下文，所以里面有焦点（下拉、菜单展开）时把它抬到相邻的片之上。 */
+:is(.s-surface, .s-paper, .s-plate, .s-sheet) { position: relative; isolation: isolate; }
+:is(.s-surface, .s-paper, .s-plate, .s-sheet)::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--k-plate); -webkit-backdrop-filter: var(--k-plate-filter); backdrop-filter: var(--k-plate-filter); box-shadow: var(--k-plate-edge); pointer-events: none; }
+:is(.s-surface, .s-paper, .s-plate, .s-sheet):focus-within { z-index: 2; }
+.s-surface { min-width: 0; padding: 20px 24px; border-radius: var(--k-plate-r); color: var(--k-ink); }
+.s-surface.flush { padding: 0; overflow: hidden; }
+.s-stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.s-stack.s-page-stack { gap: 28px; }
+.s-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 16px; min-width: 0; }
+.s-row > * { min-width: 0; }
+.s-row.s-row-center { align-items: center; }
+.s-status-line { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 13px; line-height: 20px; }
+.s-status-line .s-muted, .s-status-line .s-reason { color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); }
+.s-file-input { display: block; max-width: 100%; padding: 6px 0; color: var(--k-muted); font: inherit; font-size: 13px; }
+.s-file-input::file-selector-button { margin-right: 10px; padding: 5px 12px; border-radius: 7px; border: 1px solid var(--g-ctl-edge); background: transparent; color: var(--k-ink); font: inherit; font-weight: 500; cursor: pointer; }
+.s-file-input:focus-visible { outline: 2px solid var(--g-lit); outline-offset: 2px; border-radius: 7px; }
+/* 导出 JSON：文本框占满，复制按钮贴在右上角 */
+.s-export-json { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+.s-export-json > :first-child { flex: 1 1 auto; min-width: 0; }
+.s-grow { flex: 1 1 220px; }
+.s-rule { height: 0; margin: 0; border: 0; border-top: 1px solid var(--g-rule); }
+.s-muted { color: var(--k-muted); }
+.s-small { font-size: 12.5px; line-height: 19px; }
+.s-mono { font-family: var(--f-mono); font-size: 12px; }
+.s-lit { color: var(--g-lit); text-shadow: var(--g-lit-glow); }
+.s-num { font-variant-numeric: tabular-nums; }
+/* 单行省略：完整值仍在 DOM 里，可选中复制，读屏读全文 */
+.s-ellipsis { display: block; min-width: 0; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* ---- 设置表单：一列窄表，标签在上 ---- */
+.s-settings-grid { max-width: 560px; min-width: 0; }
+
+/* ---- 事实：一排键值，数字等宽 ---- */
+.s-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 14px 24px; margin: 0; min-width: 0; }
+.s-facts > div { min-width: 0; }
+.s-facts dt { margin: 0 0 3px; font-size: 12px; line-height: 18px; color: var(--k-muted); }
+.s-facts dd { margin: 0; font-size: 15px; line-height: 22px; font-weight: 500; color: var(--k-ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.s-facts.compact dd { font-size: 14px; font-weight: 400; }
+
+/* ---- 中性标签：细描边，不填色；动作类别最多一个淡色点 ---- */
+.s-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-height: 20px; padding: 0 8px; border-radius: 20px; box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 22%, transparent); color: var(--k-muted); font-size: 11.5px; line-height: 18px; font-weight: 400; white-space: nowrap; vertical-align: middle; }
+.s-chip > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.s-chip.mono { font-family: var(--f-mono); font-size: 11px; font-weight: 400; }
+.s-chip.muted { color: var(--k-muted); }
+.s-chip.lit { color: var(--g-lit); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--g-lit) 34%, transparent); }
+.s-chip-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; }
+.s-chip-dot.flow { background: var(--s-dot-flow); opacity: .7; }
+.s-chip-dot.teal { background: var(--s-dot-teal); opacity: .7; }
+.s-chip-dot.warm { background: var(--s-dot-warm); opacity: .75; }
+.s-chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+
+/* ---- 等人处理的事：浮起的一片玻璃，放在它所属的那一项上，或页面最上方一次。片上的字是平的墨 ---- */
+.s-paper { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; min-width: 0; padding: 12px 16px; border-radius: 10px; color: var(--p-ink); font-size: 13px; line-height: 21px; text-shadow: none; }
+.s-paper-body { flex: 1 1 260px; min-width: 0; overflow-wrap: anywhere; }
+.s-paper-body .s-muted, .s-paper .s-reason-text { color: var(--p-muted); }
+.s-paper-action { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.s-paper strong { font-weight: 600; }
+.s-paper code { font: 12px/20px var(--f-mono); color: var(--p-ink); }
+.s-paper .s-dialog-list { margin-top: 4px; color: var(--p-muted); }
+
+/* ---- 原因：所属条目下方一行，长原因限高，可展开 ---- */
+.s-reason { min-width: 0; font-size: 12.5px; line-height: 19px; color: var(--k-muted); }
+.s-reason-text { overflow-wrap: anywhere; white-space: pre-line; }
+.s-reason-text.clamp { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.s-reason-toggle { appearance: none; margin: 2px 0 0; padding: 0; border: 0; background: none; color: var(--g-lit); font: inherit; font-weight: 500; cursor: pointer; }
+.s-reason-toggle:hover { text-decoration: underline; }
+.s-reason-toggle:focus-visible { outline: 2px solid var(--g-lit); outline-offset: 2px; border-radius: 3px; }
+
+.s-ordered { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; line-height: 21px; }
+.s-err-text { color: var(--s-err); }
+
+/* ---- 错误：状态、原因、重试 ---- */
+.s-error { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.s-error.page { padding: 40px 0 24px; max-width: 640px; }
+.s-error .s-reason { color: var(--k-ink); opacity: .8; }
+
+/* ---- 空态与加载：布局说明下一步 ---- */
+.s-empty { padding: 40px 24px; text-align: center; color: var(--k-muted); font-size: 13.5px; line-height: 21px; }
+.s-empty strong { display: block; margin-bottom: 4px; color: var(--k-ink); font-size: 15px; font-weight: 600; }
+.s-loading { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 56px 0; color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); font-size: 13px; }
+
+/* ---- 对话框：Cloudscape Modal 负责焦点、Esc 与名称；它放进我们的磨砂层里，正文一层底 ---- */
+.glass-dialog-layer { position: fixed; inset: 0; z-index: 5000; pointer-events: none; }
+.glass-dialog-layer[data-open="true"] { pointer-events: auto; background: var(--s-dialog-veil); -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15); }
+.s-dialog-title { color: var(--g-etch); text-shadow: var(--g-etch-shadow); }
+.s-dialog-body { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.s-dialog-lead { margin: -4px 0 0; color: var(--k-muted); font-size: 13.5px; line-height: 21px; }
+.s-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--g-rule); }
+.s-dialog-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 13px; line-height: 20px; color: var(--k-muted); }
+.s-dialog-list li { position: relative; padding-left: 14px; }
+.s-dialog-list li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: .6; }
+
+/* ---- 链接列表：每行一个客户端，链接单行省略，复制在行尾 ---- */
+.s-link-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.s-link-list > li { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 12px 0; border-top: 1px solid var(--g-rule); }
+.s-link-list > li:first-child { border-top: 0; padding-top: 0; }
+.s-link-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.s-link-value { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.s-link-value code { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--k-muted); }
+
+/* ---- 表格单元里的结构 ---- */
+.s-cell-stack { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.s-cell-title { font-weight: 600; color: var(--k-ink); overflow-wrap: anywhere; }
+.s-cell-label { font-size: 12px; line-height: 18px; color: var(--k-muted); }
+.s-table-scroll { width: 100%; min-width: 0; overflow-x: auto; }
+.s-clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; min-width: 160px; max-width: 280px; white-space: normal; overflow-wrap: anywhere; }
+
+/* ---- 详情抽屉：和对话框同一层底——磨砂面板，背后的内容被模糊掉 ---- */
+.s-drawer-host { min-width: 0; }
+.s-drawer-main { min-width: 0; }
+.s-drawer { position: sticky; z-index: 830; display: flex; flex-direction: column; min-width: 0; box-sizing: border-box; color: var(--k-ink);
+  background: var(--s-drawer); -webkit-backdrop-filter: blur(22px) saturate(1.15); backdrop-filter: blur(22px) saturate(1.15);
+  box-shadow: inset 0 0 0 1px var(--g-rule), inset 0 1px 0 var(--g-rule-hi), 0 18px 40px -22px rgba(var(--g-shadow), .55); }
+/* 列宽就是面板宽：右侧 16px 留在宿主的内边距里，分隔条报的数值与面板实际宽高一致（上下限见 GlassDrawer.tsx） */
+.s-drawer[data-placement="side"] { top: 16px; height: calc(100vh - 32px); margin: 0 0 16px; border-radius: 14px; }
+.s-drawer[data-placement="bottom"] { bottom: 0; height: min(var(--s-drawer-h), max(200px, calc(100vh - 96px))); margin: 16px 12px 0; border-radius: 14px 14px 0 0; }
+.s-drawer-host[data-drawer="side"] { display: grid; grid-template-columns: minmax(0, 1fr) min(var(--s-drawer-w), max(344px, calc(100% - 520px))); align-items: start; gap: 0 16px; padding-right: 16px; }
+.s-drawer-head { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 16px 12px 8px 20px; }
+.s-drawer-title { flex: 1 1 auto; min-width: 0; margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--g-etch); text-shadow: var(--g-etch-shadow); overflow-wrap: anywhere; }
+.s-drawer-body { flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 4px 20px 20px; }
+.s-drawer-handle { position: absolute; z-index: 1; touch-action: none; }
+.s-drawer[data-placement="side"] .s-drawer-handle { top: 14px; bottom: 14px; left: -8px; width: 16px; cursor: col-resize; }
+.s-drawer[data-placement="bottom"] .s-drawer-handle { left: 50%; top: -6px; width: 88px; height: 24px; margin-left: -44px; cursor: row-resize; }
+.s-drawer-handle::after { content: ""; position: absolute; border-radius: 3px; background: var(--g-rule); transition: background .2s; }
+.s-drawer[data-placement="side"] .s-drawer-handle::after { top: 50%; left: 6px; width: 4px; height: 40px; margin-top: -20px; }
+.s-drawer[data-placement="bottom"] .s-drawer-handle::after { top: 12px; left: 24px; width: 40px; height: 4px; }
+.s-drawer-handle:hover::after, .s-drawer-handle:focus-visible::after { background: var(--g-lit); }
+.s-drawer-handle:focus-visible { outline: 2px solid var(--g-lit); outline-offset: -2px; border-radius: 6px; }
+
+@media (max-width: 650px) {
+  .s-drawer[data-placement="bottom"] { margin: 16px 0 0; }
+  .s-drawer-head { padding: 14px 8px 6px 16px; }
+  .s-drawer-body { padding: 4px 16px 16px; }
+  .s-page-head h1 { font-size: 26px; line-height: 34px; }
+  .s-surface { padding: 16px; }
+  .s-paper { padding: 9px 12px; }
+  .s-dialog-actions { justify-content: stretch; }
+  .s-dialog-actions > * { flex: 1 1 auto; }
+}
+
+/* ---- 窄屏或触屏：点击区至少 44px，视觉尺寸不变——只加透明内边距与最小宽度（链接型动作见 InlineAction）。
+   放在文件末尾，覆盖上面的基础写法；Cloudscape 按钮根节点用 id 级优先级把 min-inline-size 归零，所以这一条用 !important ---- */
+@media (max-width: 900px), (pointer: coarse) {
+  :root { --s-hit-block: 11px; --s-hit-inline: 10px; --s-icon-pad-block: 10px; --s-icon-pad-inline: 13px; --s-close-pad-inline: 14px 12px; }
+  .s-hit { min-inline-size: 44px !important; }
+  .s-reason-toggle { min-inline-size: 44px; padding-block: 12.5px; }
+  /* 抽屉关闭按钮：内边距扩到 44×44，负外边距抵消，图标与标题行高度不动；右侧只扩到抽屉边缘（窄屏标题行右内边距 8px） */
+  .s-drawer-close { margin-block: -6px; margin-inline: -10px -8px; }
+  /* 贴底抽屉的分隔条：88×44，握把仍在面板顶边下 6px */
+  .s-drawer[data-placement="bottom"] .s-drawer-handle { top: -8px; height: 44px; }
+  .s-drawer[data-placement="bottom"] .s-drawer-handle::after { top: 14px; }
+  /* 设备卡片的「订阅凭据」摘要 */
+  .device-card-footer summary { box-sizing: border-box; min-block-size: 44px; padding-block: 15px; }
+}
+
+/* ---- 状态：一个小点加一句短语。正常与停用是常规字重，要人处理的是琥珀或红、500 ---- */
+.s-status { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-width: 0; font-weight: 400; vertical-align: middle; }
+.s-status-text { min-width: 0; overflow-wrap: anywhere; }
+.s-status.amber { color: var(--p-amber-ink); font-weight: 500; }
+.s-status.red { color: var(--p-red-ink); font-weight: 500; }
+.s-dot { flex: none; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.s-dot.amber { background: var(--k-amber); box-shadow: var(--k-amber-glow); animation: s-breathe 2.4s ease-in-out infinite; }
+.s-dot.red { background: var(--k-red); }
+.s-dot.ok { background: var(--k-ok); opacity: .7; }
+.s-dot.info { background: var(--g-lit); opacity: .8; }
+.s-dot.idle { background: none; box-shadow: inset 0 0 0 1.25px currentColor; opacity: .45; }
+.s-dot.busy { width: 9px; height: 9px; background: conic-gradient(from 0deg, transparent 0 25%, currentColor); -webkit-mask: radial-gradient(circle, transparent 2.6px, #000 3px); mask: radial-gradient(circle, transparent 2.6px, #000 3px); opacity: .75; animation: s-spin .8s linear infinite; }
+/* 片上的点是实色，不发光 */
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-dot.amber { background: var(--p-amber); box-shadow: none; }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-dot.red { background: var(--p-red); }
+
+/* ---- 玻璃按钮：glass 是一小块玻璃，ghost 是刻字上的轻操作，quiet 是光色文字 ---- */
+.s-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 32px; padding: 0 14px; border: 0; border-radius: 7px; background: none; font: 500 13.5px/1 var(--f-sans); white-space: nowrap; cursor: pointer; transition: background-color .2s, box-shadow .2s, color .2s, transform .12s; -webkit-tap-highlight-color: transparent; }
+.s-btn:active { transform: translateY(.5px); }
+.s-btn:disabled { cursor: default; opacity: .55; }
+.s-btn.glass { background: var(--g-ctl); color: var(--g-etch); text-shadow: var(--g-etch-shadow); box-shadow: inset 0 0 0 1px var(--g-ctl-edge), inset 0 1px 0 var(--g-rule-hi); }
+.s-btn.glass:hover { color: var(--g-lit); }
+.s-btn.ghost { color: var(--k-sub); text-shadow: var(--g-etch-shadow); }
+.s-btn.ghost:hover { background: var(--g-ctl); color: var(--g-lit); text-shadow: var(--g-lit-glow); }
+.s-btn.quiet { min-height: 30px; padding: 0 8px; color: var(--g-lit); text-shadow: none; }
+.s-btn.quiet:hover { background: var(--g-ctl); }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-btn.glass { background: transparent; color: var(--p-ink); text-shadow: none; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p-ink) 28%, transparent); }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-btn.glass:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p-ink) 52%, transparent); }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-btn.quiet { color: var(--p-link); }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-btn.quiet:hover { background: color-mix(in srgb, var(--p-ink) 6%, transparent); }
+.s-btn-spin { position: absolute; inset: 0; margin: auto; width: 13px; height: 13px; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0 25%, currentColor); -webkit-mask: radial-gradient(circle, transparent 4.5px, #000 5px); mask: radial-gradient(circle, transparent 4.5px, #000 5px); opacity: .85; animation: s-spin .8s linear infinite; }
+.s-btn[aria-busy="true"] { cursor: progress; }
+.s-btn[aria-busy="true"] .s-btn-text { visibility: hidden; }
+.s-chev { flex: none; width: 10px; height: 6px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
+
+/* ---- 标签页：刻在玻璃上，选中的那一个亮起，下面一道光 ---- */
+.s-tabs { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.s-tab { position: relative; display: inline-flex; align-items: baseline; gap: 7px; padding: 6px 0 11px; border: 0; background: none; color: var(--k-sub); text-shadow: var(--g-etch-shadow); font: 500 14.5px/22px var(--f-sans); cursor: pointer; transition: color .35s, text-shadow .35s; }
+.s-tab:hover { color: var(--g-etch); }
+.s-tab-count { font-size: 12.5px; font-weight: 500; opacity: .75; font-variant-numeric: tabular-nums; }
+.s-tab[aria-selected="true"] { color: var(--g-lit); text-shadow: var(--g-lit-glow); }
+.s-tab[aria-selected="true"]::after { content: ""; position: absolute; left: -6px; right: -6px; bottom: 0; height: 1.5px; border-radius: 2px; background: linear-gradient(90deg, transparent, var(--g-lit) 24%, var(--g-lit) 76%, transparent); box-shadow: 0 0 8px color-mix(in srgb, var(--g-lit) 40%, transparent); }
+.s-tab .s-dot { align-self: center; margin-left: -1px; }
+.s-tab:focus-visible { outline: 2px solid var(--g-lit); outline-offset: 2px; border-radius: 4px; }
+.s-tab-panel { min-width: 0; margin-top: 18px; }
+
+/* ---- 折叠：刻字的标题行，右边一句摘要，展开是一片玻璃 ---- */
+.s-disc { min-width: 0; }
+.s-disc-btn { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; width: 100%; min-height: 48px; padding: 0; border: 0; border-bottom: 1px solid var(--g-rule); box-shadow: 0 1px 0 var(--g-rule-hi); background: none; color: var(--g-etch); text-shadow: var(--g-etch-shadow); font: 600 15px/22px var(--f-sans); text-align: left; cursor: pointer; }
+.s-disc-sum { justify-self: end; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 13px/20px var(--f-sans); color: var(--k-sub); }
+.s-disc-btn:hover .s-disc-sum { color: var(--g-etch); }
+.s-disc-btn .s-chev { transform: rotate(-90deg); transition: transform .3s; }
+.s-disc-btn[aria-expanded="true"] .s-chev { transform: none; }
+.s-disc-panel { margin-top: 16px; }
+
+/* ---- 玻璃片：放内容的那一片；页面级的提醒（s-sheet）也是一片，字是平的墨 ---- */
+.s-plate { min-width: 0; padding: 22px 24px 18px; border-radius: var(--k-plate-r); color: var(--k-ink); text-shadow: none; }
+.s-sheet { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 6px 24px; min-width: 0; margin: 0 -20px; padding: 16px 20px; border-radius: var(--k-plate-r); color: var(--p-ink); text-shadow: none; }
+.s-sheet .s-status { font-size: 13.5px; line-height: 22px; }
+.s-sheet p, .s-sheet .s-sheet-text { margin: 2px 0 0; font-size: 13px; line-height: 21px; color: var(--p-muted); text-wrap: pretty; overflow-wrap: anywhere; }
+.s-sheet code { font: 12px/20px var(--f-mono); color: var(--p-ink); }
+
+/* ---- 原因表：一个客户端一行——客户端（×次数）、状态、它试过的主机 ---- */
+.s-reasons { display: grid; grid-template-columns: 128px 112px minmax(0, 1fr); column-gap: 16px; row-gap: 3px; min-width: 0; margin: 0; font-size: 12.5px; line-height: 20px; }
+.s-reasons > div:not(.extra):not(.wide) { display: contents; }
+.s-reasons > .wide { grid-column: 1 / -1; overflow-wrap: anywhere; }
+.s-reasons dt { font-weight: 500; white-space: nowrap; }
+.s-reasons dd { margin: 0; min-width: 0; }
+.s-reasons .status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-reasons .wide .status { white-space: normal; }
+.s-reasons .host { font: 400 12px/20px var(--f-mono); color: var(--p-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-reasons .extra { grid-column: 1 / -1; margin-top: 4px; }
+.s-reasons .extra .s-btn.quiet { margin-left: -8px; min-height: 20px; padding-block: 0; line-height: 20px; }
+
+@keyframes s-breathe { 50% { opacity: .4; } }
+@keyframes s-spin { to { transform: rotate(1turn); } }
+
+@media (max-width: 1180px) { .s-reasons { grid-template-columns: max-content max-content minmax(0, 1fr); } }
+@media (max-width: 900px) { .s-sheet { margin-inline: -12px; padding-inline: 12px; } }
+@media (max-width: 650px) {
+  .s-reasons { grid-template-columns: max-content minmax(0, 1fr); column-gap: 14px; }
+  .s-reasons .host { grid-column: 1 / -1; margin-top: -3px; }
+  .s-sheet { grid-template-columns: minmax(0, 1fr); }
+  .s-btn { min-height: 44px; min-width: 44px; }
+  .glass-menu.row .glass-menu-button { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .s-dot.amber, .s-dot.busy, .s-btn-spin { animation: none; } }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-reason { color: var(--p-muted); }
+:is(.s-plate, .s-sheet, .s-paper, .src-row.plate) .s-reason-toggle { color: var(--p-link); }

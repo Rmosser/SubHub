@@ -1,0 +1,19 @@
+params:
+  - id: legacy_data_owner_id
+    type: lzc_uid
+    name: Legacy data owner
+    description: Verified LazyCat user who owns existing root data. Leave empty for a new installation; initialization never claims legacy data automatically.
+    optional: true
+    default_value: ""
+  - id: policy_backup_github_token
+    type: secret
+    name: Policy backup GitHub token
+    description: Token for the configured private policy-backup repository. It is never stored in the package.
+    optional: true
+    default_value: ""
+  - id: runtime_alert_webhook_url
+    type: secret
+    name: Runtime alert HTTPS webhook URL
+    description: HTTPS JSON receiver for fatal runtime alerts. It is never stored in the package.
+    optional: true
+    default_value: ""

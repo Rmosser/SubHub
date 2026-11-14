@@ -1,0 +1,104 @@
+clone:
+  git:
+    image: 127.0.0.1:17892/woodpecker/plugin-git@sha256:34f642370d1f0b251aa5e4bf2244ed66db8bc82e246ca5d7e957ad8d7310d61d
+    pull: false
+    settings:
+      partial: false
+      depth: 0
+
+labels:
+  backend: docker
+
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+  - event: push
+    branch: codex/**
+  - event: cron
+    cron: subhub-daily
+
+steps:
+  - name: docs-checks
+    depends_on: []
+    image: 127.0.0.1:17892/woodpecker/python313@sha256:87104faaf9ab1fc017386cf41da7c34b7f93d6328932a31d8a7101bca44342aa
+    pull: false
+    commands:
+      - if [ "$CI_PIPELINE_EVENT" = "pull_request" ]; then export SUBHUB_DIFF_BASE_REF="$CI_COMMIT_TARGET_BRANCH"; elif [ -n "${CI_PREV_COMMIT_SHA:-}" ] && [ "$CI_PREV_COMMIT_SHA" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$CI_PREV_COMMIT_SHA^{commit}" 2>/dev/null && git merge-base --is-ancestor "$CI_PREV_COMMIT_SHA" HEAD; then export SUBHUB_DIFF_BASE_REF="$CI_PREV_COMMIT_SHA"; fi; python scripts/run_docs_consistency_audit.py
+
+  - name: python-setup
+    depends_on:
+      - docs-checks
+    image: 127.0.0.1:17892/woodpecker/python313@sha256:87104faaf9ab1fc017386cf41da7c34b7f93d6328932a31d8a7101bca44342aa
+    pull: false
+    commands:
+      - python scripts/ci_pip_cache.py
+      - ./.venv/bin/python -m ruff check .
+
+  # Partition the previous union (unit, repo, service-not-slow, smoke,
+  # api-not-slow). Keep slow unit/repo/smoke cases; do not exclude all slow tests.
+  # Each selected case runs once, even when it has multiple layer markers.
+  - name: fast-tests
+    depends_on:
+      - python-setup
+    image: 127.0.0.1:17892/woodpecker/python313@sha256:87104faaf9ab1fc017386cf41da7c34b7f93d6328932a31d8a7101bca44342aa
+    pull: false
+    commands:
+      - ./.venv/bin/python -m pytest -m "(unit or repo or (service and not slow) or smoke) and not (api and not slow)" --durations=20 -o cache_dir=.ci/pytest-cache/backend --junitxml=.ci/test-results/backend.xml
+
+  - name: api-tests
+    depends_on:
+      - python-setup
+    image: 127.0.0.1:17892/woodpecker/python313@sha256:87104faaf9ab1fc017386cf41da7c34b7f93d6328932a31d8a7101bca44342aa
+    pull: false
+    commands:
+      - bash scripts/test_api.sh -m "not slow" --durations=20 -o cache_dir=.ci/pytest-cache/api --junitxml=.ci/test-results/api.xml
+
+  # Keep all three test branches at the same execution depth: the executor
+  # waits for a parallel stage to finish before starting the following stage.
+  - name: node-24
+    depends_on:
+      - python-setup
+    image: 127.0.0.1:17892/woodpecker/node24@sha256:952fe33d9087817836a888c7e02e27b049577ad7c8583df1087cd45bfad8ac5f
+    pull: false
+    commands:
+      - |
+        subhub_npm_public_needed=true
+        if curl --fail --silent --show-error --max-time 5 \
+            http://172.18.0.1:17893/-/ping >/dev/null 2>&1; then
+          echo "Using the read-only CI npm proxy"
+          if NPM_CONFIG_REGISTRY=http://172.18.0.1:17893/ \
+             NPM_CONFIG_REPLACE_REGISTRY_HOST=always \
+             npm ci --prefix frontend --fetch-retries=1 \
+               --fetch-retry-mintimeout=1000 --fetch-retry-maxtimeout=2000 \
+               --fetch-timeout=30000; then
+            subhub_npm_public_needed=false
+          else
+            echo "CI npm proxy install failed; retrying once against registry.npmjs.org"
+          fi
+        fi
+        if [ "$subhub_npm_public_needed" = true ]; then
+          echo "Using registry.npmjs.org"
+          NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+          NPM_CONFIG_REPLACE_REGISTRY_HOST=always \
+            npm ci --prefix frontend
+        fi
+      - npm run test:unit --prefix frontend
+      - npm run build --prefix frontend -- --outDir ../.ci/frontend-dist
+      - npm run lint --prefix frontend
+
+  - name: full-tests
+    depends_on:
+      - fast-tests
+      - api-tests
+      - node-24
+    image: 127.0.0.1:17892/woodpecker/python313@sha256:87104faaf9ab1fc017386cf41da7c34b7f93d6328932a31d8a7101bca44342aa
+    pull: false
+    commands:
+      - test -s .ci/frontend-dist/index.html && rm -rf app/static/frontend/dist && mkdir -p app/static/frontend/dist && cp -R .ci/frontend-dist/. app/static/frontend/dist/
+      - bash scripts/test_full.sh
+    when:
+      - event: push
+        branch: main
+      - event: cron
+        cron: subhub-daily

@@ -1,0 +1,243 @@
+/* Phone replica kit, scoped to .rm-stack. Theme values from design/client-ui-replica/tokens (pt == CSS px).
+   Layout is flow-based (generic geometry); light / glass / paper states are the read-map additions. */
+.rm-stack{--font:-apple-system,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif}
+.rm-stack *{box-sizing:border-box}
+
+.rm-stack .theme-shadowrocket{
+  --page:#F1E9E7; --cell:#EBE1DF; --sep:#F1E7E5; --label:#622229; --detail:#AB8587; --header:#AB8587; --footer:#AB8587;
+  --chevron:#AB8587; --nav-bg:#F1E9E7; --nav-title:#622229; --glyph:#622229; --accent:#622229; --switch-on:#5BBE5F;
+  --btn-border:rgba(98,34,41,.10); --btn-bg:rgba(255,255,255,.28); --ink:98,34,41;
+  --tab-bg:rgba(247,236,235,.94); --tab-border:rgba(98,34,41,.10); --tab-pill:#E3D6D5; --tab-on:#622229; --tab-off:#877676;
+  --label-x:16.7px; --sep-x:16.7px; --sep-right:15px; --group-margin:0px; --radius:0px; --label-size:16px; --title-size:18px;
+  --header-font:400 14px/18px var(--font); --light:255,248,240;
+  --switch-off:#DCCDCB;
+}
+.rm-stack .theme-ios26{
+  --page:#F2F2F6; --cell:#FFFFFF; --sep:#ECECEC; --dim:#C5C5C7; --label:#000; --detail:#878689; --subtitle:#838385;
+  --header:#7F7F85; --footer:#7C7C80; --accent:#4478F7; --chevron:#C4C4C6; --nav-bg:#F2F2F6; --nav-title:#000; --glyph:#111;
+  --btn-border:rgba(0,0,0,.06); --btn-bg:rgba(255,255,255,.75); --switch-on:#65C466; --switch-off:#C5C5C7; --ink:0,0,0;
+  --label-x:20.3px; --sep-x:20px; --sep-right:20px; --group-margin:16px; --radius:25px; --label-size:17px; --title-size:17px;
+  --header-x:36.7px; --header-font:600 16px/18px var(--font); --light:236,244,255;
+  --pad-right:20.7px; --chev-w:7px; --chev-h:12.7px; --chev-gap:10.4px; --ls:-.2px; --detail-size:17px;
+  --sub-font:400 15px/17px var(--font); --sub-gap:2.3px; --footer-right:37px;
+}
+.rm-stack .theme-clashmi{
+  --page:#F0F0F0; --cell:#FFFFFF; --sep:#D9D9DB; --label:#131317; --detail:#101016; --header:#77777c; --footer:#77777c;
+  --chevron:#222; --nav-bg:#F0F0F0; --nav-title:#131317; --glyph:#131317; --accent:#4D87FA; --switch-on:#4D87FA; --ink:19,19,23;
+  --group-gap:8.6px; --radius:10px; --label-x:20px; --sep-x:18.7px; --sep-right:18px; --label-size:14px; --title-size:18px;
+  --light:236,242,255; --pad-right:22px; --chev-w:6.7px; --chev-h:11.4px; --chev-gap:8px; --ls:0px;
+}
+
+/* ---------- device ---------- */
+.rm-stack .ios-screen{--rm-paper:#efe2c3;position:relative;width:402px;height:874px;overflow:hidden;background:var(--page);border-radius:64px;
+  font-family:var(--font);-webkit-font-smoothing:antialiased;color:var(--label)}
+.rm-stack .statusbar{position:absolute;left:0;top:0;width:402px;height:54px;z-index:30;color:#000;pointer-events:none}
+.rm-stack .statusbar .time{position:absolute;left:44px;top:19px;font:600 17px/22px var(--font)}
+.rm-stack .statusbar .island{position:absolute;left:138.7px;top:14.7px;width:124.6px;height:34.6px;border-radius:17.3px;background:#000}
+.rm-stack .statusbar .right{position:absolute;right:34px;top:24px;display:flex;gap:6px;align-items:center}
+.rm-stack .dim{position:absolute;inset:0;background:var(--dim,#C5C5C7)}
+.rm-stack .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--page);overflow:hidden}
+
+/* ---------- nav ---------- */
+.rm-stack .navbar{position:absolute;left:0;top:0;width:402px;height:118px;z-index:20;
+  background:linear-gradient(var(--nav-bg) 0 80%, color-mix(in srgb,var(--nav-bg) 60%, transparent) 100%)}
+.rm-stack .is-sheet .navbar{height:70px;background:linear-gradient(var(--page) 0 80%, transparent)}
+.rm-stack .navbtn{position:absolute;top:calc(var(--nav-cy) - 22px);width:44px;height:44px;border-radius:22px;background:var(--btn-bg);
+  border:1px solid var(--btn-border);box-shadow:0 1px 3px rgba(0,0,0,.04), inset 0 1px 0 rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center}
+.rm-stack .is-sheet .navbtn{top:15.5px}
+.rm-stack .navbtn.left{left:16px}.rm-stack .navbtn.right{left:342px}
+.rm-stack .navbtn.primary{background:var(--accent);border-color:transparent}
+.rm-stack .navbtn.text{width:auto;padding:0 14px;font:500 17px/22px var(--font);color:var(--glyph)}
+.rm-stack .navbtn.text.right{left:auto;right:16px}
+.rm-stack .navflat{position:absolute;top:calc(var(--nav-cy) - 11px)}
+.rm-stack .navflat.left{left:18.7px}.rm-stack .navflat.right{right:16px}
+.rm-stack .navtitle{position:absolute;left:70px;right:70px;top:calc(var(--nav-cy) - 11px);height:22px;text-align:center;
+  font:600 var(--title-size)/22px var(--font);color:var(--nav-title);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm-stack .is-sheet .navtitle{top:27px}
+.rm-stack [data-nav]{cursor:pointer}
+.rm-stack [data-nav]:hover{filter:brightness(.94)}
+
+/* ---------- list (flow) ---------- */
+.rm-stack .scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
+.rm-stack .scroll::-webkit-scrollbar{display:none}
+.rm-stack .content{padding:var(--content-top) 0 140px}
+.rm-stack .is-sheet .content{padding-top:100.5px}
+.rm-stack .gblock + .gblock{margin-top:var(--group-gap)}
+.rm-stack .gheader{padding:0 var(--label-x) 7px var(--header-x,var(--label-x));font:var(--header-font,400 13px/18px var(--font));color:var(--header)}
+.rm-stack .gfooter{padding:7px var(--footer-right,var(--label-x)) 0 var(--header-x,var(--label-x));font:400 13px/16px var(--font);color:var(--footer,var(--header));white-space:pre-line}
+.rm-stack .group{margin:0 var(--group-margin);background:var(--cell);border-radius:var(--radius);overflow:hidden}
+.rm-stack .theme-clashmi .group{box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.rm-stack .row{position:relative;min-height:var(--row-h);display:flex;align-items:center;gap:8px;padding:6px var(--pad-right,16px) 6px var(--label-x);
+  cursor:pointer;transition:background-color .3s ease, opacity .3s ease}
+.rm-stack .row:hover{background-color:color-mix(in srgb,var(--cell) 92%,rgba(var(--ink),1))}
+.rm-stack .group > .row + .row::before{content:"";position:absolute;top:0;left:var(--sep-x);right:var(--sep-right);height:1.3px;background:var(--sep)}
+.rm-stack .row .label{flex:1;min-width:0;font:400 var(--label-size)/22px var(--font);letter-spacing:var(--ls,-.2px);color:var(--label);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm-stack .row .label.ph{color:color-mix(in srgb,var(--label) 45%,transparent)}
+.rm-stack .row .sub{display:block;font:var(--sub-font,400 13px/16px var(--font));letter-spacing:0;color:var(--subtitle,var(--detail));margin-top:var(--sub-gap,2px);overflow:hidden;text-overflow:ellipsis}
+.rm-stack .row .detail,.rm-stack .row .field{font:400 var(--detail-size,calc(var(--label-size) - 1px))/22px var(--font);letter-spacing:var(--ls,-.2px);color:var(--detail);white-space:nowrap;
+  max-width:52%;overflow:hidden;text-overflow:ellipsis;flex:none}
+.rm-stack .row .chev{width:var(--chev-w,8px);height:var(--chev-h,14px);margin-left:calc(var(--chev-gap,8px) - 8px);flex:none;color:var(--chevron)}
+.rm-stack .row .updown{width:10px;height:16px;flex:none;color:var(--accent)}
+.rm-stack .row .caret{width:8px;height:5px;flex:none}
+.rm-stack .row .info{width:22px;height:22px;flex:none}
+.rm-stack .switch{width:63px;height:28px;border-radius:14px;background:var(--switch-off,#E9E9EB);position:relative;flex:none}
+.rm-stack .switch::after{content:"";position:absolute;left:2px;top:2px;width:37px;height:24px;border-radius:12px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.10);transition:left .3s}
+.rm-stack .switch.on{background:var(--switch-on)}.rm-stack .switch.on::after{left:24px}
+.rm-stack .radio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--chevron);flex:none}
+
+/* segmented roots (Surge 首页 通用 / 捕获 / 修改) */
+.rm-stack .segbar{display:flex;gap:2px;margin:-14px 16px 22px;padding:3px;border-radius:999px;background:rgba(118,118,128,.12)}
+.rm-stack .seg{flex:1;text-align:center;font:600 14px/30px var(--font);border-radius:999px;color:var(--label);cursor:pointer}
+.rm-stack .seg.on{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+/* tab bar */
+.rm-stack .tabbar{position:absolute;top:792px;height:61px;border-radius:30.5px;z-index:25;background:var(--tab-bg);border:1px solid var(--tab-border);
+  box-shadow:0 6px 24px rgba(0,0,0,.08);display:flex;padding:4px 9.5px}
+.rm-stack .tab{position:relative;z-index:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:26px;color:var(--tab-off)}
+.rm-stack .tab[data-root]{cursor:pointer}
+.rm-stack .tab.on{color:var(--tab-on)}
+.rm-stack .tab.on::before{content:"";position:absolute;inset:0 -4.6px;z-index:-1;border-radius:26px;background:var(--tab-pill)}
+.rm-stack .tab svg{width:28px;height:26px}
+.rm-stack .tab span{font:500 10px/12px var(--font)}
+
+/* ---------- read-map states ---------- */
+/* glass: structure only — engraved, no value, no light (about 70% ink; full ink under the pointer, the focus or the pick) */
+.rm-stack .row.glass > *:not(.paper){opacity:.7}
+.rm-stack .row.glass .switch::after,.rm-stack .switch.none::after{left:13px;opacity:.8}
+.rm-stack .switch.none{background:color-mix(in srgb,var(--switch-off,#E9E9EB) 70%,transparent)}
+/* trail: something written lives underneath */
+.rm-stack .row.trail > *{opacity:.72}
+.rm-stack .row.trail{background-image:linear-gradient(90deg,rgba(var(--light),.0),rgba(var(--light),.55) 55%,rgba(var(--light),0))}
+/* lit: SubHub wrote this row; a soft light rises from inside the screen */
+.rm-stack .row.lit{background-image:radial-gradient(130% 160% at 40% 120%,rgba(var(--light),.95),rgba(var(--light),0) 70%)}
+/* selection: no outline — the picked row brightens, the rest of the screen steps back.
+   Faded rows step back to the same .5, never .5 of their fade. */
+.rm-stack .has-pick .row:not(.pick):not(.glass):not(.trail){opacity:.5}
+.rm-stack .has-pick .row.glass:not(.pick) > *:not(.paper),.rm-stack .has-pick .row.trail:not(.pick) > *{opacity:.5}
+/* full ink on the pick, under the pointer and on the focus */
+.rm-stack .row.glass:is(.pick,:hover,:focus-visible) > *:not(.paper),.rm-stack .row.trail:is(.pick,:hover,:focus-visible) > *{opacity:1}
+.rm-stack .has-pick .row:not(.pick):not(.glass):not(.trail):is(:hover,:focus-visible),
+.rm-stack .has-pick .row.glass:not(.pick):is(:hover,:focus-visible) > *:not(.paper),
+.rm-stack .has-pick .row.trail:not(.pick):is(:hover,:focus-visible) > *{opacity:1}
+.rm-stack .has-pick .gheader,.rm-stack .has-pick .gfooter,.rm-stack .has-pick .segbar{opacity:.5}
+.rm-stack .row.pick{background-color:color-mix(in srgb,var(--cell) 74%,#FFD68C);
+  background-image:radial-gradient(120% 180% at 30% 120%,rgba(255,236,200,.9),rgba(255,236,200,0) 70%)}
+.rm-stack .row.pressed{background-color:color-mix(in srgb,var(--cell) 80%,rgba(var(--ink),.25))}
+/* paper: a small warm corner, the only colour on a device-only row */
+.rm-stack .paper{position:absolute;right:0;top:0;width:11px;height:11px;pointer-events:auto;
+  background:linear-gradient(225deg,var(--rm-paper) 0 50%,transparent 50%);
+  filter:drop-shadow(-.6px .6px .4px rgba(60,40,20,.18))}
+
+/* ---------- leading / trailing glyphs (Shadowrocket, Clash Mi), measured on the real screens ---------- */
+.rm-stack .row .lead{width:20.7px;height:20.7px;flex:none;color:var(--lead,var(--glyph));margin-right:8.6px}
+.rm-stack .row .lead svg{display:block;width:100%;height:100%}
+.rm-stack .theme-shadowrocket{--lead:#511F24}
+.rm-stack .theme-shadowrocket .row.has-lead{padding-left:16.1px}
+.rm-stack .row .lead.flag{width:24px;height:24px;margin-right:9.9px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:rgba(var(--ink),.08)}
+.rm-stack .row .lead.flag > span{font-size:32px;line-height:1}
+.rm-stack .row .lead.flag.none{background:none;color:var(--detail)}
+.rm-stack .theme-shadowrocket .row.has-lead .sub{font:400 10.5px/13px var(--font);text-transform:uppercase;letter-spacing:.3px;margin-top:1px}
+.rm-stack .row .tinfo{width:21px;height:21px;flex:none;color:var(--glyph)}
+.rm-stack .row .tplus{width:17.3px;height:17.3px;flex:none;color:var(--glyph);margin-right:10.7px}
+.rm-stack .srtools{height:52.2px;display:flex;justify-content:flex-end;align-items:center;padding:2.4px 20.9px 0 0;color:var(--glyph)}
+.rm-stack .srtools svg{width:20px;height:20px}.rm-stack .srtools svg.dots{width:22px;height:6px}
+.rm-stack .gblock + .gblock.has-tools{margin-top:0}
+
+/* ---------- Surge home (通用 / 捕获 / 修改): feature cards ---------- */
+.rm-stack .surge-home .content{padding:201px 0 120px}
+.rm-stack .navbar.shome{height:175.6px;background:var(--page);border-bottom:.7px solid #E4E3E9}
+.rm-stack .sname{position:absolute;left:26.1px;top:86.6px;height:24px;display:flex;align-items:center}
+.rm-stack .slogo svg{display:block;width:19.4px;height:20px;margin-right:10.7px}
+.rm-stack .sprofile{font:600 21px/24px var(--font);letter-spacing:-.3px;color:#000;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rm-stack .sdown svg{display:block;width:14.7px;height:9px;margin-left:8px;color:#111}
+.rm-stack .sstart{position:absolute;left:261.8px;top:83.7px;width:120.4px;height:30px;border-radius:15px;background:#3B69DD;
+  box-shadow:inset 0 .6px 0 rgba(255,255,255,.3);color:#fff;font:600 15px/30px var(--font);text-align:center}
+.rm-stack .stabs{position:absolute;left:24.5px;top:140px;display:flex;gap:9.8px}
+.rm-stack .stab{position:relative;width:55.5px;height:35.9px;padding-top:5.6px;text-align:center;font:500 15px/20px var(--font);color:#858589;cursor:pointer;transition:color .2s}
+.rm-stack .stab:hover{color:#5C5C61}
+.rm-stack .stab.on{color:#4373F7}
+.rm-stack .stab.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:1px;background:#4476F2}
+.rm-stack .scard{display:flex;flex-direction:column;min-height:160px;margin:0 25px;padding:17px 14.7px 18.8px 16px;background:#fff;border-radius:12px;
+  box-shadow:0 0 0 .6px rgba(0,0,0,.075),0 1px 2px rgba(0,0,0,.03)}
+.rm-stack .scard + .scard{margin-top:19.8px}
+.rm-stack .surge-home .row{min-height:0;gap:0}
+.rm-stack .shead{display:flex;align-items:center;height:32px;margin:0 -8px;padding:0 8px;border-radius:10px}
+.rm-stack .sicon svg{display:block;width:22px;height:20px;color:var(--card-c)}
+.rm-stack .stitle{margin-left:14.6px;font:600 23px/28px var(--font);color:var(--card-c);white-space:nowrap}
+.rm-stack .shead .switch{margin-left:auto;width:58px;height:27px;border-radius:13.5px}
+.rm-stack .shead .switch::after{width:34px;height:23px;border-radius:11.5px}
+.rm-stack .shead .switch.on::after{left:22px}
+.rm-stack .row.shead.glass > *:not(.paper){opacity:1}
+.rm-stack .row.shead.glass > .switch{opacity:.7}
+.rm-stack .sdesc{margin:2px 0 0;font:400 15px/23px var(--font);letter-spacing:-.25px;color:#3D3D3F}
+.rm-stack .schecks{margin:7.4px -14.7px 0 -16px}
+.rm-stack .scheck{height:40px;padding:0 16px 0 19.4px}
+.rm-stack .scheck .smark{width:14.7px;height:14.6px;margin-right:17.3px;visibility:hidden}
+.rm-stack .scheck .smark svg{display:block;width:100%;height:100%;color:#000}
+.rm-stack .scheck .label{font:400 17px/22px var(--font);letter-spacing:-.2px;color:#000}
+.rm-stack .schips{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:11.5px;margin-top:auto;padding-top:15px}
+.rm-stack .schecks + .schips{padding-top:12.5px}
+.rm-stack .schip{--cell:#F1F1F3;height:30px;padding:0 14.5px;border-radius:8px;background-color:var(--cell);flex:none}
+.rm-stack .schip .label{flex:none;font:500 15px/30px var(--font);letter-spacing:-.2px;color:#000}
+.rm-stack .slink{width:max-content;margin:22px auto 0;padding:8px 14px;border-radius:10px;--cell:var(--page)}
+.rm-stack .slink .label{flex:none;font:400 15px/20px var(--font);color:#8E8E93}
+.rm-stack .slink .chev{width:6px;height:11px;margin-left:5px;color:#B4B4B8}
+.rm-stack .sbar{position:absolute;left:64.7px;top:790.1px;width:272.6px;height:62.7px;border-radius:31.4px;z-index:25;display:flex;padding:4.6px 6.6px;
+  background:rgba(250,250,253,.94);border:.7px solid rgba(0,0,0,.06);box-shadow:0 6px 22px rgba(0,0,0,.08)}
+.rm-stack .sbtab{position:relative;z-index:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3.5px;padding-top:7.6px;border-radius:27px;color:#111}
+.rm-stack .sbtab.on{color:#3478F6}
+.rm-stack .sbtab.on::before{content:"";position:absolute;inset:0 -3.25px;z-index:-1;border-radius:27px;background:#DEDEE4}
+.rm-stack .sbtab svg{width:28px;height:24px;flex:none}
+.rm-stack .sbtab span{font:500 10px/12px var(--font)}
+.rm-stack .has-pick .sdesc,.rm-stack .has-pick .shead:not(.row),.rm-stack .has-pick .srtools > :not(.pick){opacity:.5}
+
+/* ---------- Clash Mi home: connection card + settings card ---------- */
+.rm-stack .clash-home .content{padding:137.2px 0 60px}
+.rm-stack .clash-home .navtitle{top:83.5px}
+.rm-stack .cmcard{margin:0 23.4px;background:var(--cell);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.rm-stack .cmcard + .cmcard{margin-top:23.4px}
+.rm-stack .cmcard > .row + .row::before{content:"";position:absolute;top:0;left:20.8px;right:20.5px;height:1px;background:#DADADF}
+.rm-stack .cmcard + .cmcard > .row + .row::before{background:#EDEDEF}
+.rm-stack .cmconn{min-height:47.8px;padding:0 25.2px 0 20.7px;gap:0}
+.rm-stack .cmdot{width:7.3px;height:7.3px;border-radius:50%;background:#9A9A9A;flex:none;margin-right:12px}
+.rm-stack .cmconn .label,.rm-stack .cmrow .label{font:400 14px/20px var(--font);letter-spacing:0;color:#101012}
+.rm-stack .cmconn .switch{width:51px;height:31px;border-radius:15.5px}
+.rm-stack .cmconn .switch::after{width:27px;height:27px;border-radius:50%}
+.rm-stack .cmconn .switch.on::after{left:22px}
+.rm-stack .cmseg{min-height:70.6px;padding:15.9px 19.6px 14.4px 20.6px}
+.rm-stack .cmtrack{flex:1;display:flex;justify-content:center;gap:6px;height:40.3px;padding:2.7px 6px;border-radius:20.2px;background:#F0F0F0}
+.rm-stack .cmtrack span{width:97px;height:34.9px;border-radius:17.5px;background:#F6F6F6;text-align:center;font:400 14px/34.9px var(--font);color:#131317}
+.rm-stack .cmrow{min-height:63.7px;padding:0 51.9px 0 38.7px;gap:0}
+.rm-stack .cmrow .lead{width:16px;height:16px;margin-right:22.6px;color:#222}
+.rm-stack .cmrow.cmplain{min-height:58.7px;padding-left:37.4px}
+.rm-stack .cmrow .chev{width:5.3px;height:9.4px;margin-left:0;color:#222}
+.rm-stack .theme-shadowrocket .group > .row.has-lead + .row.has-lead::before{left:53.4px}
+
+/* ---------- the app's own controls (启动, tab bars, nav buttons, tools): they pick like a row, nothing opens ---------- */
+.rm-stack [data-shell]{cursor:pointer;transition:filter .2s ease,box-shadow .3s ease,background-color .3s ease}
+.rm-stack [data-shell]:hover{filter:brightness(.9)}
+.rm-stack .navflat[data-shell],.rm-stack .srtool{display:grid;place-items:center;padding:5px;margin:-5px;border-radius:10px}
+.rm-stack .navflat.right.cloud{right:59.3px}
+.rm-stack .sname{left:20.1px;padding:0 6px;border-radius:10px}
+.rm-stack .tab[data-shell],.rm-stack .sbtab[data-shell]{cursor:pointer}
+.rm-stack [data-shell].pick{filter:none;box-shadow:0 0 0 3px rgba(255,214,140,.95),0 0 18px 4px rgba(255,190,90,.55)}
+.rm-stack .tab.pick,.rm-stack .sbtab.pick,.rm-stack .srtool.pick,.rm-stack .navflat.pick,.rm-stack .sname.pick{background-color:color-mix(in srgb,#fff 45%,#FFD68C)}
+.rm-stack .tab.on.pick::before,.rm-stack .sbtab.on.pick::before{background:color-mix(in srgb,#fff 45%,#FFD68C)}
+.rm-stack .srtool + .srtool{margin-left:14px}.rm-stack .srtool:last-child{margin-left:8px} /* 19pt, then 13pt between the glyph boxes */
+
+/* ---------- Surge list rows, measured on the real screens ---------- */
+/* a red minus leads an entry you can delete; a green plus and blue words lead an add action */
+.rm-stack .row .lead.sign{width:22px;height:22px;margin:0 9.4px 0 1px} /* + the row's 8px gap: the label at 76.7pt */
+.rm-stack .row.action .label{color:var(--accent)}
+/* proxies / rules: a protocol (or rule type) badge, then a small black detail */
+.rm-stack .row.has-badge{min-height:54.7px}
+.rm-stack .row .sub.badged{display:flex;align-items:center;gap:5.3px;margin-top:2.6px;color:#000}
+.rm-stack .row .sub.badged .badge{flex:none;padding:0 4px;border-radius:3.5px;background:var(--badge);color:#fff;font:500 11px/14.6px var(--font);font-style:normal;letter-spacing:0}
+.rm-stack .row .sub.badged > span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 12px/14.6px var(--font);color:#000}
+/* the check of a picked option (segmented rows) */
+.rm-stack .row .tick{width:16px;height:13.3px;flex:none;color:var(--accent)}
+
+/* ---------- Shadowrocket config tab: the 本地文件 group ---------- */
+.rm-stack .slot[data-screen="tab-config"] .gblock + .gblock .gheader{font-size:16.5px;line-height:20px}
+.rm-stack .slot[data-screen="tab-config"] .row[data-row^="tab-config#1."]{padding-left:24.7px}

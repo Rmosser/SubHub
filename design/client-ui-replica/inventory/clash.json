@@ -1,0 +1,3302 @@
+{
+ "app": "clash",
+ "version": "1.0.14 (178)，内核 1.19.33",
+ "app_name": "Clash（ProjectClash）",
+ "substitute_for": "Clash Mi —— 手机上没找到 Clash Mi，用这个 mihomo 系客户端代替；不是简报指定的 App",
+ "captured": "2026-11-11",
+ "device": "iPhone 17 Pro（镜像窗口）",
+ "current_profile": "<lan-host>(3)（实验配置）",
+ "vpn_state": "未连接（未改动）",
+ "tabs": [
+  "首页",
+  "工具",
+  "更多"
+ ],
+ "legend": {
+  "layer": {
+   "profile": "写进配置",
+   "app": "只在本机",
+   "action": "动作"
+  },
+  "subhub": {
+   "writes": "写入",
+   "partial": "只写一部分",
+   "none": "不写",
+   "device": "只在手机本机",
+   "unverified": "还没核对",
+   "na": "不适用（动作/导航）"
+  }
+ },
+ "screens": [
+  {
+   "id": "home",
+   "kind": "home",
+   "path": [
+    "首页 tab"
+   ],
+   "title": "<lan-host>(3)（首页）",
+   "nav": {
+    "left": "配置名 ⌄",
+    "right": "启动"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "连接状态",
+       "control": "readonly",
+       "value": "未连接",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "出站模式（卡片）",
+     "rows": [
+      {
+       "label": "全局",
+       "control": "segmented",
+       "maps_to": "mode",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "note": "单选；按简报不切换",
+       "order": 1
+      },
+      {
+       "label": "规则",
+       "control": "segmented",
+       "value": "✓；副标题「按配置的规则转发流量」",
+       "maps_to": "mode",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 2
+      },
+      {
+       "label": "直连",
+       "control": "segmented",
+       "maps_to": "mode",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 3
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "代理（卡片）",
+     "rows": [
+      {
+       "label": "代理",
+       "control": "disclosure",
+       "value": "3 个代理",
+       "to": "home-proxies",
+       "maps_to": "proxies / proxy-groups",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "规则（卡片）",
+     "rows": [
+      {
+       "label": "规则",
+       "control": "disclosure",
+       "value": "2 条规则；副标题「ss-a 1」",
+       "to": "home-rules",
+       "maps_to": "rules",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "流量（卡片）",
+     "rows": [
+      {
+       "label": "上传 / 下载",
+       "control": "readonly",
+       "value": "0 Kbps；0 B 累计",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "home.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "启动",
+     "reason": "会启动 VPN"
+    },
+    {
+     "entry": "流量卡片下方",
+     "reason": "未滚动查看"
+    }
+   ],
+   "note": "卡片式首页，与 Surge 首页同一套布局"
+  },
+  {
+   "id": "home-proxies",
+   "kind": "list",
+   "path": [
+    "首页 tab",
+    "代理"
+   ],
+   "title": "代理",
+   "nav": {
+    "left": "✕",
+    "right": "⚡ 测速 / 折叠 / ⟳ / 筛选"
+   },
+   "groups": [
+    {
+     "header": "未入组（副标题「未被任何分组引用」，右侧数量 3 与折叠箭头）",
+     "rows": [
+      {
+       "label": "<节点名>",
+       "control": "row",
+       "value": "副标题协议「SS」；右侧 ⚡ 与 ⓘ",
+       "maps_to": "proxies",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "note": "点行在有组时会切换节点；只记一条结构",
+       "order": 1
+      },
+      {
+       "label": "节点 ⓘ",
+       "control": "disclosure",
+       "to": "home-node-edit",
+       "maps_to": "proxies",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "搜索代理",
+       "control": "searchfield",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "home-proxies.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "⚡ / ⟳ / 筛选",
+     "reason": "测速与动作"
+    }
+   ],
+   "note": "当前配置没有 proxy-groups，所以只有「未入组」"
+  },
+  {
+   "id": "home-node-edit",
+   "kind": "form",
+   "path": [
+    "首页 tab",
+    "代理",
+    "节点 ⓘ"
+   ],
+   "title": "编辑节点",
+   "nav": {
+    "left": "✕",
+    "right": "保存（灰，未改动时不可点）"
+   },
+   "groups": [
+    {
+     "header": "身份",
+     "rows": [
+      {
+       "label": "代理类型",
+       "control": "popup",
+       "value": "Shadowsocks ⌃⌄",
+       "maps_to": "proxies[].type",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "名称",
+       "control": "textfield",
+       "value": "<节点名>",
+       "maps_to": "proxies[].name",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "已配置的选项",
+     "rows": [
+      {
+       "label": "服务器地址",
+       "control": "textfield",
+       "value": "<redacted>",
+       "maps_to": "proxies[].server",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "端口",
+       "control": "textfield",
+       "value": "<redacted>",
+       "maps_to": "proxies[].port",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      },
+      {
+       "label": "密码",
+       "control": "textfield",
+       "value": "<redacted>（掩码，眼睛图标）",
+       "maps_to": "proxies[].password",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "加密方式",
+       "control": "popup",
+       "value": "<redacted>",
+       "maps_to": "proxies[].cipher",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      },
+      {
+       "label": "插件",
+       "control": "popup",
+       "value": "未设置 ⌃⌄",
+       "maps_to": "proxies[].plugin",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 5
+      },
+      {
+       "label": "插件设置",
+       "control": "disclosure",
+       "value": "未设置",
+       "maps_to": "proxies[].plugin-opts",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 6
+      },
+      {
+       "label": "TCP 快速打开",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "proxies[].tfo",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 7
+      },
+      {
+       "label": "UDP 转发",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "proxies[].udp（intent clash_udp_default_enabled）",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 8
+      },
+      {
+       "label": "UDP 走 TCP",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "proxies[].udp-over-tcp",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 9
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "更多字段",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "home-node-edit_1.png",
+    "home-node-edit_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "更多字段 / 插件设置",
+     "reason": "子页未进"
+    }
+   ],
+   "note": "分组名「已配置的选项」暗示只列出配置里写了的字段；地址、端口、密码、加密方式在截图里已涂黑"
+  },
+  {
+   "id": "home-rules",
+   "kind": "list",
+   "path": [
+    "首页 tab",
+    "规则"
+   ],
+   "title": "规则",
+   "nav": {
+    "left": "✕",
+    "right": "编辑"
+   },
+   "groups": [
+    {
+     "header": "规则（2）",
+     "rows": [
+      {
+       "label": "<目标策略>",
+       "control": "disclosure",
+       "value": "右侧条数 1",
+       "maps_to": "rules",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": "按目标分组。这是正在生效的规则：配置里的规则，加上你的自定义规则和覆写脚本"
+    },
+    {
+     "header": "Fallback",
+     "rows": [
+      {
+       "label": "MATCH",
+       "control": "readonly",
+       "value": "徽标 <策略名>",
+       "maps_to": "rules MATCH",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": "以上都未命中的流量。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "运行中的规则",
+       "control": "disclosure",
+       "value": "灰；副标题「连接 Clash 后可查看正在生效的规则」",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "未启动时不可用",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "搜索规则",
+       "control": "searchfield",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "home-rules.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "编辑",
+     "reason": "进编辑模式"
+    },
+    {
+     "entry": "规则分组行",
+     "reason": "子列表，未进"
+    },
+    {
+     "entry": "运行中的规则",
+     "reason": "未启动时不可用"
+    }
+   ]
+  },
+  {
+   "id": "profiles",
+   "kind": "list",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）"
+   ],
+   "title": "配置中心",
+   "nav": {
+    "left": "✕",
+    "right": "排序 / +"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "配置库 / 节点库 / 规则库",
+       "control": "segmented",
+       "value": "配置库",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "配置（右侧数量 4）",
+     "rows": [
+      {
+       "label": "<配置名>",
+       "control": "row",
+       "value": "左侧 ✓ = 使用中；副标题「N 个节点」；徽标「原始配置」；右侧 ⓘ",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "点行即切换当前配置，未点",
+       "order": 1
+      },
+      {
+       "label": "当前配置 ⓘ",
+       "control": "disclosure",
+       "to": "profile-detail",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "全部更新",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "添加配置",
+     "rows": [
+      {
+       "label": "https://example.com/config.yaml",
+       "control": "textfield",
+       "value": "占位；右侧粘贴按钮",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "SubHub 订阅链接从这里导入",
+       "order": 1
+      },
+      {
+       "label": "扫描二维码",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "导入文件",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "模块",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profiles.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "配置行",
+     "reason": "点即切换配置"
+    },
+    {
+     "entry": "节点库 / 规则库",
+     "reason": "分段切换，未看"
+    },
+    {
+     "entry": "全部更新 / 添加配置",
+     "reason": "动作"
+    },
+    {
+     "entry": "模块",
+     "reason": "未进"
+    }
+   ]
+  },
+  {
+   "id": "profile-detail",
+   "kind": "settings",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）",
+    "当前配置 ⓘ"
+   ],
+   "title": "<配置名>",
+   "nav": {
+    "left": "✕"
+   },
+   "groups": [
+    {
+     "header": "配置管理（右侧「✓ 使用中」）",
+     "rows": [
+      {
+       "label": "名称",
+       "control": "textfield",
+       "value": "<配置名>",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "随链接更新",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      },
+      {
+       "label": "立即同步",
+       "control": "action",
+       "value": "前天",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "链接设置",
+       "control": "action",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "内含订阅链接，未进",
+       "order": 4
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "配置覆写",
+     "rows": [
+      {
+       "label": "规则方案",
+       "control": "popup",
+       "value": "原始配置 ⌃⌄",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "自定义规则",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      },
+      {
+       "label": "覆写脚本",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 3
+      }
+     ],
+     "footer": "原始配置只用它自己的规则，规则库的改动不会生效；要用规则库，请在上方选一个规则方案。\n自定义规则和覆写脚本只属于这份配置，换方案时不变。"
+    },
+    {
+     "header": "<配置名> 配置详情",
+     "rows": [
+      {
+       "label": "全局配置",
+       "control": "disclosure",
+       "to": "profile-global",
+       "maps_to": "顶层 mode / log-level / ipv6 / external-controller …",
+       "layer": "profile",
+       "subhub": "partial",
+       "subhub_zh": "只写一部分",
+       "order": 1
+      },
+      {
+       "label": "DNS",
+       "control": "disclosure",
+       "to": "profile-dns",
+       "maps_to": "dns",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      },
+      {
+       "label": "域名嗅探",
+       "control": "disclosure",
+       "maps_to": "sniffer（intent clash_sniffer_*）",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "入站",
+       "control": "disclosure",
+       "to": "profile-inbound",
+       "maps_to": "tun / mixed-port / allow-lan",
+       "layer": "profile",
+       "subhub": "partial",
+       "subhub_zh": "只写一部分",
+       "order": 4
+      },
+      {
+       "label": "出站代理",
+       "control": "disclosure",
+       "value": "3",
+       "maps_to": "proxies",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 5
+      },
+      {
+       "label": "代理集合",
+       "control": "disclosure",
+       "maps_to": "proxy-providers",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 6
+      },
+      {
+       "label": "代理组",
+       "control": "disclosure",
+       "maps_to": "proxy-groups",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 7
+      },
+      {
+       "label": "路由规则",
+       "control": "disclosure",
+       "value": "2",
+       "maps_to": "rules",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 8
+      },
+      {
+       "label": "规则集合",
+       "control": "disclosure",
+       "maps_to": "rule-providers",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 9
+      },
+      {
+       "label": "子规则",
+       "control": "disclosure",
+       "maps_to": "sub-rules",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 10
+      },
+      {
+       "label": "流量隧道",
+       "control": "disclosure",
+       "maps_to": "tunnels",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 11
+      },
+      {
+       "label": "NTP",
+       "control": "disclosure",
+       "maps_to": "ntp",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 12
+      },
+      {
+       "label": "实验性配置",
+       "control": "disclosure",
+       "maps_to": "experimental",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 13
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "编辑源码",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "检查配置",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "存成规则方案",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "复制配置",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 4
+      },
+      {
+       "label": "导出",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 5
+      }
+     ],
+     "footer": "改动即时生效；「检查配置」只做检查，不会应用"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "查看生效中的配置",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": "只读"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "删除配置",
+       "control": "button",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "红色；使用中的配置为灰色",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "搜索",
+       "control": "searchfield",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profile-detail_1.png",
+    "profile-detail_2.png",
+    "profile-detail_3.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "链接设置",
+     "reason": "含订阅链接"
+    },
+    {
+     "entry": "域名嗅探 / 出站代理 / 代理集合 / 代理组 / 路由规则 / 规则集合 / 子规则 / 流量隧道 / NTP / 实验性配置",
+     "reason": "时间优先，只进了全局配置、DNS、入站"
+    },
+    {
+     "entry": "编辑源码 / 查看生效中的配置",
+     "reason": "整份配置原文，含节点敏感值"
+    },
+    {
+     "entry": "检查 / 存成方案 / 复制 / 导出 / 删除",
+     "reason": "动作"
+    }
+   ],
+   "note": "这一层就是简报要的「核心设置」：配置详情下的每一项对应 Mihomo YAML 的一个顶层段。脚注说「改动即时生效」，所以没有保存按钮"
+  },
+  {
+   "id": "profile-global",
+   "kind": "form",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）",
+    "当前配置 ⓘ",
+    "全局配置"
+   ],
+   "title": "全局配置",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": "出站",
+     "rows": [
+      {
+       "label": "运行模式",
+       "control": "popup",
+       "value": "规则分流 ⌃⌄",
+       "maps_to": "mode",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "日志",
+     "rows": [
+      {
+       "label": "日志级别",
+       "control": "popup",
+       "value": "信息 ⌃⌄",
+       "maps_to": "intent clash_log_level",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "连接",
+     "rows": [
+      {
+       "label": "IPv6",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_ipv6",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "统一延迟",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "unified-delay",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "TCP 并发连接",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_tcp_concurrent",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "关闭 TCP 保活",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "disable-keep-alive",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      },
+      {
+       "label": "TCP 保活空闲时间",
+       "control": "popup",
+       "value": "默认 · 5 分钟",
+       "maps_to": "keep-alive-idle",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 5
+      },
+      {
+       "label": "TCP 保活间隔",
+       "control": "popup",
+       "value": "默认 · 75 秒",
+       "maps_to": "keep-alive-interval",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 6
+      },
+      {
+       "label": "GeoSite 匹配方式",
+       "control": "popup",
+       "value": "默认（紧凑）",
+       "maps_to": "geosite-matcher",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 7
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "其余字段",
+     "rows": [
+      {
+       "label": "控制接口",
+       "control": "popup",
+       "value": "关闭 ⌃⌄",
+       "maps_to": "intent clash_external_controller",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "控制接口套接字",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": "external-controller-unix",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "控制接口（HTTPS）",
+       "control": "popup",
+       "value": "关闭 ⌃⌄",
+       "maps_to": "external-controller-tls",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "面板文件夹",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "intent clash_external_ui",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      },
+      {
+       "label": "面板下载地址",
+       "control": "disclosure",
+       "value": "默认 · MetaCubeXD",
+       "maps_to": "intent clash_external_ui_url",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 5
+      },
+      {
+       "label": "面板子文件夹",
+       "control": "disclosure",
+       "value": "直接放在面板文件夹",
+       "maps_to": "intent clash_external_ui_name",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 6
+      },
+      {
+       "label": "控制接口上的 DoH",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": "external-doh-server",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 7
+      },
+      {
+       "label": "访问密钥",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "intent clash_secret",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "note": "有值时属敏感值；当前为「无」",
+       "order": 8
+      },
+      {
+       "label": "dat 版 GeoIP",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "geodata-mode",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 9
+      },
+      {
+       "label": "全局 TLS 指纹",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "global-client-fingerprint",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 10
+      },
+      {
+       "label": "下载时的 UA",
+       "control": "disclosure",
+       "value": "clash.meta",
+       "maps_to": "global-ua",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 11
+      },
+      {
+       "label": "ETag 缓存",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "etag-support",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 12
+      },
+      {
+       "label": "多网络策略",
+       "control": "popup",
+       "value": "默认（只用当前网络）",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 13
+      },
+      {
+       "label": "优先使用的网络",
+       "control": "disclosure",
+       "value": "按策略决定",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 14
+      },
+      {
+       "label": "备用网络",
+       "control": "disclosure",
+       "value": "其他所有网络",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 15
+      },
+      {
+       "label": "TLS 证书",
+       "control": "disclosure",
+       "value": "未设置；副标题「在『证书与信任』里改」",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 16
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "控制接口跨域",
+     "rows": [
+      {
+       "label": "允许的网页来源",
+       "control": "disclosure",
+       "value": "全部",
+       "maps_to": "external-controller-cors.allow-origins",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "允许私有网络访问",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "external-controller-cors.allow-private-network",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      }
+     ],
+     "footer": "哪些网页可以在浏览器里调用控制接口。"
+    },
+    {
+     "header": "重启后保留",
+     "rows": [
+      {
+       "label": "记住节点选择",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_profile_store_selected",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "保存虚拟 IP 映射",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_profile_store_fake_ip",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      }
+     ],
+     "footer": "内核重启后不用重新选节点，连接也不会因虚拟 IP 改变而断开。"
+    },
+    {
+     "header": "规则数据库下载地址",
+     "rows": [
+      {
+       "label": "GeoIP",
+       "control": "disclosure",
+       "value": "默认 · 官方（GitHub）",
+       "maps_to": "geox-url.geoip",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "MMDB",
+       "control": "disclosure",
+       "value": "默认 · 官方（GitHub）",
+       "maps_to": "geox-url.mmdb",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "ASN",
+       "control": "disclosure",
+       "value": "默认 · 官方（GitHub）",
+       "maps_to": "geox-url.asn",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "GeoSite",
+       "control": "disclosure",
+       "value": "默认 · 官方（GitHub）",
+       "maps_to": "geox-url.geosite",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      }
+     ],
+     "footer": "一般不用改；访问 GitHub 困难时换成镜像。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "9 项在 iPhone 上不起作用",
+       "control": "disclosure",
+       "to": "profile-global-ios-noop",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profile-global_1.png",
+    "profile-global_2.png",
+    "profile-global_3.png",
+    "profile-global_4.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "各弹出菜单与子页",
+     "reason": "避免误改；值已从行尾读出"
+    }
+   ],
+   "note": "中文行名与 YAML 键的对应是我按 Mihomo 文档推断的（maps_to 里未写 intent 的都属推断）；allow-lan / mixed-port 不在这一页，见「入站」",
+   "floating": [
+    {
+     "label": "搜索",
+     "control": "searchfield",
+     "maps_to": null,
+     "layer": "app",
+     "subhub": "na",
+     "subhub_zh": "不适用（动作/导航）",
+     "note": "底部悬浮玻璃搜索框，按行名筛选本页"
+    }
+   ]
+  },
+  {
+   "id": "profile-global-ios-noop",
+   "kind": "list",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）",
+    "当前配置 ⓘ",
+    "全局配置",
+    "9 项在 iPhone 上不起作用"
+   ],
+   "title": "不起作用的设置",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "进程匹配",
+       "control": "readonly",
+       "value": "由 Clash 自己设定；这里固定关闭：系统不告诉 App 连接来自哪个应用，按进程匹配的规则不会命中。",
+       "maps_to": "find-process-mode",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "控制接口路由标记",
+       "control": "readonly",
+       "value": "iPhone 上没有这项功能；路由标记是 Linux 的功能，这里不会给控制接口的流量打标记。",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "控制接口命名管道",
+       "control": "readonly",
+       "value": "iPhone 上没有这项功能；命名管道是 Windows 的功能，这里不会打开。",
+       "maps_to": "external-controller-pipe",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "出站网卡",
+       "control": "readonly",
+       "value": "这里用不到，已略过；这里会被去掉：出站用哪块网卡由隧道自己决定。",
+       "maps_to": "interface-name",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 4
+      },
+      {
+       "label": "路由标记",
+       "control": "readonly",
+       "value": "iPhone 上没有这项功能；路由标记是 Linux 的功能，这里出站流量不会打标记。",
+       "maps_to": "routing-mark",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 5
+      },
+      {
+       "label": "自动更新 GEO 数据",
+       "control": "readonly",
+       "value": "由 Clash 自己设定；这里固定关闭：GEO 数据库由 App 下载好再交给 Clash。",
+       "maps_to": "geo-auto-update",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 6
+      },
+      {
+       "label": "GEO 更新间隔",
+       "control": "readonly",
+       "value": "iPhone 上没有这项功能；不起作用：这里 Clash 不会自己定时更新 GEO 数据库。",
+       "maps_to": "geo-update-interval",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 7
+      },
+      {
+       "label": "GEO 加载方式",
+       "control": "readonly",
+       "value": "由 Clash 自己设定；这里固定用省内存方式，数据按需读取，不整份放进内存。",
+       "maps_to": "geodata-loader",
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 8
+      },
+      {
+       "label": "Clash 安卓版专用",
+       "control": "readonly",
+       "value": "iPhone 上没有这项功能；这组只有 Clash for Android 读取，在这里不起作用。",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 9
+      }
+     ],
+     "footer": "在 iPhone 上，这些由 Clash 自己处理，写在这里的值不会用到。"
+    }
+   ],
+   "screenshots": [
+    "profile-global-ios-noop.png"
+   ],
+   "note": "每行三层文字：名称 / 状态 / 说明。这页对「SubHub 写了但 iPhone 不用」的提示很有参考价值"
+  },
+  {
+   "id": "profile-dns",
+   "kind": "form",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）",
+    "当前配置 ⓘ",
+    "DNS"
+   ],
+   "title": "DNS",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": "基本",
+     "rows": [
+      {
+       "label": "DNS 模式",
+       "control": "popup",
+       "value": "虚拟 IP (fake-ip) ⌃⌄",
+       "maps_to": "intent clash_dns_enhanced_mode",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "解析 IPv6",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "dns.ipv6",
+       "layer": "profile",
+       "subhub": "unverified",
+       "subhub_zh": "还没核对",
+       "order": 2
+      },
+      {
+       "label": "使用 Hosts 映射",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "intent clash_dns_use_hosts",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "使用系统 Hosts",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "dns.use-system-hosts",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      },
+      {
+       "label": "DNS 遵循路由规则",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "intent clash_dns_respect_rules",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 5
+      }
+     ],
+     "footer": "是否由 Clash 负责解析域名，以及用哪种模式。"
+    },
+    {
+     "header": "上游服务器",
+     "rows": [
+      {
+       "label": "引导 DNS",
+       "control": "disclosure",
+       "value": "1 项",
+       "maps_to": "intent clash_dns_default_nameserver",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "DNS 服务器",
+       "control": "disclosure",
+       "value": "1 项",
+       "maps_to": "intent clash_dns_nameserver",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      },
+      {
+       "label": "备用 DNS 服务器",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "intent clash_dns_fallback",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "节点域名 DNS",
+       "control": "disclosure",
+       "value": "1 项",
+       "maps_to": "intent clash_dns_proxy_server_nameserver",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      },
+      {
+       "label": "直连 DNS",
+       "control": "disclosure",
+       "value": "1 项",
+       "maps_to": "intent clash_dns_direct_nameserver",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 5
+      },
+      {
+       "label": "直连 DNS 按分域名",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "dns.direct-nameserver-follow-policy",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 6
+      },
+      {
+       "label": "优先 HTTP/3",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "dns.prefer-h3",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 7
+      }
+     ],
+     "footer": "引导 DNS 只能填 IP，用来解析其他服务器的域名。"
+    },
+    {
+     "header": "按域名分流",
+     "rows": [
+      {
+       "label": "分域名 DNS",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "intent clash_dns_nameserver_policy",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "分域名节点 DNS",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "dns.proxy-server-nameserver-policy",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      }
+     ],
+     "footer": "让特定域名交给指定的服务器解析。"
+    },
+    {
+     "header": "备用规则",
+     "rows": [
+      {
+       "label": "按需查询备用",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      }
+     ],
+     "footer": "什么情况下改用备用服务器的解析结果。"
+    },
+    {
+     "header": "虚拟 IP",
+     "rows": [
+      {
+       "label": "IPv4 网段",
+       "control": "disclosure",
+       "value": "198.19.0.1/16",
+       "maps_to": "intent clash_dns_fake_ip_range",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "IPv6 网段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "dns.fake-ip-range6",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "不用虚拟 IP 的域名",
+       "control": "disclosure",
+       "value": "内置少量域名",
+       "maps_to": "intent clash_fake_ip_filter",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 3
+      },
+      {
+       "label": "过滤模式",
+       "control": "popup",
+       "value": "默认（列表内用真实 IP）",
+       "maps_to": "intent clash_dns_fake_ip_filter_mode",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      },
+      {
+       "label": "有效期",
+       "control": "popup",
+       "value": "默认 · 1 秒",
+       "maps_to": "dns.fake-ip-ttl",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 5
+      }
+     ],
+     "footer": "只在 DNS 模式为虚拟 IP 时生效；一般不用改。"
+    },
+    {
+     "header": "更多设置",
+     "rows": [
+      {
+       "label": "IPv6 等待时间",
+       "control": "popup",
+       "value": "默认 · 100 毫秒",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "DNS 缓存算法",
+       "control": "popup",
+       "value": "默认（最近最少使用）",
+       "maps_to": "dns.cache-algorithm",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "DNS 缓存条数",
+       "control": "disclosure",
+       "value": "默认 · 1024",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "备用 DNS 条件",
+     "rows": [
+      {
+       "label": "按 GeoIP 判断",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": "dns.fallback-filter.geoip",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "信任的国家",
+       "control": "disclosure",
+       "value": "默认 · 中国大陆",
+       "maps_to": "dns.fallback-filter.geoip-code",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "可疑的 IP 段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "dns.fallback-filter.ipcidr",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "只用备用的域名",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "dns.fallback-filter.domain",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      },
+      {
+       "label": "只用备用的分类",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "dns.fallback-filter.geosite",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 5
+      }
+     ],
+     "footer": "什么情况下改用备用服务器的结果。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "本地域名映射",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "intent clash_host_records（hosts）",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "2 项在 iPhone 上不起作用",
+       "control": "disclosure",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "note": "未进",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profile-dns_1.png",
+    "profile-dns_2.png",
+    "profile-dns_3.png",
+    "profile-dns_4.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "各列表子页",
+     "reason": "值是服务器地址，只记条数"
+    },
+    {
+     "entry": "2 项在 iPhone 上不起作用",
+     "reason": "时间优先未进"
+    }
+   ],
+   "note": "intent clash_dns_enable / clash_dns_listen 在这页没有对应行（可能在「2 项不起作用」里）"
+  },
+  {
+   "id": "profile-inbound",
+   "kind": "form",
+   "path": [
+    "首页 tab",
+    "配置名 ⌄（配置中心）",
+    "当前配置 ⓘ",
+    "入站"
+   ],
+   "title": "入站",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "局域网代理共享",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": "intent clash_allow_lan / intent clash_mixed_port",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "note": "推断：allow-lan 与端口在这个子页",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "SS 入站链接",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": "ss-config",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      },
+      {
+       "label": "VMess 入站链接",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": "vmess-config",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 2
+      },
+      {
+       "label": "入站 TCP 快速打开",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "inbound-tfo",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "入站多路径 TCP",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": "inbound-mptcp",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 4
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "DNS 劫持",
+     "rows": [
+      {
+       "label": "劫持的地址",
+       "control": "disclosure",
+       "value": "所有 DNS 查询",
+       "maps_to": "intent clash_tun_dns_hijack",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      }
+     ],
+     "footer": "把发往这些地址的 DNS 查询交给 Clash 处理。"
+    },
+    {
+     "header": "路由",
+     "rows": [
+      {
+       "label": "严格路由",
+       "control": "disclosure",
+       "value": "默认 · 关闭；副标题「在『VPN 与路由』里改」",
+       "maps_to": "intent clash_tun_strict_route",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 1
+      },
+      {
+       "label": "只接管的网段",
+       "control": "disclosure",
+       "value": "全部流量；同上副标题",
+       "maps_to": "intent clash_tun_include_routes",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 2
+      },
+      {
+       "label": "只接管的规则集",
+       "control": "disclosure",
+       "value": "无；同上副标题",
+       "maps_to": "tun.route-address-set",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 3
+      },
+      {
+       "label": "不接管的网段",
+       "control": "disclosure",
+       "value": "无；同上副标题",
+       "maps_to": "intent tun_excluded_routes",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      },
+      {
+       "label": "不接管的规则集",
+       "control": "disclosure",
+       "value": "无；同上副标题",
+       "maps_to": "tun.route-exclude-address-set",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 5
+      },
+      {
+       "label": "旧版 IPv4 接管网段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "tun.inet4-route-address",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 6
+      },
+      {
+       "label": "旧版 IPv6 接管网段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "tun.inet6-route-address",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 7
+      },
+      {
+       "label": "旧版 IPv4 排除网段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "tun.inet4-route-exclude-address",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 8
+      },
+      {
+       "label": "旧版 IPv6 排除网段",
+       "control": "disclosure",
+       "value": "无",
+       "maps_to": "tun.inet6-route-exclude-address",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 9
+      },
+      {
+       "label": "回环地址",
+       "control": "disclosure",
+       "value": "无；同上副标题",
+       "maps_to": "tun.loopback-address",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 10
+      }
+     ],
+     "footer": "哪些目标地址走虚拟网卡，哪些绕开。"
+    },
+    {
+     "header": "更多设置",
+     "rows": [
+      {
+       "label": "TUN IPv6 地址（推断）",
+       "control": "disclosure",
+       "value": "fdfe:dcba:9876::1/126；副标题「在『VPN 与路由』里改」",
+       "maps_to": null,
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "note": "只露出半行",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "profile-inbound_1.png",
+    "profile-inbound_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "「更多设置」后半段",
+     "reason": "时间优先未滚到底"
+    },
+    {
+     "entry": "各子页",
+     "reason": "未进"
+    }
+   ],
+   "note": "「在『VPN 与路由』里改」指向的入口我没找到（更多 tab 只有「VPN」）；tun.enable / stack / auto-route 的对应行没看到"
+  },
+  {
+   "id": "tools",
+   "kind": "list",
+   "path": [
+    "工具 tab"
+   ],
+   "title": "工具",
+   "nav": {},
+   "groups": [
+    {
+     "header": "本次连接",
+     "rows": [
+      {
+       "label": "活动",
+       "control": "disclosure",
+       "value": "副标题「实时连接、请求与日志」",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "网络工具",
+     "rows": [
+      {
+       "label": "网络质量",
+       "control": "disclosure",
+       "value": "上行、下行与响应度",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "STUN 与 NAT",
+       "control": "disclosure",
+       "value": "UDP 可达性与 NAT 行为",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "DNS 查询",
+       "control": "disclosure",
+       "value": "查询域名，清除 DNS 缓存",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "局域网代理共享",
+       "control": "disclosure",
+       "value": "局域网 HTTP 与 SOCKS 代理",
+       "maps_to": "intent clash_allow_lan",
+       "layer": "profile",
+       "subhub": "writes",
+       "subhub_zh": "写入",
+       "order": 4
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "运行状况与报告",
+     "rows": [
+      {
+       "label": "运行状况",
+       "control": "disclosure",
+       "value": "路由、内存压力与运行状况",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "外部资源",
+       "control": "disclosure",
+       "value": "此配置的代理来源与规则集的运行状态",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "诊断收件箱",
+       "control": "disclosure",
+       "value": "崩溃、卡顿、CPU、磁盘与能耗报告",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "tools.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "全部入口",
+     "reason": "活动/运行状况需要连接；其余是测试动作或报告，可能含访问记录"
+    }
+   ],
+   "note": "每行带彩色圆角图标和灰色副标题，和更多 tab 同一种行"
+  },
+  {
+   "id": "more",
+   "kind": "list",
+   "path": [
+    "更多 tab"
+   ],
+   "title": "更多",
+   "nav": {},
+   "groups": [
+    {
+     "header": "连接行为",
+     "rows": [
+      {
+       "label": "按需求连接",
+       "control": "disclosure",
+       "value": "副标题「Wi-Fi 与蜂窝网络规则」",
+       "to": "more-on-demand",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "VPN",
+       "control": "disclosure",
+       "value": "副标题「强制路由与包括所有网络」",
+       "to": "more-vpn",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "应用设置",
+     "rows": [
+      {
+       "label": "客户端设置",
+       "control": "disclosure",
+       "value": "副标题「流量、更新、延迟测试与节点切换」",
+       "to": "more-client",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "外观",
+       "control": "disclosure",
+       "value": "副标题「语言、主题、强调色与深色外观」",
+       "to": "more-appearance",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "数据与资源",
+     "rows": [
+      {
+       "label": "Geo 资源",
+       "control": "disclosure",
+       "value": "副标题「GeoIP、GeoSite、ASN 与 MMDB 数据」",
+       "to": "more-geo",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "存储空间",
+       "control": "disclosure",
+       "value": "副标题「配置、数据与缓存」",
+       "to": "more-storage",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "关于",
+     "rows": [
+      {
+       "label": "关于 Clash",
+       "control": "disclosure",
+       "value": "副标题「版本、开源与发行信息」",
+       "to": "more-about",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more.png"
+   ]
+  },
+  {
+   "id": "more-on-demand",
+   "kind": "settings",
+   "path": [
+    "更多 tab",
+    "按需求连接"
+   ],
+   "title": "按需求连接",
+   "nav": {
+    "left": "返回",
+    "right": "编辑 / +"
+   },
+   "groups": [
+    {
+     "header": "始终开启",
+     "rows": [
+      {
+       "label": "始终开启",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "如果是，VPN 连接将始终开启，默认值是否。"
+    },
+    {
+     "header": "按需求连接",
+     "rows": [
+      {
+       "label": "按需求连接",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启按需切换 VPN。"
+    },
+    {
+     "header": "其他",
+     "rows": [
+      {
+       "label": "睡眠时断开",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "显示断开信息",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      }
+     ],
+     "footer": "如果是，VPN 连接将在设备进入睡眠状态时断开。默认值是否"
+    },
+    {
+     "header": "按需求规则（header 右侧 +）",
+     "rows": [
+      {
+       "label": "Connect",
+       "control": "disclosure",
+       "value": "Any",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more-on-demand.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "Connect 规则 / 编辑 / +",
+     "reason": "表单"
+    }
+   ],
+   "note": "iOS NEOnDemandRule 的包装"
+  },
+  {
+   "id": "more-vpn",
+   "kind": "form",
+   "path": [
+    "更多 tab",
+    "VPN"
+   ],
+   "title": "VPN",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "强制路由",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "App 说明里提到 tun.strict-route，但这个开关是 iOS VPN 参数",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，Clash 的路由优先于这台设备上已有的路由。默认关闭"
+    },
+    {
+     "header": "包括所有网络",
+     "rows": [
+      {
+       "label": "包括所有网络",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，除少数例外，所有流量都经过 Clash\n开启后，更新 Clash 时可能整机断网，要重启设备才能恢复；更新前先关掉"
+    },
+    {
+     "header": "包括本地网络",
+     "rows": [
+      {
+       "label": "包括本地网络",
+       "control": "toggle",
+       "value": "关（灰）",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，发往局域网的流量也经过 Clash"
+    },
+    {
+     "header": "包括 APNs",
+     "rows": [
+      {
+       "label": "包括 APNs",
+       "control": "toggle",
+       "value": "关（灰）",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，Apple 推送通知的流量也经过 Clash"
+    },
+    {
+     "header": "包括蜂窝服务",
+     "rows": [
+      {
+       "label": "包括蜂窝服务",
+       "control": "toggle",
+       "value": "关（灰）",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，蜂窝服务（VoLTE、Wi-Fi 通话、IMS、彩信、可视语音信箱等）的联网流量也经过 Clash"
+    },
+    {
+     "header": "隐藏 VPN 图标",
+     "rows": [
+      {
+       "label": "隐藏 VPN 图标",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，状态栏不显示 VPN 标记。下次连接时生效"
+    },
+    {
+     "header": "HomeKit 兼容",
+     "rows": [
+      {
+       "label": "HomeKit 兼容",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，局域网里的 HomeKit 配件保持可用；开启期间「互联网共享」不可用。下次连接时生效\n只在 HomeKit 配件无响应时打开。配置里已设 tun.strict-route 时不必开。"
+    },
+    {
+     "header": "排除 APNs 路由",
+     "rows": [
+      {
+       "label": "排除 APNs 路由",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "开启后，Apple 推送通知直接到达本设备，不经过代理。下次连接时生效"
+    }
+   ],
+   "screenshots": [
+    "more-vpn.png",
+    "more-vpn_2.png"
+   ],
+   "note": "和 Surge「高级设置 › 路由」的 include-* 是同一组 iOS 能力，但这里存在本机，不在配置里；三个「包括」开关在「包括所有网络」关闭时是灰的"
+  },
+  {
+   "id": "more-client",
+   "kind": "form",
+   "path": [
+    "更多 tab",
+    "客户端设置"
+   ],
+   "title": "客户端设置",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "切换节点时断开连接",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "立即把实时流量切到新选中的节点。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "UDP 兜底",
+       "control": "disclosure",
+       "value": "关闭",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "HTTP 与 HTTPS 代理没有 UDP 传输通道。若不设置，命中规则但出口承载不了的流量会穿过全部规则，带着你自己的地址经 DIRECT 出门。"
+    },
+    {
+     "header": "流量统计",
+     "rows": [
+      {
+       "label": "网速单位",
+       "control": "popup",
+       "value": "比特（Mbps）⌃⌄",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "仅统计代理流量",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      }
+     ],
+     "footer": "关闭时显示全部流量。开启后隐藏直连出网的流量（最终出站为 DIRECT），面板数字即代表代理用量。刷新统计期间 VPN 保持连接。"
+    },
+    {
+     "header": "自动更新",
+     "rows": [
+      {
+       "label": "计费网络下允许自动更新",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "低数据模式下允许自动更新",
+       "control": "toggle",
+       "value": "开",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      }
+     ],
+     "footer": "配置链接与资源会按各自的周期更新，不挑网络。关掉其中一项，就会在那类网络上暂缓更新。"
+    },
+    {
+     "header": "下载身份",
+     "rows": [
+      {
+       "label": "链接兼容性",
+       "control": "popup",
+       "value": "Clash（默认）⌃⌄",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "note": "影响 SubHub 订阅请求的 User-Agent",
+       "order": 1
+      }
+     ],
+     "footer": "下载配置链接时发送这个身份；配置没写自己的「下载时的 UA」时，它的节点集合、规则集等下载也用它。推荐 Clash；FlClash 用于按客户端名识别的面板。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "外部控制器",
+       "control": "disclosure",
+       "value": "使用配置",
+       "to": "more-client-controller",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "partial",
+       "subhub_zh": "只写一部分",
+       "note": "「使用配置」时跟随配置里的 external-controller（intent clash_external_controller）",
+       "order": 1
+      }
+     ],
+     "footer": "让 Mac 上的 clash-cli 和 AI 助手控制这台设备上的 Clash。"
+    },
+    {
+     "header": "信任",
+     "rows": [
+      {
+       "label": "证书库",
+       "control": "popup",
+       "value": "平台默认 ⌃⌄",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "使用平台自身的信任，不做任何改变。"
+    },
+    {
+     "header": "延迟测试 URL",
+     "rows": [
+      {
+       "label": "延迟测试 URL",
+       "control": "textfield",
+       "value": "https://www.gstatic.com/generate_204",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "用于节点延迟测试。留空则恢复默认端点。"
+    }
+   ],
+   "screenshots": [
+    "more-client_1.png",
+    "more-client_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "UDP 兜底",
+     "reason": "子页未进"
+    }
+   ]
+  },
+  {
+   "id": "more-client-controller",
+   "kind": "picker",
+   "path": [
+    "更多 tab",
+    "客户端设置",
+    "外部控制器"
+   ],
+   "title": "外部控制器",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "使用配置",
+       "control": "segmented",
+       "value": "✓",
+       "maps_to": "intent clash_external_controller",
+       "layer": "app",
+       "subhub": "partial",
+       "subhub_zh": "只写一部分",
+       "order": 1
+      },
+      {
+       "label": "本机",
+       "control": "segmented",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      },
+      {
+       "label": "局域网",
+       "control": "segmented",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 3
+      }
+     ],
+     "footer": "让 Mac 上的 clash-cli 和 AI 助手控制这台设备上的 Clash。"
+    }
+   ],
+   "screenshots": [
+    "more-client-controller.png"
+   ],
+   "note": "单选，没改；这一页不显示 Secret"
+  },
+  {
+   "id": "more-appearance",
+   "kind": "settings",
+   "path": [
+    "更多 tab",
+    "外观"
+   ],
+   "title": "外观",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "语言",
+       "control": "disclosure",
+       "value": "跟随系统",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      }
+     ],
+     "footer": "更改会立即生效。“跟随系统” 使用 iOS 设置中选择的语言。"
+    },
+    {
+     "header": "主题",
+     "rows": [
+      {
+       "label": "跟随系统 / 浅色 / 深色",
+       "control": "segmented",
+       "value": "跟随系统",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 1
+      },
+      {
+       "label": "强调色",
+       "control": "popup",
+       "value": "系统动态 ⌃⌄",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 2
+      },
+      {
+       "label": "深色模式使用纯黑背景",
+       "control": "toggle",
+       "value": "关",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "device",
+       "subhub_zh": "只在手机本机",
+       "order": 3
+      }
+     ],
+     "footer": "系统动态使用应用的原生自适应强调色。纯黑只改变深色背景，并保留语义表面与对比度。"
+    },
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "文字大小跟随 iOS 动态字体与辅助功能设置。",
+       "control": "info",
+       "value": "ⓘ 图标",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more-appearance.png"
+   ]
+  },
+  {
+   "id": "more-geo",
+   "kind": "settings",
+   "path": [
+    "更多 tab",
+    "Geo 资源"
+   ],
+   "title": "资源",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "同步全部 Geo 资源",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": "自动更新和下载地址在配置编辑器里改。\n上次完整刷新：从未。"
+    },
+    {
+     "header": "GEOIP",
+     "rows": [
+      {
+       "label": "GeoIP.dat",
+       "control": "card",
+       "value": "16.1 MB · 1天前；下载地址；「同步」按钮",
+       "maps_to": "geox-url.geoip",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "GEOSITE",
+     "rows": [
+      {
+       "label": "GeoSite.dat",
+       "control": "card",
+       "value": "4.0 MB · 1天前",
+       "maps_to": "geox-url.geosite",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "MMDB",
+     "rows": [
+      {
+       "label": "geoip.metadb",
+       "control": "card",
+       "value": "8.1 MB · 1天前",
+       "maps_to": "geox-url.mmdb",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "ASN",
+     "rows": [
+      {
+       "label": "ASN.mmdb",
+       "control": "card",
+       "value": "11.5 MB · 1天前",
+       "maps_to": "geox-url.asn",
+       "layer": "profile",
+       "subhub": "none",
+       "subhub_zh": "不写",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more-geo.png",
+    "more-geo_2.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "同步按钮",
+     "reason": "动作"
+    }
+   ],
+   "note": "页标题是「资源」而不是「Geo 资源」；URL 用等宽小字"
+  },
+  {
+   "id": "more-storage",
+   "kind": "settings",
+   "path": [
+    "更多 tab",
+    "存储空间"
+   ],
+   "title": "存储空间",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": "本机占用",
+     "rows": [
+      {
+       "label": "总计",
+       "control": "readonly",
+       "value": "42.1 MB",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "配置",
+       "control": "readonly",
+       "value": "184 KB",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "节点与规则库",
+       "control": "readonly",
+       "value": "53 KB；副标题「节点与规则库在每次写入时自动回收未使用的数据。」",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "Geo 数据",
+       "control": "readonly",
+       "value": "41.8 MB",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 4
+      },
+      {
+       "label": "规则集与节点集缓存",
+       "control": "readonly",
+       "value": "0 字节",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 5
+      },
+      {
+       "label": "Geo 数据缓存",
+       "control": "readonly",
+       "value": "0 字节",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 6
+      },
+      {
+       "label": "日志",
+       "control": "readonly",
+       "value": "0 字节",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 7
+      },
+      {
+       "label": "临时文件",
+       "control": "readonly",
+       "value": "0 字节",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 8
+      },
+      {
+       "label": "其他",
+       "control": "readonly",
+       "value": "74 KB；副标题「Clash 运行所需的文件，以及已下载的控制台」",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 9
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "清理",
+     "rows": [
+      {
+       "label": "清理未使用数据",
+       "control": "action",
+       "value": "灰；没有可清理的数据",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "重置本地数据",
+     "rows": [
+      {
+       "label": "（未滚到）",
+       "control": "action",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more-storage.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "清理 / 重置",
+     "reason": "动作"
+    }
+   ]
+  },
+  {
+   "id": "more-about",
+   "kind": "settings",
+   "path": [
+    "更多 tab",
+    "关于 Clash"
+   ],
+   "title": "关于",
+   "nav": {
+    "left": "返回"
+   },
+   "groups": [
+    {
+     "header": null,
+     "rows": [
+      {
+       "label": "Clash",
+       "control": "card",
+       "value": "由 Clash 驱动；版本 1.0.14 (178)；提交哈希",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": "Clash 系列客户端，由 Clash 内核驱动。"
+    },
+    {
+     "header": "链接",
+     "rows": [
+      {
+       "label": "使用指南",
+       "control": "link",
+       "value": "clash.md/zh/guide",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      },
+      {
+       "label": "Telegram",
+       "control": "link",
+       "value": "t.me/clashbyclash",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 2
+      },
+      {
+       "label": "在 X 关注我",
+       "control": "link",
+       "value": "@ClashbyClash",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 3
+      },
+      {
+       "label": "源代码仓库",
+       "control": "link",
+       "value": "github.com/ProjectClash/Clash-Client",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 4
+      },
+      {
+       "label": "建议和吐槽",
+       "control": "link",
+       "value": "GitHub Issues",
+       "maps_to": null,
+       "layer": "action",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 5
+      }
+     ],
+     "footer": null
+    },
+    {
+     "header": "组件",
+     "rows": [
+      {
+       "label": "Clash 内核",
+       "control": "link",
+       "value": "1.19.33；副标题「承载流量的开源内核」",
+       "maps_to": null,
+       "layer": "app",
+       "subhub": "na",
+       "subhub_zh": "不适用（动作/导航）",
+       "order": 1
+      }
+     ],
+     "footer": null
+    }
+   ],
+   "screenshots": [
+    "more-about.png"
+   ],
+   "not_entered": [
+    {
+     "entry": "链接",
+     "reason": "外链"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,69 @@
+buildscript: |
+  set -eu
+  rm -rf dist
+  mkdir -p dist
+  mkdir -p .pkgout
+  mkdir -p dist/runtime/python
+  mkdir -p dist/wheels
+  # app/static/frontend/dist is untracked: rebuild it from the current sources
+  # so the package never ships a console built from an older checkout.
+  if [ ! -d frontend/node_modules ]; then
+    echo "missing frontend/node_modules; run npm ci --prefix frontend" >&2
+    exit 1
+  fi
+  npm run build --prefix frontend
+  cp -R app dist/
+  cp requirements.txt dist/
+  cp .env.example dist/
+  cp README.md dist/
+  cp lzc-icon.png dist/
+  ./.venv/bin/python scripts/stage_package_docs.py docs dist/docs
+  mkdir -p .build-cache/python-runtime
+  REQ_HASH="$(find requirements.txt vendor/wheels -type f -print0 | sort -z | xargs -0 shasum -a 256 | shasum -a 256 | awk '{print $1}')"
+  WHEEL_CACHE_DIR=".build-cache/wheels-cp313-musllinux-${REQ_HASH}"
+  mkdir -p "$WHEEL_CACHE_DIR"
+  if [ ! -x "./.venv/bin/python" ]; then
+    echo "missing .venv/bin/python for wheel download" >&2
+    exit 1
+  fi
+  ./.venv/bin/python -m pip download \
+    --dest "$WHEEL_CACHE_DIR" \
+    --only-binary=:all: \
+    --platform musllinux_1_1_x86_64 \
+    --platform musllinux_1_2_x86_64 \
+    --python-version 313 \
+    --implementation cp \
+    --abi cp313 \
+    --find-links vendor/wheels \
+    -r requirements.txt
+  cp "$WHEEL_CACHE_DIR"/* dist/wheels/
+  PYTHON_STANDALONE_FILE='cpython-3.13.12+20260303-x86_64-unknown-linux-musl-install_only.tar.gz'
+  PYTHON_STANDALONE_URL="https://github.com/astral-sh/python-build-standalone/releases/download/20260303/${PYTHON_STANDALONE_FILE}"
+  PYTHON_STANDALONE_ARCHIVE=".build-cache/python-runtime/${PYTHON_STANDALONE_FILE}"
+  PYTHON_STANDALONE_PARTIAL="${PYTHON_STANDALONE_ARCHIVE}.partial"
+  if [ -f "$PYTHON_STANDALONE_ARCHIVE" ] && ! tar -tzf "$PYTHON_STANDALONE_ARCHIVE" >/dev/null 2>&1; then
+    rm -f "$PYTHON_STANDALONE_ARCHIVE"
+  fi
+  if [ ! -f "$PYTHON_STANDALONE_ARCHIVE" ]; then
+    for attempt in 1 2 3; do
+      curl -fL --continue-at - --retry 3 --retry-delay 2 "$PYTHON_STANDALONE_URL" -o "$PYTHON_STANDALONE_PARTIAL"
+      if tar -tzf "$PYTHON_STANDALONE_PARTIAL" >/dev/null 2>&1; then
+        mv "$PYTHON_STANDALONE_PARTIAL" "$PYTHON_STANDALONE_ARCHIVE"
+        break
+      fi
+      rm -f "$PYTHON_STANDALONE_PARTIAL"
+      if [ "$attempt" -eq 3 ]; then
+        echo "failed to download a complete Python runtime archive after ${attempt} attempts" >&2
+        exit 1
+      fi
+      sleep 2
+    done
+  fi
+  tar -xzf "$PYTHON_STANDALONE_ARCHIVE" -C dist/runtime/python --strip-components=1
+  find dist -type d -name '__pycache__' -prune -exec rm -rf {} +
+  find dist -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
+  find dist -type f \( -name '*.log' -o -name '.DS_Store' \) -delete
+
+contentdir: ./dist
+pkgout: ./.pkgout
+icon: ./lzc-icon.png

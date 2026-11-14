@@ -1,0 +1,8 @@
+{"source":"设置 › 外观 › 颜色（App 内主题色表，原文 hex；8 位为 #AARRGGBB）","appearance":"深色（外观行显示值；画面实际为浅粉主题，传统样式 开）",
+"colors":{
+"NavigationBarColor":"#00FFFFFF","NavigationBar2Color":"#00FFFFFF","NavigationBarTextColor":"#622229","NavigationBar2TextColor":"#622229",
+"TabBarColor":"#00FFFFFF","TabBarBorderColor":"#F5E8E7","TabBarSelectedColor":"#622229","TabBarUnselectedColor":"#67622229",
+"TableBackgroundColor":"#F5E8E7","TableCellBackgroundColor":"#EEE0DF","TableCellSelectedBackgroundColor":"#F5E8E7","TableSeparatorColor":"#F5E8E7",
+"TextFieldTextColor":"#622229 (行被标签栏遮挡，按可见尾号与色块推定)","PlaceholderColor":"#67622229","TextLabelTextColor":"#622229","DetailLabelTextColor":"#AB8587","TextLabelDeleteColor":"#D15499","HeaderFooterTextColor":"#AB8587","SearchFieldBackgroundColor":"#EEE0DF","IndicatorColor":"#AB8587",
+"ButtonIconColor":"#622229","ButtonNormalColor":"#622229","ButtonNormal2Color":"#622229","ButtonNormal3Color":"#622229","ButtonHighlightedColor":"#F5E8E7","ButtonHighlighted2Color":"#F5E8E7","ButtonHighlighted3Color":"#F5E8E7","ButtonDisabledColor":"#F5E8E7","ButtonDisabled2Color":"#F5E8E7",
+"PingSuccessTextColor":"#20817B","PingTimeoutTextColor":"#D15499","DefaultDotColor":"#20817B","HUDBackgroundColor":"#F5E8E7"}}

@@ -1,0 +1,10 @@
+{
+  "required_files": ["AGENTS.md", "README.md", "CONTRIBUTING.md", "docs/index.md", "docs/quality.md", "docs/architecture/system-overview.md", "docs/golden-principles.md", "docs/api/http-api.md", "docs/api/subscription-output-contract.md", "docs/deployment/lazycat-deployment.md", "docs/operations/runbook.md", "docs/operations/troubleshooting.md", "docs/doc-sync-rules.json", "docs/plans/template.md", "docs/governance/docs-check-config.json", "docs/governance/release-checklist.md", "docs/governance/git-workflow.md"],
+  "required_index_targets": ["README.md", "docs/golden-principles.md", "DESIGN.md", "docs/architecture/system-overview.md", "docs/api/http-api.md", "docs/api/subscription-output-contract.md", "docs/quality.md", "docs/doc-sync-rules.json", "docs/operations/local-dev-runbook.md", "docs/operations/runbook.md", "docs/operations/troubleshooting.md", "docs/operations/secret-rotation.md", "docs/deployment/lazycat-deployment.md", "docs/governance/release-checklist.md", "docs/governance/git-workflow.md", "CONTRIBUTING.md", "docs/plans/template.md"],
+  "required_discoverability": [
+    {"source": "README.md", "must_mention_all": ["docs/index.md"]},
+    {"source": "AGENTS.md", "must_mention_all": ["docs/index.md", "docs/quality.md"]}
+  ],
+  "path_consistency_docs": ["docs/architecture/system-overview.md", "docs/golden-principles.md", "docs/operations/runbook.md", "docs/operations/troubleshooting.md", "docs/operations/local-dev-runbook.md", "docs/operations/ui-smoke-test-task.md", "docs/deployment/lazycat-deployment.md", "docs/governance/release-checklist.md", "docs/governance/git-workflow.md", "README.md", "CONTRIBUTING.md", "AGENTS.md", "docs/index.md", "docs/quality.md"],
+  "exclude_globs": ["docs/参考项目/**", "dist/**", "docs/exec-plans/**", "docs/governance/changelog.md", "node_modules/**", "frontend/node_modules/**"]
+}

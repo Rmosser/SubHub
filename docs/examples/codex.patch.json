@@ -1,0 +1,40 @@
+{
+  "schema": "subhub.patch.v1",
+  "actions": [
+    {
+      "id": "codex-category",
+      "type": "ensure_manual_category",
+      "name": "Codex",
+      "default_policy": "group",
+      "default_group": "高质量-高倍率",
+      "locked": false
+    },
+    {
+      "id": "codex-route",
+      "type": "set_category_route",
+      "category": "Codex",
+      "contract_id": "hq_premium"
+    },
+    {
+      "id": "codex-app-process",
+      "type": "add_category_rule",
+      "category": "Codex",
+      "rule_type": "PROCESS-NAME",
+      "value": "Codex"
+    },
+    {
+      "id": "codex-process",
+      "type": "add_category_rule",
+      "category": "Codex",
+      "rule_type": "PROCESS-NAME",
+      "value": "codex"
+    },
+    {
+      "id": "codex-helper-process",
+      "type": "add_category_rule",
+      "category": "Codex",
+      "rule_type": "PROCESS-NAME",
+      "value": "Codex Helper"
+    }
+  ]
+}

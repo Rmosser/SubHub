@@ -1,0 +1,158 @@
+{
+ "app": "Clash 1.0.14 (178)（Clash Mi 的替代）",
+ "style": "iOS 26 inset grouped，与 Surge 基本同一套系统控件；行可带彩色圆角图标 + 灰色副标题",
+ "device": {
+  "width_pt": 402,
+  "height_pt": 874,
+  "scale_capture": 1.5
+ },
+ "measurement": {
+  "source": "screencapture -l <镜像窗口> 得到 619×1357 px；手机屏幕在图中占 x 8–610、y 38–1348，即 603×1311 px = 402×874 pt，比例 1.5 px/pt，原点 (8,38)",
+  "how": "PIL 逐像素扫描：竖向取色段找分组、行与分隔线；横向取色段找卡片边与内边距；文字取墨迹外框（与底色差 >90）；圆角用圆拟合卡片左上角的缩进曲线；玻璃按钮和 tab 胶囊在叠了 pt 网格的放大图上人工读数",
+  "error": {
+   "length": "±0.7 pt（1 px），玻璃按钮与胶囊人工读数 ±1.5 pt",
+   "font_size": "由墨迹宽高按 PingFang 汉字约 0.96 em 宽、SF 大写约 0.705 em 高反推，±1 pt",
+   "color": "镜像串流有色彩偏移，实测值与 App 内主题值相差可达 ±8/通道；有主题表时以主题表为准"
+  },
+  "screens_used": [
+   "screens/clash/profile-global_1.png",
+   "screens/clash/more.png"
+  ]
+ },
+ "color": {
+  "page_bg": "#F2F2F6",
+  "cell_bg": "#FFFFFF",
+  "separator": "#EDEDED",
+  "label": "#000000",
+  "value_popup": "#4B84F8（2026-11-11 复测最深像素；旧值 #4980F9）",
+  "value_plain": "#8A8A8E",
+  "header": "#818186",
+  "footer": "#8A8A8E",
+  "toggle_on_track": "#4D87FA",
+  "toggle_off_track": "#C5C5C7（复测；旧值 #E9E9EB 不对）",
+  "tab_selected": "#4A81F3",
+  "icon_tile_colors": {
+   "按需求连接": "#5AB4E5",
+   "VPN": "#3F7EF6",
+   "客户端设置": "#B24FD8",
+   "外观": "#5F57E0",
+   "Geo 资源": "#6CC25A",
+   "存储空间": "#5E5BE0",
+   "关于": "#3F7EF6"
+  }
+ },
+ "font": {
+  "nav_title": {
+   "size_pt": 17,
+   "weight": "semibold",
+   "measured": "全局配置 墨迹宽 66 pt / 4 字"
+  },
+  "row_label": {
+   "size_pt": 17
+  },
+  "row_value": {
+   "size_pt": 17
+  },
+  "section_header": {
+   "size_pt": 15,
+   "measured": "出站 墨迹 31.3×15.3 pt"
+  },
+  "row_subtitle": {
+   "size_pt": 13
+  }
+ },
+ "layout": {
+  "sheet": {
+   "top_pt": 72,
+   "corner_radius_pt": 38,
+   "back_sheet": {
+    "top_pt": 62,
+    "x_pt": [
+     16,
+     386
+    ],
+    "corner_radius_pt": 34,
+    "color": "#D5D5D9"
+   },
+   "dim_bg": "#C2C2C6",
+   "measured": "profile-global_1：x200 处 62.0 起 #D5D5D9（后层 sheet），72.0 起 #F2F2F6（前层）；后层左右边按 y68/y71 的边缘 30.7/27.3 拟合 r34、x16–386；前层左缘按 y76–78 拟合 r38，全宽"
+  },
+  "nav_bar": {
+   "button_diameter_pt": 44,
+   "left_button_x_pt": [
+    16,
+    60
+   ],
+   "button_center_y_pt": 110,
+   "title_center_y_pt": 110.7,
+   "measured": "返回按钮外圈 x16–60、y88–132（x38 / y110 处亮暗边）；标题墨迹 102.7–118.7；chevron 墨迹 11.3×19.3"
+  },
+  "group": {
+   "margin_x_pt": 16,
+   "corner_radius_pt": 25,
+   "first_card_top_pt": 182.7,
+   "header_left_pt": 37,
+   "gap_card_to_next_card_with_header_pt": 56.6,
+   "header_center_above_card_pt": 20,
+   "measured": "卡片 182.7–234.7、291.3–343.3、400.0–766.0（7 行）；header 墨迹中心在卡片顶上方 20.0"
+  },
+  "row": {
+   "height_pt": 52.3,
+   "height_with_icon_subtitle_pt": 63,
+   "label_left_pt": 37,
+   "separator_thickness_pt": 1.3,
+   "icon_tile_pt": 30,
+   "icon_tile_radius_pt": 8,
+   "measured": "连接组 7 行顶 400.0/452.7/504.7/557.3/609.3/662.0/714.0 → 52.3/行；单行卡片 52.0",
+   "value_right_pt": 348.7,
+   "updown_x_pt": [
+    355.3,
+    364.7
+   ]
+  },
+  "toggle": {
+   "w_pt": 64,
+   "h_pt": 28.7,
+   "x_pt": [
+    304.7,
+    368.7
+   ],
+   "off_track": "#C5C5C7",
+   "on_track": "#4D87FA"
+  },
+  "tab_bar": {
+   "type": "悬浮胶囊",
+   "x_pt": [
+    64,
+    336
+   ],
+   "y_pt": [
+    792,
+    853
+   ],
+   "items": 3,
+   "selected_pill_x_pt": [
+    240.7,
+    333.3
+   ],
+   "selected_note": "更多 tab 选中时"
+  },
+  "floating_search": {
+   "x_pt": [
+    27.3,
+    374.7
+   ],
+   "y_pt": [
+    797.3,
+    846.7
+   ],
+   "icon_x_pt": [
+    42,
+    61.3
+   ],
+   "text_left_pt": 66,
+   "text_color": "#8A8A90",
+   "note": "玻璃胶囊，白底半透明，细灰描边"
+  }
+ }
+}

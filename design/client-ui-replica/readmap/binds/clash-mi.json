@@ -1,0 +1,440 @@
+{
+ "client": "clash-mi",
+ "target": "clash",
+ "format": "yaml",
+ "root": "home",
+ "roots": [
+  "home"
+ ],
+ "screens": [
+  {
+   "id": "home",
+   "title": "Clash Mi",
+   "parent": null,
+   "via": null,
+   "depth": 1,
+   "kind": "settings",
+   "rows": 1
+  },
+  {
+   "id": "core-settings",
+   "title": "核心设置",
+   "parent": "home",
+   "via": "home#1.1",
+   "depth": 2,
+   "kind": "settings",
+   "rows": 11
+  },
+  {
+   "id": "app-settings",
+   "title": "应用设置",
+   "parent": "home",
+   "via": "home#1.0",
+   "depth": 2,
+   "kind": "settings",
+   "rows": 0,
+   "todo": "没有可绑定的行（UserAgent 不是配置键）"
+  },
+  {
+   "id": "core-tun",
+   "title": "TUN",
+   "parent": "core-settings",
+   "via": "core-settings#2.2",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 5
+  },
+  {
+   "id": "core-geo-ruleset",
+   "title": "Geo RuleSet",
+   "parent": "core-settings",
+   "via": "core-settings#2.3",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 0,
+   "todo": "SubHub 不写 geox-url，没有可绑定的行"
+  },
+  {
+   "id": "core-override",
+   "title": "覆写",
+   "parent": "core-settings",
+   "via": "core-settings#4.0",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 0,
+   "todo": "只为纸条的落点而加；两行都是仅本机"
+  },
+  {
+   "id": "core-lan-access",
+   "title": "局域网设备接入",
+   "parent": "core-settings",
+   "via": "core-settings#6.0",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 1
+  },
+  {
+   "id": "core-dns",
+   "title": "DNS",
+   "parent": "core-settings",
+   "via": "core-settings#7.0",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 13
+  },
+  {
+   "id": "core-ntp",
+   "title": "NTP",
+   "parent": "core-settings",
+   "via": "core-settings#7.1",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 0,
+   "todo": "SubHub 不写 ntp，没有可绑定的行"
+  },
+  {
+   "id": "core-tls",
+   "title": "TLS",
+   "parent": "core-settings",
+   "via": "core-settings#7.2",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 0,
+   "todo": "SubHub 不写 tls，没有可绑定的行"
+  },
+  {
+   "id": "core-sniffer",
+   "title": "嗅探",
+   "parent": "core-settings",
+   "via": "core-settings#7.3",
+   "depth": 3,
+   "kind": "settings",
+   "rows": 1
+  }
+ ],
+ "rows": [
+  {
+   "row": "home#0.1",
+   "label": "分流模式",
+   "bind": {
+    "kind": "value",
+    "yaml": "mode"
+   },
+   "explain": "选流量怎么走：按规则分流、全部走代理，或全部直连。配置里也写了这一项。",
+   "override": true,
+   "todo": "inventory 标的是「还没核对」：不确定它是否盖过订阅里的 mode"
+  },
+  {
+   "row": "core-settings#1.0",
+   "label": "外部控制",
+   "bind": {
+    "kind": "value",
+    "yaml": "external-controller"
+   },
+   "explain": "控制内核用的地址。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#1.1",
+   "label": "Secret",
+   "bind": {
+    "kind": "value",
+    "yaml": "secret",
+    "mask": true
+   },
+   "explain": "控制接口的密码。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#1.2",
+   "label": "混合代理端口",
+   "bind": {
+    "kind": "value",
+    "yaml": "mixed-port"
+   },
+   "explain": "本机代理监听的端口。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#1.3",
+   "label": "日志等级",
+   "bind": {
+    "kind": "value",
+    "yaml": "log-level"
+   },
+   "explain": "内核日志记得多细。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#2.1",
+   "label": "IPv6",
+   "bind": {
+    "kind": "value",
+    "yaml": "ipv6"
+   },
+   "explain": "是否允许走 IPv6。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#2.2",
+   "label": "TUN",
+   "bind": {
+    "kind": "exists",
+    "yaml": "tun"
+   },
+   "explain": "接管全机流量的设置。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#4.0",
+   "label": "覆写",
+   "bind": {
+    "kind": "exists",
+    "yaml": "dns"
+   },
+   "paper": "选「内置-不覆写」，SubHub 写的 DNS 才原样生效。"
+  },
+  {
+   "row": "core-settings#5.0",
+   "label": "TCP并发握手",
+   "bind": {
+    "kind": "value",
+    "yaml": "tcp-concurrent"
+   },
+   "explain": "是否同时试多个地址。手机这里会盖过 SubHub 的值。",
+   "override": true,
+   "todo": "inventory 说 SubHub 会写 tcp-concurrent，但在 Clash 渲染代码的顶层键里没找到，需核对"
+  },
+  {
+   "row": "core-settings#6.0",
+   "label": "局域网设备接入",
+   "bind": {
+    "kind": "exists",
+    "yaml": "allow-lan"
+   },
+   "explain": "是否让别的设备借用。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#7.0",
+   "label": "DNS",
+   "bind": {
+    "kind": "exists",
+    "yaml": "dns"
+   },
+   "explain": "域名解析的整组设置。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-settings#7.3",
+   "label": "嗅探",
+   "bind": {
+    "kind": "exists",
+    "yaml": "sniffer"
+   },
+   "explain": "从流量里识别域名。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-tun#0.1",
+   "label": "启用",
+   "bind": {
+    "kind": "value",
+    "yaml": "tun.enable"
+   },
+   "explain": "是否接管全机流量。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-tun#0.3",
+   "label": "网络栈",
+   "bind": {
+    "kind": "value",
+    "yaml": "tun.stack"
+   },
+   "explain": "接管流量用的实现。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-tun#0.5",
+   "label": "DNS劫持",
+   "bind": {
+    "kind": "exists",
+    "yaml": "tun.dns-hijack"
+   },
+   "explain": "是否拦下系统的 DNS。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-tun#0.6",
+   "label": "严格路由",
+   "bind": {
+    "kind": "value",
+    "yaml": "tun.strict-route"
+   },
+   "explain": "是否强制所有流量进来。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-tun#0.7",
+   "label": "默认路由",
+   "bind": {
+    "kind": "value",
+    "yaml": "tun.auto-route"
+   },
+   "explain": "是否自动设置路由。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-lan-access#0.1",
+   "label": "启用",
+   "bind": {
+    "kind": "value",
+    "yaml": "allow-lan"
+   },
+   "explain": "是否让别的设备借用。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#0.1",
+   "label": "启用",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.enable"
+   },
+   "explain": "内置 DNS 的总开关。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#0.2",
+   "label": "监听地址",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.listen"
+   },
+   "explain": "内置 DNS 的监听地址。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#0.5",
+   "label": "使用Hosts",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.use-hosts"
+   },
+   "explain": "用不用配置里的 hosts。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#1.0",
+   "label": "hosts",
+   "bind": {
+    "kind": "count",
+    "yaml": "hosts"
+   },
+   "explain": "域名到地址的固定对应。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#2.0",
+   "label": "增强模式",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.enhanced-mode"
+   },
+   "explain": "用假 IP 还是真实 IP。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#2.1",
+   "label": "fake-ip 过滤模式",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.fake-ip-filter-mode"
+   },
+   "explain": "名单是排除还是只含。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#2.2",
+   "label": "fake-ip 过滤",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.fake-ip-filter"
+   },
+   "explain": "这些域名不用假 IP。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.0",
+   "label": "遵守[rules]规则",
+   "bind": {
+    "kind": "value",
+    "yaml": "dns.respect-rules"
+   },
+   "explain": "DNS 查询是否也按规则。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.1",
+   "label": "默认 域名解析服务器",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.default-nameserver"
+   },
+   "explain": "解析 DNS 自身域名用的。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.2",
+   "label": "域名解析服务器",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.nameserver"
+   },
+   "explain": "平时查域名用的服务器。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.3",
+   "label": "代理 域名解析服务器",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.proxy-server-nameserver"
+   },
+   "explain": "解析节点域名的服务器。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.4",
+   "label": "直连 域名解析服务器",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.direct-nameserver"
+   },
+   "explain": "直连流量用的 DNS。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-dns#3.5",
+   "label": "Fallback 域名解析服务器",
+   "bind": {
+    "kind": "count",
+    "yaml": "dns.fallback"
+   },
+   "explain": "备用的 DNS 服务器。手机这里会盖过 SubHub 的值。",
+   "override": true
+  },
+  {
+   "row": "core-sniffer#0.1",
+   "label": "启用",
+   "bind": {
+    "kind": "value",
+    "yaml": "sniffer.enable"
+   },
+   "explain": "是否从流量里识别域名。手机这里会盖过 SubHub 的值。",
+   "override": true
+  }
+ ],
+ "unbound_placeholders": []
+}

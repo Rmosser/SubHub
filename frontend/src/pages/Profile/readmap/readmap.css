@@ -1,0 +1,169 @@
+/* 配置与场景 · read map: phone deck (left) + reading column (right), sitting on the workbench glass.
+   Same grammar as the shell: structure is etched, what SubHub wrote is light, what needs a person is paper. */
+:root {
+  --rm-paper: #efe2c3; --rm-paper-ink: #6b5528;
+  --rm-light: rgba(255, 214, 140, .26); --rm-light-line: rgba(255, 196, 96, .55); --rm-wire: rgba(214, 150, 48, .85);
+  --rm-sheet: rgba(255, 255, 255, .74); --rm-sheet-edge: rgba(8, 29, 26, .1); --rm-raised: #fff;
+  --rm-veil: 233, 240, 239; --rm-rim: #c9ced5; --rm-rim-hi: rgba(255, 255, 255, .7); --rm-pin: #fbfcfc;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-glass-theme="light"]) {
+    --rm-paper: #6f6450; --rm-paper-ink: #efe4cc; --rm-light: rgba(255, 200, 120, .13); --rm-light-line: rgba(255, 200, 120, .45); --rm-wire: rgba(255, 204, 128, .8);
+    --rm-sheet: rgba(13, 23, 26, .8); --rm-sheet-edge: rgba(214, 232, 227, .1); --rm-raised: rgba(255, 255, 255, .09);
+    --rm-veil: 6, 14, 16; --rm-rim: #3a4047; --rm-rim-hi: rgba(255, 255, 255, .12); --rm-pin: #1c2a2e;
+  }
+}
+:root[data-glass-theme="dark"] {
+  --rm-paper: #6f6450; --rm-paper-ink: #efe4cc; --rm-light: rgba(255, 200, 120, .13); --rm-light-line: rgba(255, 200, 120, .45); --rm-wire: rgba(255, 204, 128, .8);
+  --rm-sheet: rgba(13, 23, 26, .8); --rm-sheet-edge: rgba(214, 232, 227, .1); --rm-raised: rgba(255, 255, 255, .09);
+  --rm-veil: 6, 14, 16; --rm-rim: #3a4047; --rm-rim-hi: rgba(255, 255, 255, .12); --rm-pin: #1c2a2e;
+}
+
+.rm-page { position: relative; padding: 4px 0 0; }
+.rm-frame { display: flex; flex-direction: column; max-width: 100%; }
+
+/* ---------- bar: etched into the glass, like the rail ---------- */
+.rm-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; min-height: 36px; }
+.rm-clients button { min-height: 30px; padding: 0 14px; font-size: 13px; }
+.rm-device-name { font-size: 13px; font-weight: 500; color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); }
+.rm-bar-fill { flex: 1; }
+/* notes from the render: etched words with a small paper corner; the popover is glass, paper only on its edge */
+.rm-warn-wrap { position: relative; }
+.rm-warn { position: relative; appearance: none; border: 0; cursor: pointer; white-space: nowrap; min-height: 26px; padding: 0 12px 0 8px; border-radius: 7px; background: transparent;
+  font: 500 12.5px/26px var(--f-sans); color: var(--g-etch-2); text-shadow: var(--g-etch-shadow); transition: color .3s, background-color .3s; }
+.rm-warn::after { content: ""; position: absolute; right: 2px; top: 4px; width: 7px; height: 7px; border-radius: 0 2px 0 0; background: linear-gradient(225deg, var(--rm-paper) 0 50%, transparent 50%); }
+.rm-warn:hover, .rm-warn[aria-expanded="true"] { color: var(--g-lit); background: var(--g-ctl); }
+.rm-warn:focus-visible { outline: 2px solid var(--g-lit); outline-offset: 1px; }
+.rm-warn-pop { position: absolute; left: 0; top: calc(100% + 8px); z-index: 60; width: min(440px, calc(100vw - 32px)); max-height: min(60vh, 520px); overflow: auto; overscroll-behavior: contain;
+  padding: 6px; border-radius: 12px; background: var(--g-dock); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: inset 3px 0 0 var(--rm-paper), inset 0 0 0 1px var(--g-rule), inset 0 1px 0 var(--g-rule-hi), 0 18px 36px -18px rgba(var(--g-shadow), .55);
+  font: 12.5px/19px var(--f-sans); color: var(--g-etch); outline: none; }
+.rm-wg-head { display: flex; align-items: baseline; gap: 10px; width: 100%; min-height: 32px; padding: 6px 10px 6px 12px; border: 0; border-radius: 8px; background: transparent;
+  color: inherit; font: inherit; font-weight: 500; text-align: left; cursor: pointer; }
+.rm-wg-head .t { flex: 1; min-width: 0; }
+.rm-wg-head .n { flex: none; color: var(--g-etch-2); font-variant-numeric: tabular-nums; }
+.rm-wg-head:hover, .rm-wg-head:focus-visible { color: var(--g-lit); background: var(--g-ctl); outline: none; }
+div.rm-wg-head { cursor: default; }
+div.rm-wg-head:hover { color: inherit; background: transparent; }
+.rm-wg.refused > .rm-wg-head .t { font-weight: 600; }
+.rm-wg-body { padding: 0 10px 8px 12px; color: var(--g-etch-2); }
+.rm-wg-body .lead { margin: 0 0 6px; color: var(--g-etch); }
+.rm-wg-body ul { margin: 0; padding: 0; list-style: none; }
+.rm-wg-body li { padding: 2px 0; overflow-wrap: anywhere; }
+.rm-wg-body li.more { color: var(--g-etch-2); }
+
+/* ---------- stage ---------- */
+.rm-stage { position: relative; display: flex; align-items: flex-start; transition: opacity .25s ease; }
+.rm-stage.pending { opacity: .55; pointer-events: none; }
+.rm-col { display: flex; flex: none; min-width: 0; }
+.rm-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 40; }
+.rm-wires path { fill: none; stroke: var(--rm-wire); stroke-width: 1.5; stroke-linecap: round; }
+.rm-wires circle { fill: var(--rm-wire); }
+
+/* ---------- deck ---------- */
+.rm-stack { position: relative; flex: none; --ease: cubic-bezier(.32, .72, 0, 1); }
+.rm-stack .slot { position: absolute; left: 0; top: 0; width: 402px; height: 874px; transform-origin: 0 0; pointer-events: none; will-change: transform, opacity;
+  transition: transform var(--dur) var(--ease), opacity calc(var(--dur) * .55) ease; }
+/* the device: black glass border, a thin metal rim, a soft contact shadow on the glass below */
+.rm-stack .shade { position: absolute; inset: 0; border-radius: 64px; pointer-events: none;
+  box-shadow: 0 0 0 4.5px #0c0d10, 0 0 0 6.5px var(--rm-rim), 0 0 0 7px var(--rm-rim-hi), 0 36px 60px -30px rgba(var(--g-shadow), .5), 0 10px 22px -14px rgba(var(--g-shadow), .35); }
+.rm-stack .slot.back .shade { box-shadow: 0 0 0 4.5px #0c0d10, 0 0 0 6.5px var(--rm-rim), 0 0 0 7px var(--rm-rim-hi), -10px 0 26px -16px rgba(var(--g-shadow), .45); }
+.rm-stack .pane { position: absolute; inset: 0; border-radius: 64px; overflow: hidden; pointer-events: auto; }
+.rm-stack .veil { position: absolute; inset: 0; background: rgb(var(--rm-veil)); opacity: 0; pointer-events: none; transition: opacity var(--dur) var(--ease); }
+.rm-stack .slot.back .pane { cursor: pointer; }
+.rm-stack .tag { position: absolute; left: 0; top: 2px; z-index: 30; max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none;
+  font: 600 12px/18px var(--f-sans); color: var(--g-etch-2); text-shadow: var(--g-etch-shadow);
+  opacity: 0; transition: opacity .2s ease, transform var(--dur) var(--ease); }
+.rm-stack .tag.on { opacity: 1; }
+.rm-stack.instant .slot, .rm-stack.instant .veil, .rm-stack.instant .tag { transition: none !important; }
+.rm-stack .row:focus-visible, .rm-stack [data-nav]:focus-visible, .rm-stack [data-root]:focus-visible, .rm-stack [data-shell]:focus-visible { outline: 2px solid var(--g-lit); outline-offset: -2px; }
+
+/* ---------- reading column: a sheet laid on the glass ---------- */
+/* Folded, the sheet is only as tall as its heads; a section unfolds it to the phone's height. */
+/* The fold is animated from ReadingColumn (explicit pixel heights), never by CSS on an auto height. */
+.rm-read { position: relative; flex: 1 1 auto; align-self: flex-start; height: 100%; min-width: 0; display: flex; flex-direction: column; overflow: hidden;
+  border-radius: 18px; background: var(--rm-sheet); box-shadow: inset 0 0 0 1px var(--rm-sheet-edge), inset 0 1px 0 var(--g-rule-hi), 0 30px 50px -36px rgba(var(--g-shadow), .5);
+  font: 12.5px/20px var(--f-mono); color: var(--k-ink); }
+
+.rm-read.folded { align-self: flex-start; height: auto; max-height: 100%; }
+/* Two pass-through layers; with a pinned note, the outer one scrolls the whole sheet (see ReadingColumn placePin). */
+.rm-scroll { position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.rm-flow { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.rm-read.has-pin > .rm-scroll { overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.rm-read.has-pin > .rm-scroll::-webkit-scrollbar { display: none; }
+.rm-read.has-pin .rm-flow { flex: none; height: 100%; }
+.rm-read.has-pin.folded .rm-flow { height: auto; }
+.rm-read.has-pin.folded > .rm-scroll { flex-grow: 0; } /* keeps its measured height while the sheet folds around it */
+.rm-heads { flex: none; max-height: 30%; overflow-y: auto; scrollbar-width: thin; } /* folded heads keep their height; past 30% they scroll */
+.rm-heads.all { flex: 1 1 auto; max-height: none; padding: 6px 0; }
+.rm-head { position: relative; display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 16px; cursor: pointer; user-select: none;
+  border-top: 1px solid var(--rm-sheet-edge); transition: background-color .3s ease; }
+.rm-heads > .rm-head:first-child, .rm-heads > div:first-child > .rm-head { border-top: 0; }
+.rm-head .k { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rm-head.phone .k { font: 600 13px/20px var(--f-sans); }
+.rm-head .n { color: var(--k-muted); font-variant-numeric: tabular-nums; }
+.rm-head:hover { background: color-mix(in srgb, var(--k-ink) 4%, transparent); }
+.rm-head.lit { background: linear-gradient(90deg, var(--rm-light), transparent 75%); }
+.rm-head.line { cursor: default; color: var(--k-muted); font-size: 12px; height: 30px; }
+.rm-head.line:hover { background: none; }
+.rm-head.line.mapped { cursor: pointer; color: var(--k-ink); }
+.rm-head.line.mapped:hover { background: color-mix(in srgb, var(--k-ink) 4%, transparent); }
+.rm-head:focus-visible, .rm-line[role="button"]:focus-visible { outline: 2px solid var(--g-lit); outline-offset: -2px; }
+.rm-head.line.pre { cursor: pointer; }
+.rm-head.line.pre:hover { background: color-mix(in srgb, var(--k-ink) 4%, transparent); }
+.rm-pre.on > .rm-head.line.pre { color: var(--k-ink); }
+.rm-pre > div > .rm-head.line { border-top: 0; }
+.rm-head .paper { position: absolute; right: 0; top: 0; width: 10px; height: 10px; background: linear-gradient(225deg, var(--rm-paper) 0 50%, transparent 50%); }
+
+.rm-open { flex: 1 1 auto; min-height: 120px; display: flex; flex-direction: column; border-top: 1px solid var(--rm-sheet-edge); }
+.rm-open > .rm-head { border-top: 0; }
+.rm-body { position: relative; flex: 1 1 auto; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; border-top: 1px dashed var(--rm-sheet-edge); }
+/* Pinned, the sheet scrolls inside one outer scroller that is itself contained: the body hands it the wheel at either end,
+   so the rows under the note come back out and the page still stays put. */
+.rm-read.has-pin .rm-body { overscroll-behavior-y: auto; }
+.rm-lines { position: relative; }
+.rm-line { position: absolute; left: 0; right: 0; height: 20px; display: flex; white-space: pre; padding-right: 14px; overflow: hidden; }
+.rm-line .no { flex: none; width: 52px; padding-right: 12px; text-align: right; color: color-mix(in srgb, var(--k-muted) 65%, transparent); user-select: none; }
+.rm-line .tx { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.rm-line.c .tx { color: var(--k-muted); }
+.rm-line.mapped { cursor: pointer; }
+.rm-line.mapped:hover { background: color-mix(in srgb, var(--k-ink) 5%, transparent); }
+.rm-line.lit { background: linear-gradient(90deg, var(--rm-light), transparent 85%); }
+.rm-mask { appearance: none; border: 0; padding: 0 2px; margin: 0; font: inherit; color: var(--k-muted); background: color-mix(in srgb, var(--k-ink) 7%, transparent); border-radius: 3px; cursor: pointer; letter-spacing: 1px; }
+.rm-mask.shown { letter-spacing: 0; color: var(--k-ink); }
+/* The keyboard's way to the masks of a line that is itself a control: out of sight until it has the focus. */
+.rm-hw { position: relative; }
+.rm-reveal { position: absolute; right: 14px; top: 0; z-index: 3; height: 20px; padding: 0 8px; border: 0; border-radius: 6px; opacity: 0; pointer-events: none;
+  background: var(--rm-raised); color: var(--k-ink); font: 500 12px/20px var(--f-sans); box-shadow: 0 0 0 1px var(--rm-sheet-edge); }
+.rm-hw > .rm-reveal { top: 5px; }
+.rm-reveal:focus-visible { opacity: 1; pointer-events: auto; outline: 2px solid var(--g-lit); outline-offset: 0; }
+
+/* explain: the light that came from the picked row; quiet when the row is the phone's own */
+.rm-explain { position: absolute; left: 52px; right: 14px; z-index: 2; padding: 8px 12px; border-radius: 10px; pointer-events: auto;
+  background: var(--rm-raised); box-shadow: 0 10px 24px -14px rgba(var(--g-shadow), .45), 0 0 0 1px var(--rm-sheet-edge), inset 3px 0 0 var(--rm-light-line);
+  font: 13px/20px var(--f-sans); color: var(--k-ink); white-space: normal; }
+.rm-explain.quiet { box-shadow: 0 10px 24px -14px rgba(var(--g-shadow), .4), 0 0 0 1px var(--rm-sheet-edge); color: color-mix(in srgb, var(--k-ink) 82%, transparent); }
+.rm-explain.paper { background: var(--rm-paper); color: var(--rm-paper-ink); box-shadow: 0 10px 24px -16px rgba(60, 40, 10, .4); }
+.rm-explain.inline { position: static; margin: 4px 14px 8px 14px; }
+/* pinned (nothing in the 原文 to point at): laid over the top of the sheet, its edge glowing instead of a wire */
+.rm-explain.pinned { position: sticky; top: 10px; left: auto; right: auto; flex: none; margin: 10px 12px 8px; z-index: 6; background: var(--rm-pin);
+  box-shadow: 0 14px 30px -14px rgba(var(--g-shadow), .5), 0 0 0 1px var(--rm-sheet-edge), inset 3px 0 0 var(--rm-wire), -4px 0 14px -6px var(--rm-wire); }
+.rm-explain.pinned.quiet { box-shadow: 0 14px 30px -14px rgba(var(--g-shadow), .45), 0 0 0 1px var(--rm-sheet-edge), inset 3px 0 0 var(--rm-light-line), -4px 0 14px -6px var(--rm-light-line); }
+.rm-explain.pinned.paper { background: var(--rm-paper); box-shadow: 0 14px 30px -16px rgba(60, 40, 10, .45), inset 3px 0 0 var(--rm-paper-ink), -4px 0 14px -6px var(--rm-wire); }
+.rm-explain .pl { display: block; margin-top: 6px; padding: 3px 8px; border-radius: 6px; background: var(--rm-paper); color: var(--rm-paper-ink); cursor: pointer; font-size: 12.5px; }
+
+.rm-blocked { margin: 14px; padding: 12px 14px; border-radius: 10px; background: var(--rm-paper); color: var(--rm-paper-ink); font: 13px/20px var(--f-sans); white-space: pre-wrap; }
+.rm-empty { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 40px 0; color: var(--g-etch-2); }
+.rm-empty .outline { width: 200px; height: 435px; border-radius: 34px; box-shadow: inset 0 0 0 1.5px var(--g-rule), 0 0 0 4px var(--g-ctl); }
+.rm-empty a { color: var(--g-lit); font-weight: 600; text-decoration: none; }
+
+/* ---------- scenario management (opened from the rail's scenario menu) ---------- */
+.rm-scenarios { margin-top: 44px; scroll-margin-top: 24px; }
+
+/* Stacked (the stage under 760px, decided in ReadMapPage.fit): phone above, 原文 below, no wire.
+   Keyed to the class, not to the viewport: with the rail beside it the stage is narrower than the window. */
+.rm-stage.stacked { flex-direction: column; align-items: center; }
+.rm-stage.stacked .rm-col { width: 100% !important; }
+.rm-stage.stacked .rm-wires { display: none; }
+/* The note scrolled in under the phone stops well above the window's bottom edge. */
+.rm-stage.stacked .rm-explain { scroll-margin: 8px 0 25vh; }

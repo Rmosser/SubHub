@@ -1,0 +1,164 @@
+{
+ "app": "Surge iOS 5.23.0 (Build 3867)",
+ "style": "iOS 26 inset grouped 卡片 + 玻璃按钮；设置页多为 sheet（✕ / 蓝色 ✓）",
+ "device": {
+  "width_pt": 402,
+  "height_pt": 874,
+  "scale_capture": 1.5
+ },
+ "measurement": {
+  "source": "screencapture -l <镜像窗口> 得到 619×1357 px；手机屏幕在图中占 x 8–610、y 38–1348，即 603×1311 px = 402×874 pt，比例 1.5 px/pt，原点 (8,38)",
+  "how": "PIL 逐像素扫描：竖向取色段找分组、行与分隔线；横向取色段找卡片边与内边距；文字取墨迹外框（与底色差 >90）；圆角用圆拟合卡片左上角的缩进曲线；玻璃按钮和 tab 胶囊在叠了 pt 网格的放大图上人工读数",
+  "error": {
+   "length": "±0.7 pt（1 px），玻璃按钮与胶囊人工读数 ±1.5 pt",
+   "font_size": "由墨迹宽高按 PingFang 汉字约 0.96 em 宽、SF 大写约 0.705 em 高反推，±1 pt",
+   "color": "镜像串流有色彩偏移，实测值与 App 内主题值相差可达 ±8/通道；有主题表时以主题表为准"
+  },
+  "screens_used": [
+   "screens/surge/more-advanced_1.png",
+   "screens/surge/more-advanced_2.png",
+   "screens/surge/tools.png"
+  ]
+ },
+ "color": {
+  "page_bg": "#F2F2F6",
+  "cell_bg": "#FFFFFF",
+  "separator": "#ECECEC",
+  "label": "#000000",
+  "detail": "#878689（实测最深像素，接近 iOS secondaryLabel #3C3C43 99）",
+  "header": "#7F7F85",
+  "footer": "#7C7C80",
+  "subtitle": "#838385",
+  "chevron": "#C4C4C6",
+  "accent": "#4578F7（✓ 按钮）",
+  "link": "#3478F6（新增… 等，按截图估）",
+  "toggle_off_track": "#C5C5C7（2026-11-11 复测：轨道实色，旋钮白 #FFF）",
+  "toggle_on_track": "#65C466（HTTP 重写开关，iOS 绿）",
+  "sheet_dim_bg": "#C9C8CE（sheet 后方）"
+ },
+ "font": {
+  "nav_title": {
+   "size_pt": 17,
+   "weight": "semibold",
+   "measured": "高级 墨迹 32.7×15.3 pt"
+  },
+  "row_label": {
+   "size_pt": 17,
+   "measured": "网络优化 墨迹 65.3×16.0 pt"
+  },
+  "row_value": {
+   "size_pt": 17
+  },
+  "row_subtitle": {
+   "size_pt": 13,
+   "measured": "墨迹高 11.3 pt"
+  },
+  "section_header": {
+   "size_pt": 15,
+   "weight": "medium",
+   "measured": "通用 墨迹 31.3×14.7 pt"
+  },
+  "footer": {
+   "size_pt": 13,
+   "measured": "两行墨迹高 22.7 pt"
+  },
+  "large_title": {
+   "size_pt": 34,
+   "weight": "bold",
+   "note": "工具 / 更多 tab"
+  }
+ },
+ "layout": {
+  "sheet": {
+   "top_pt": 62,
+   "corner_radius_pt": 38,
+   "measured": "x380 处 sheet 底色从 y65.3 开始，按 r38 圆角补偿 3.5 → 62；sheet 后方 #C5C5C7"
+  },
+  "nav_bar": {
+   "button_diameter_pt": 44,
+   "left_button_x_pt": [
+    16,
+    60
+   ],
+   "right_button_x_pt": [
+    342,
+    386
+   ],
+   "button_center_y_pt": 100.3,
+   "title_center_y_pt": 100.3,
+   "note": "2026-11-11 复测：✓ 按钮在 x380 处蓝色段 84.0–116.7，按圆 r22 反推圆心 y100.3；标题墨迹 92.7–108.0，中心 100.3。早先的 98 不对",
+   "scrolled_material": {
+    "bottom_pt": 131.3,
+    "bg": "#FCFCFE",
+    "hairline": "#F0EFF4",
+    "note": "内容滚到导航下方后出现的白色材质，底部 1.3 pt 细线"
+   }
+  },
+  "group": {
+   "margin_x_pt": 16,
+   "corner_radius_pt": 25,
+   "corner_note": "圆拟合 25 pt，实际是 continuous corner，视觉接近 26",
+   "header_left_pt": 36.7,
+   "header_top_from_card_pt": -24,
+   "first_card_top_pt": 187.4,
+   "gap_card_to_next_card_with_header_pt": 63.0,
+   "gap_after_footer_pt": {
+    "1": 68.3,
+    "3": 108.3
+   },
+   "header_center_above_card_pt": 16,
+   "footer_top_below_card_pt": 8.6,
+   "measured": "more-advanced_1：卡片 187.4–505.4、568.4–788.7；more-advanced_2（滚动 373.7）：卡片 194.7–415.7、524.0–629.7、698.0–802.7 → 间距 63.0（无 footer）/ 108.3（3 行 footer）/ 68.3（1 行 footer）",
+   "footer_note": "footer 13 pt，行距 16，左 36.7；首行墨迹顶在卡片底下 10.6"
+  },
+  "row": {
+   "height_pt": 53.0,
+   "height_with_subtitle_pt": 61,
+   "label_left_pt": 37,
+   "separator_inset_left_pt": 37,
+   "separator_thickness_pt": 1.3,
+   "chevron_x_pt": [
+    360,
+    365.3
+   ],
+   "chevron_h_pt": 11.3,
+   "right_padding_pt": 20.7,
+   "measured": "more-advanced_1 第一张卡片第 2–6 行顶 240.7/294.0/346.7/400.0/452.7 → 53.0/行；第二张卡片 568.7–788.7 = 61 + 3×53；误差 ±0.2",
+   "separator_inset_right_pt": 20
+  },
+  "toggle": {
+   "w_pt": 63,
+   "h_pt": 28,
+   "x_pt": [
+    303.3,
+    366.7
+   ],
+   "off_track": "#C5C5C7",
+   "knob": "37×24.5，内边距 2"
+  },
+  "tab_bar": {
+   "type": "悬浮胶囊",
+   "x_pt": [
+    64,
+    336
+   ],
+   "y_pt": [
+    792,
+    853
+   ],
+   "items": 3,
+   "selected_pill_w_pt": 92
+  },
+  "status_bar": {
+   "island_pt": [
+    138.7,
+    14.7,
+    263.3,
+    49.3
+   ],
+   "island_radius_pt": 17.3,
+   "time_left_pt": 40.7,
+   "note": "Shadowrocket 与 Surge 截图一致"
+  }
+ }
+}

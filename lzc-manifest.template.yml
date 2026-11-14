@@ -1,0 +1,63 @@
+lzc-sdk-version: "0.1"
+name: SubHub
+package: cloud.lazycat.subhub
+version: 1.0.8
+description: "SubHub subscription aggregator for Clash and Shadowrocket"
+icon: lzc-icon.png
+
+application:
+  subdomain: subhub
+  routes:
+    - /=http://web:8000
+  public_path:
+    - /healthz
+    - /sub/
+    - /rules/
+
+services:
+  web:
+    image: registry.lazycat.cloud/lzc/lzcapp:3.20.3
+    binds:
+      - /lzcapp/pkg/content:/workspace
+      - /lzcapp/var:/lzcapp/var
+    environment:
+      - APP_NAME=SubHub
+      - APP_BASE_URL=
+      - STORAGE_ROOT=/lzcapp/var
+      - REFRESH_INTERVAL_MINUTES=30
+      - REQUEST_TIMEOUT_SECONDS=20
+      - VERIFY_TLS=true
+      - HTTP_PROXY=http://172.18.0.1:17890
+      - HTTPS_PROXY=http://172.18.0.1:17890
+      - http_proxy=http://172.18.0.1:17890
+      - https_proxy=http://172.18.0.1:17890
+      - NO_PROXY=localhost,127.0.0.1,::1,.lzcapp,app,.heiyu.space,.lazycat.cloud,172.18.0.1
+      - no_proxy=localhost,127.0.0.1,::1,.lzcapp,app,.heiyu.space,.lazycat.cloud,172.18.0.1
+      - RULE_CATALOG_REFRESH_HOURS=24
+      # Distribution templates are safe by default. Enable only after the
+      # runtime secret and reviewed backup target have been provisioned.
+      - POLICY_BACKUP_ENABLED=false
+      - 'RUNTIME_ALERT_WEBHOOK_URL={{ default "" .U.runtime_alert_webhook_url }}'
+      - POLICY_BACKUP_REPO_URL=__SETUP_REQUIRED__
+      - POLICY_BACKUP_BRANCH=main
+      - POLICY_BACKUP_AUTHOR_NAME=SubHub Policy Backup Bot
+      - POLICY_BACKUP_AUTHOR_EMAIL=__SETUP_REQUIRED__
+      - POLICY_BACKUP_SUBDIR=
+      - POLICY_BACKUP_DEBOUNCE_SECONDS=5
+      - RUNTIME_HEARTBEAT_INTERVAL_SECONDS=30
+      - RUNTIME_HEARTBEAT_STALE_SECONDS=90
+      - RUNTIME_ALERT_TIMEOUT_SECONDS=5
+      - MANAGE_API_REQUIRE_LOGIN=true
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - MALLOC_ARENA_MAX=2
+    command: |
+      sh /workspace/app/runtime_start.sh
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - /workspace/runtime/python/bin/python3 -c "import json,sys; from urllib.request import urlopen; r=urlopen('http://127.0.0.1:8000/healthz', timeout=3); payload=json.load(r); sys.exit(0 if r.status == 200 and payload.get('ok') is True else 1)"
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 180s

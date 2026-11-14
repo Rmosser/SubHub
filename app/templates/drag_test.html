@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Drag Test</title>
+<style>
+  body { font-family: system-ui; padding: 40px; }
+  .target { border: 2px dashed #ccc; border-radius: 12px; padding: 30px; margin: 20px 0; text-align: center; color: #999; }
+  .target.drag-over { border-color: #2563eb; background: #e0f2fe; }
+  .log { margin-top: 20px; padding: 10px; background: #f1f5f9; border-radius: 8px; font-family: monospace; font-size: 12px; min-height: 100px; white-space: pre-wrap; }
+
+  /* Test 1: span with draggable="true" */
+  .handle-span { cursor: grab; font-size: 20px; padding: 4px 8px; display: inline-block; user-select: none; }
+
+  /* Test 2: span with -webkit-user-drag */
+  .handle-webkit { cursor: grab; font-size: 20px; padding: 4px 8px; display: inline-block; user-select: none;
+    -webkit-user-drag: element; }
+
+  /* Test 3: div with draggable */
+  .handle-div { cursor: grab; font-size: 20px; padding: 4px 8px; display: inline-block; user-select: none;
+    border: 1px solid #ddd; border-radius: 4px; background: #f8f8f8; }
+
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+  td, th { border: 1px solid #ddd; padding: 8px; }
+</style>
+</head><body>
+<h2>Drag Test — 请分别拖拽下面每个手柄到蓝色框</h2>
+
+<table>
+  <tr>
+    <th>方式</th><th>手柄</th><th>说明</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><span class="handle-span" draggable="true" data-id="span-draggable">⠿ 拖我</span></td>
+    <td>span + draggable="true"</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><span class="handle-webkit" draggable="true" data-id="span-webkit">⠿ 拖我</span></td>
+    <td>span + draggable + -webkit-user-drag:element</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><div class="handle-div" draggable="true" data-id="div-draggable">⠿ 拖我</div></td>
+    <td>div + draggable="true"</td>
+  </tr>
+  <tr draggable="true" data-id="tr-draggable" style="cursor:grab">
+    <td>4</td>
+    <td>⠿ 拖整行</td>
+    <td>tr draggable="true"（直接拖行）</td>
+  </tr>
+</table>
+
+<div class="target" id="dropTarget">拖到这里放下</div>
+<div class="log" id="log">等待拖拽事件...</div>
+
+<script>
+var log = document.getElementById('log');
+function addLog(msg) {
+  log.textContent = new Date().toLocaleTimeString() + ' ' + msg + '\n' + log.textContent;
+}
+
+document.addEventListener('dragstart', function(e) {
+  var id = e.target.dataset && e.target.dataset.id;
+  addLog('✅ dragstart fired! target=' + e.target.tagName + ' id=' + (id||'none'));
+  e.dataTransfer.setData('text/plain', id || '');
+  e.dataTransfer.effectAllowed = 'move';
+});
+
+var target = document.getElementById('dropTarget');
+target.addEventListener('dragenter', function(e) { e.preventDefault(); addLog('dragenter on target'); });
+target.addEventListener('dragover', function(e) { e.preventDefault(); target.classList.add('drag-over'); });
+target.addEventListener('dragleave', function(e) {
+  if (!e.relatedTarget || !target.contains(e.relatedTarget)) target.classList.remove('drag-over');
+});
+target.addEventListener('drop', function(e) {
+  e.preventDefault();
+  target.classList.remove('drag-over');
+  var data = e.dataTransfer.getData('text/plain');
+  addLog('🎯 DROP! data=' + data);
+});
+document.addEventListener('dragend', function(e) { addLog('dragend'); });
+</script>
+</body></html>
