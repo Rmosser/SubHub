@@ -1,6 +1,6 @@
 # AGENTS.md
 
-SubHub is a LazyCat-hosted subscription aggregation service. Keep changes scoped to the repository's product, runtime, deployment, and quality contracts.
+SubHub is a LazyCat-hosted tool that detects network connectivity, privacy leaks, and unauthorized connections, then routes or blocks them. Keep changes scoped to the repository's product, runtime, deployment, and quality contracts.
 
 ## Start here
 
